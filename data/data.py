@@ -3,16 +3,9 @@ import urllib.request as request
 import json
 import re
 import mysql.connector
+from connection import pool
 
-connection=mysql.connector.connect(
-    host="localhost",
-    port="3306",
-    user="root",
-    password="12345678",
-    database="spot_project",
-    buffered=True
-)
-
+connection=pool.connection()
 cursor=connection.cursor()
 
 with open("taipei-attractions.json","r",encoding="UTF-8") as file:
@@ -38,7 +31,7 @@ with open("taipei-attractions.json","r",encoding="UTF-8") as file:
         # print(spot_name,spot_category,spot_description,spot_address,spot_transport,spot_mrt,spot_latitude,spot_longitude,spot_image_list)
                 
         cursor.execute("INSERT INTO `taipei_spots`(`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-        (str(spot_name),str(spot_category),str(spot_description),str(spot_address),str(spot_transport),str(spot_mrt),str(spot_latitude),str(spot_longitude),str(spot_image_list)))
+        (str(spot_name),str(spot_category),str(spot_description),str(spot_address),str(spot_transport),str(spot_mrt),int(spot_latitude),int(spot_longitude),str(spot_image_list)))
 
 
 cursor.close()
