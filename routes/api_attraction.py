@@ -35,7 +35,7 @@ def attraction(attractionId):
     elif attraction==None:
         data={
         "error": True,
-        "message": "無景點資料"
+        "message": "景點編號不正確"
         }
         return jsonify(data),400
 

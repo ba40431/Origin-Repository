@@ -11,12 +11,14 @@ def attractions():
     keyword=request.args.get("keyword")
     connection=pool.connection()
     cursor=connection.cursor()
+
     
     if keyword:
         cursor.execute("SELECT * FROM `taipei_spots` WHERE `name`LIKE %s LIMIT %s,12;",("%"+keyword+"%",12*page))
-
         attractions=cursor.fetchall()
         attractions_list=[]
+        cursor.execute("SELECT COUNT(*) FROM `taipei_spots` WHERE `name`LIKE %s;",("%"+keyword+"%",))
+        count=cursor.fetchone()
 
         for attraction in attractions:
             data={"id":attraction[0],
@@ -31,58 +33,67 @@ def attractions():
                 "images":attraction[9]
                 }
             attractions_list.append(data)
-        if attractions:
+
+        if count[0]-12*page<12:
             attractions_data={
                 "nextPage":None,
                 "data":attractions_list
             }
             response = make_response(jsonify(attractions_data))
+            response.headers["Access-Control-Allow-Origin"] = "*" 
             return response 
-        else:
-            attractions_data={
-                "error": True,
-                "message": "無資料"
-            }
-            response = make_response(jsonify(attractions_data))
-            return response 
-
-    if keyword==None:
-        cursor.execute("SELECT * FROM `taipei_spots` LIMIT %s,12;",(12*page,))
-        attractions=cursor.fetchall()
-        attractions_list=[]
-        for attraction in attractions:
-            data={"id":attraction[0],
-                "name":attraction[1],
-                "category":attraction[2],
-                "description":attraction[3],
-                "address":attraction[4],
-                "transport":attraction[5],
-                "mrt":attraction[6],
-                "latitude":attraction[7],
-                "longitude":attraction[8],
-                "images":attraction[9]
-                }
-            attractions_list.append(data)
-        if page<4:
+        elif count[0]-12*page>12:
             attractions_data={
                 "nextPage":page+1,
                 "data":attractions_list
             }
             response = make_response(jsonify(attractions_data))
+            response.headers["Access-Control-Allow-Origin"] = "*" 
+            return response    
+        else:
+            attractions_data={
+                "error": True,
+                "message": "伺服器內部錯誤"
+            }
+            response = make_response(jsonify(attractions_data))
+            response.headers["Access-Control-Allow-Origin"] = "*" 
+            return response,500
+
+    if keyword==None:
+        cursor.execute("SELECT * FROM `taipei_spots` LIMIT %s,12;",(12*page,))
+        attractions=cursor.fetchall()
+        attractions_list=[]
+        cursor.execute("SELECT COUNT(*) FROM `taipei_spots`;")
+        count=cursor.fetchone()
+
+        for attraction in attractions:
+            data={"id":attraction[0],
+                "name":attraction[1],
+                "category":attraction[2],
+                "description":attraction[3],
+                "address":attraction[4],
+                "transport":attraction[5],
+                "mrt":attraction[6],
+                "latitude":attraction[7],
+                "longitude":attraction[8],
+                "images":attraction[9]
+                }
+            attractions_list.append(data)
+        if count[0]-12*page>12:
+            attractions_data={
+                "nextPage":page+1,
+                "data":attractions_list
+            }
+            response = make_response(jsonify(attractions_data))
+            response.headers["Access-Control-Allow-Origin"] = "*" 
             return response 
-        elif page==4:
+        elif count[0]-12*page<12:
             attractions_data={
                 "nextPage":None,
                 "data":attractions_list
             }
             response = make_response(jsonify(attractions_data))
-            return response 
-        elif page>4:
-            attractions_data={
-                "error": True,
-                "message": "無資料"
-            }
-            response = make_response(jsonify(attractions_data))
+            response.headers["Access-Control-Allow-Origin"] = "*" 
             return response 
         else:
             attractions_data={
@@ -90,6 +101,7 @@ def attractions():
                 "message": "伺服器內部錯誤"
             }
             response = make_response(jsonify(attractions_data))
+            response.headers["Access-Control-Allow-Origin"] = "*" 
             return response,500
 
     cursor.close()
