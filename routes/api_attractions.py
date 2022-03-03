@@ -2,6 +2,7 @@ from flask import *
 import mysql.connector
 import json
 from connection import pool
+import re
 
 api_attractions=Blueprint("api_attractions",__name__,static_folder="static",template_folder="templates")
 
@@ -21,6 +22,12 @@ def attractions():
         count=cursor.fetchone()
 
         for attraction in attractions:
+            spot_images=attraction[9].split('https://')
+            images_list=[]
+            for spot_image in spot_images:
+                if re.compile('jpg|JPG|png|PNG$').search(spot_image):
+                    images_list.append('https://'+spot_image)            
+
             data={"id":attraction[0],
                 "name":attraction[1],
                 "category":attraction[2],
@@ -30,7 +37,7 @@ def attractions():
                 "mrt":attraction[6],
                 "latitude":attraction[7],
                 "longitude":attraction[8],
-                "images":attraction[9]
+                "images":images_list
                 }
             attractions_list.append(data)
 
@@ -67,6 +74,12 @@ def attractions():
         count=cursor.fetchone()
 
         for attraction in attractions:
+            spot_images=attraction[9].split('https://')
+            images_list=[]
+            for spot_image in spot_images:
+                if re.compile('jpg|JPG|png|PNG$').search(spot_image):
+                    images_list.append('https://'+spot_image)  
+
             data={"id":attraction[0],
                 "name":attraction[1],
                 "category":attraction[2],
@@ -76,7 +89,7 @@ def attractions():
                 "mrt":attraction[6],
                 "latitude":attraction[7],
                 "longitude":attraction[8],
-                "images":attraction[9]
+                "images":images_list
                 }
             attractions_list.append(data)
         if count[0]-12*page>12:

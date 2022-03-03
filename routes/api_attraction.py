@@ -2,6 +2,7 @@ from flask import *
 import mysql.connector
 import json
 from connection import pool
+import re
 
 api_attraction=Blueprint("api_attraction",__name__,static_folder="static",template_folder="templates")
 
@@ -14,6 +15,11 @@ def attraction(attractionId):
     attraction=cursor.fetchone()
 
     if attraction:
+        spot_images=attraction[9].split('https://')
+        images_list=[]
+        for spot_image in spot_images:
+            if re.compile('jpg|JPG|png|PNG$').search(spot_image):
+                images_list.append('https://'+spot_image)
         data={
             "data":{
                 "id":attraction[0],
@@ -25,7 +31,7 @@ def attraction(attractionId):
                 "mrt":attraction[6],
                 "latitude":attraction[7],
                 "longitude":attraction[8],
-                "images":attraction[9]
+                "images":images_list
             }
         }
         response = make_response(jsonify(data))
