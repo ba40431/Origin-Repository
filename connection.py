@@ -16,7 +16,6 @@ pool=PooledDB(
     user=os.getenv("user"),
     password=os.getenv("password"),
     database=os.getenv("database"),
-    buffered=True
 )
 
 connection=pool.connection()

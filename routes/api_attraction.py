@@ -5,7 +5,7 @@ from connection import pool
 
 api_attraction=Blueprint("api_attraction",__name__,static_folder="static",template_folder="templates")
 
-@api_attraction.route("/api/attraction/<attractionId>/")
+@api_attraction.route("/api/attraction/<attractionId>")
 def attraction(attractionId):
     connection=pool.connection()
     cursor=connection.cursor()
@@ -35,7 +35,7 @@ def attraction(attractionId):
     elif attraction==None:
         data={
         "error": True,
-        "message": "景點編號不正確"
+        "message": "無景點資料"
         }
         return jsonify(data),400
 
