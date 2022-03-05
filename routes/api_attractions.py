@@ -41,7 +41,7 @@ def attractions():
                 }
             attractions_list.append(data)
 
-        if count[0]-12*page<12:
+        if count[0]-12*page<=12:
             attractions_data={
                 "nextPage":None,
                 "data":attractions_list
@@ -100,7 +100,7 @@ def attractions():
             response = make_response(jsonify(attractions_data))
             response.headers["Access-Control-Allow-Origin"] = "*" 
             return response 
-        elif count[0]-12*page<12:
+        elif count[0]-12*page<=12:
             attractions_data={
                 "nextPage":None,
                 "data":attractions_list
