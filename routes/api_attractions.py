@@ -66,7 +66,7 @@ def attractions():
             response.headers["Access-Control-Allow-Origin"] = "*" 
             return response,500
 
-    if keyword==None:
+    elif keyword==None:
         cursor.execute("SELECT * FROM `taipei_spots` LIMIT %s,12;",(12*page,))
         attractions=cursor.fetchall()
         attractions_list=[]
@@ -116,6 +116,14 @@ def attractions():
             response = make_response(jsonify(attractions_data))
             response.headers["Access-Control-Allow-Origin"] = "*" 
             return response,500
+    else:
+        attractions_data={
+            "error": True,
+            "message": "伺服器內部錯誤"
+        }
+        response = make_response(jsonify(attractions_data))
+        response.headers["Access-Control-Allow-Origin"] = "*" 
+        return response,500
 
     cursor.close()
     connection.close()
