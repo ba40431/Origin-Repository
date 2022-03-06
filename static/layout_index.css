@@ -11,7 +11,6 @@ body{ margin: 0; padding: 0px;} /*左右不留白*/
   width: 100%;
   top:0px;
 }
-
 .header-menu{
   display:grid;
   width:1200px;
@@ -51,8 +50,6 @@ body{ margin: 0; padding: 0px;} /*左右不留白*/
   margin-bottom: auto;
   cursor: pointer;
 }
-
-
 .welcome{
   background-image:
     url("welcome.png"),
@@ -62,14 +59,13 @@ body{ margin: 0; padding: 0px;} /*左右不留白*/
   height: 320px;
   margin-top:54px;
 }
-
 .welcome-content{
   width: 1180px;
   margin-left: auto;
   margin-right: auto;
   padding-top:85px;
+  padding-left:20px;
 }
-
 .slogan-title{
   width: 1180px;
   height: 41px;
@@ -81,7 +77,6 @@ body{ margin: 0; padding: 0px;} /*左右不留白*/
   color: #F8F8F8;
   text-shadow: 0px 0px 30px #AABBCC;
 }
-
 .slogan-text{
   width: 1180px;
   height: 22px;
@@ -93,12 +88,10 @@ body{ margin: 0; padding: 0px;} /*左右不留白*/
   align-items: center;
   color: #F8F8F8;
 }
-
 .search-bar{
   width:430px;
   margin-top:12px;
 }
-
 input {
   width: 360px;
   height: 46px;
@@ -108,7 +101,6 @@ input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-
 input::placeholder{
   color:#757575;
   width: 370px;
@@ -120,7 +112,6 @@ input::placeholder{
   padding-left:15px;
   padding-top:15px;
 }
-
 .search-btn{
   height: 46px;
   width:60px;
@@ -132,7 +123,6 @@ input::placeholder{
   border-bottom-right-radius:5px;
   cursor: pointer; 
 }
-
 .content{
   display: grid;
 	grid-template-columns: 270px 270px 270px 270px;
@@ -142,19 +132,24 @@ input::placeholder{
 	grid-row-gap: 30px;
 	margin-top:55px;
   }
-
 .spot-box{
   border-radius: 5px;
   border: 1px solid #E8E8E8;
+  display: inline-grid;
+  grid-auto-rows: 200px auto auto;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
   }
-
 .spot-img{
+  height:100%;
   width:100%;
   margin:0px;
   border-top-right-radius:5px;
   border-top-left-radius:5px;
+  object-fit: cover;
+  object-position: center;
 } 
-
 .spot-title{
   font-family: 'Noto Sans TC';
   font-weight:700;
@@ -163,12 +158,10 @@ input::placeholder{
   margin-left:10px;
   color:#757575
 }
-
 .spot-info{
   display:grid;
   grid-template-columns:auto auto;
 }
-
 .spot-mrt{
   font-family: 'Noto Sans TC';
   font-weight:400;
@@ -178,7 +171,6 @@ input::placeholder{
   margin-bottom:12px;
   color:#757575
 }
-
 .spot-category{
   font-family: 'Noto Sans TC';
   font-weight:400;
@@ -190,7 +182,6 @@ input::placeholder{
   color:#757575;
   text-align:right;
 }
-
 .footer{
   display: grid;
   background-color: #757575;
@@ -205,7 +196,7 @@ input::placeholder{
 .footer-text{
   font-family: 'Noto Sans TC';
   font-weight: 700;
-  color: #ffffff;
+  color: #FFFFFF;
   text-align: center;
   font-weight: bold;
   font-size: 16px;
@@ -213,7 +204,33 @@ input::placeholder{
 
 @media (max-width: 1200px) {
   .header-menu{width:auto;}
+  .content{
+    grid-template-columns: repeat(2, 1fr);
+    width:90%;
+    grid-auto-rows: auto;
+    margin: auto;
+    margin-top:55px;
+    grid-column-gap:15px;
+    grid-row-gap:15px;
+  }
+  .spot-box{
+    display: inline-grid;
+    grid-auto-rows:auto 50px;
+    grid-row-gap:15px;
+  }
+  .spot-img{
+    height: 100%;
+    width:100%;
+	  margin:0px;
+    object-fit: cover;  
+  }
 }
 
 @media (max-width: 600px) {
+.content{
+  grid-template-columns: repeat(1, 1fr);
+}
+ .spot-box{
+  display: inline-grid;
+}
   }
