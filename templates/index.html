@@ -11,8 +11,8 @@
       <div class="header-menu">
         <div class="left">台北一日遊</div>
         <div class="right">
-            <div class="menu">預定行程</div>
-            <div class="menu">登入/註冊</div>
+            <a class="menu">預定行程</a>
+            <a class="menu">登入/註冊</a>
         </div>
       </div>
     </div>
@@ -33,40 +33,40 @@
         <div class="footer-text">COPYRIGHT © 2022 台北一日遊</div>
     </div>
 
-
     <script>
       let page=0
       let openUrl="http://18.214.58.137:3000/api/attractions?page=";
       get_data(openUrl,page).then(function(data){
         for(let i=0; i<data.data.length; i++){
           render_spots(i,page,data)
-        }
-       })
-        
-        // let next_page=data.nextPage;
-        // window.addEventListener("scroll",(e)=>{
-        //   let scrollable=document.documentElement.scrollHeight-window.innerHeight
-        //   let scrolled=window.scrollY
-        //   page=next_page
-        //   if(Math.ceil(scrolled)==scrollable){
-        //     get_data(openUrl,page).then(function(data){
-        //       console.log(data.data[0].name)
-        //       for(let i=0; i<data.data.length; i++){
-        //         console.log(data.data[i].name)
-        //     }
-        //   })
-        // }})
-      // })
+        };
+        let next_page=data.nextPage;
+        page=next_page
+        window.addEventListener("scroll",(e)=>{
+        let scrollable=document.documentElement.scrollHeight-window.innerHeight
+        let scrolled=window.scrollY
+        if(Math.ceil(scrolled)==scrollable){
+          if(page){
+            get_data(openUrl,page).then(function(data){
+            for(let i=0; i<data.data.length; i++){
+              render_spots(i,page,data)
+            }
+            next_page=data.nextPage;
+            page=next_page;
+          });
+          }
+        }})
+      })     
+
+
 
       function get_data(url,page){
         return fetch(url+page)
         .then(function(response){
           return response.json()})
       }
-
       function render_spots(i,page,data){
           let box_name=i+page*12
-          let next_page=data.nextPage;
           let name=data.data[i].name;
           let src=data.data[i].images[0];
           let mrt=data.data[i].mrt;

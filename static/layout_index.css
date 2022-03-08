@@ -3,6 +3,7 @@
 body{ margin: 0; 
   padding: 0; /*左右不留白*/
   box-sizing: border-box;
+  font-family: 'Noto Sans TC';
 }
 
 .header{
@@ -145,7 +146,7 @@ input[type=text]{
   font-family: 'Noto Sans TC';
   font-weight:700;
   font-size: 16px;
-  margin-top:10px;
+  margin-top:12px;
   margin-left:10px;
   color:#757575
 }
@@ -189,15 +190,12 @@ input[type=text]{
   font-weight: 700;
   color: #FFFFFF;
   text-align: center;
-  font-weight: bold;
   font-size: 16px;
 }
-
 @media (max-width: 1200px) {
 .header-menu{width:auto;}
 .left{margin-left:10px;}
 .welcome{
-
   background-position:100% 100%;
 }
 .container{
@@ -232,12 +230,21 @@ input{
 .search-bar{
   width:340px;
 }
+.spot-box{
+  display: inline-grid;
+  justify-content: normal;
 }
-
+.container{
+  grid-template-columns: repeat(1, 1fr);
+}
+} 
 @media (max-width: 360px) {
+.header-menu{width:auto;}
+.left{margin-left:10px;}
 .welcome{
   height:280px;
-  background-size:276px,auto;
+  background-size:300px,auto;
+  background-position:230% 100%;
 }
 .welcome-content{
   width: 320px;
@@ -253,7 +260,10 @@ input{
 .container{
   grid-template-columns: repeat(1, 1fr);
 }
- .spot-box{
-  display: inline-grid;
+.spot-img{
+  height: 202px;
+}
+.spot-name{
+  margin-top:8px;
 }
 }
