@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+SC:700');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
 
 body{ margin: 0; 
@@ -21,7 +20,7 @@ body{ margin: 0;
   grid-template-columns:auto auto;
 }
 .left{
-  font-family: "Noto Sans SC";
+  font-family: 'Noto Sans TC';
   font-weight:700;
   font-size:30px;
   color:#448899;
@@ -142,7 +141,7 @@ input[type=text]{
   object-fit: cover;
   object-position: center;
 } 
-.spot-title{
+.spot-name{
   font-family: 'Noto Sans TC';
   font-weight:700;
   font-size: 16px;
@@ -195,34 +194,66 @@ input[type=text]{
 }
 
 @media (max-width: 1200px) {
-  .header-menu{width:auto;}
-  .content{
-    grid-template-columns: repeat(2, 1fr);
-    width:90%;
-    grid-auto-rows: auto;
-    margin: auto;
-    margin-top:55px;
-    grid-column-gap:15px;
-    grid-row-gap:15px;
-  }
-  .spot-box{
-    display: inline-grid;
-    grid-auto-rows:auto 50px;
-    grid-row-gap:15px;
-  }
-  .spot-img{
-    height: 100%;
-    width:100%;
-	  margin:0px;
-    object-fit: cover;  
-  }
+.header-menu{width:auto;}
+.left{margin-left:10px;}
+.welcome{
+
+  background-position:100% 100%;
+}
+.container{
+  grid-template-columns: repeat(2, 1fr);
+  width:90%;
+  grid-auto-rows: auto;
+  margin: auto;
+  margin-top:55px;
+  grid-column-gap:15px;
+  grid-row-gap:15px;
+}
+.spot-box{
+  display: inline-grid;
+  grid-auto-rows:auto 50px;
+  grid-row-gap:15px;
+}
+.spot-img{
+  height: 100%;
+  width:100%;
+  margin:0px;
+  object-fit: cover;  
+}
+}
+@media(max-width: 600px){
+.welcome{
+  height:280px;
+  background-size:85%,auto;
+}
+input{
+  width: 250px;
+}
+.search-bar{
+  width:340px;
+}
 }
 
-@media (max-width: 600px) {
-.content{
+@media (max-width: 360px) {
+.welcome{
+  height:280px;
+  background-size:276px,auto;
+}
+.welcome-content{
+  width: 320px;
+  padding-top:65px;
+  margin-left: 10px;
+}
+input{
+  width: 200px;
+}
+.search-bar{
+  width:290px;
+}
+.container{
   grid-template-columns: repeat(1, 1fr);
 }
  .spot-box{
   display: inline-grid;
 }
-  }
+}
