@@ -49,16 +49,17 @@
           let scrolling = false;
           if(Math.ceil(scrolled)==scrollable){
             if(page){
-              scrolling = true;
-              if(scrolling){
-                let timeout=window.setTimeout(get_data(openUrl,page).then(function(data){
+              let timeout=window.setTimeout(get_data(openUrl,page).then(function(data){
+                scrolling = true;
+                if(scrolling){
                   scrolling = false;
                   for(let i=0; i<data.data.length; i++){
                   render_spots(i,page,data)
                   }
-                next_page=data.nextPage;
-                page=next_page;
-              }),5000)};
+              next_page=data.nextPage;
+              page=next_page;
+                }
+              }),5000);
             }
           }})
       }) 
@@ -77,7 +78,7 @@
                 element.removeChild(element.firstChild);
               }
               for(let i=0; i<data.data.length; i++){
-              render_keyword_spots(i,keyword_page,data)
+                render_keyword_spots(i,keyword_page,data)
               }
               let keyword_next_page=data.nextPage;
               keyword_page=keyword_next_page;
@@ -87,17 +88,18 @@
                 let scrolling = false;
                 if(Math.ceil(scrolled)==scrollable){
                   if(keyword_page){
-                    scrolling = true;
-                    if(scrolling){
                     open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
                     let timeout=window.setTimeout(get_keyword_data(open_url,keyword_page,keyword).then(function(data){
-                      scrolling = false;
-                      for(let i=0; i<data.data.length; i++){
-                      render_keyword_spots(i,keyword_page,data)
-                     };
-                     keyword_next_page=data.nextPage;
-                     keyword_page=keyword_next_page;
-                   }),5000)};
+                    scrolling = true;
+                      if(scrolling){
+                        scrolling = false;
+                        for(let i=0; i<data.data.length; i++){
+                        render_keyword_spots(i,keyword_page,data)
+                        };
+                        keyword_next_page=data.nextPage;
+                        keyword_page=keyword_next_page;
+                      }
+                    }),5000);
                   }
                 }
               })
@@ -115,17 +117,18 @@
                 let scrolling = false;
                 if(Math.ceil(scrolled)==scrollable){
                   if(keyword_page){
-                    scrolling = true;
-                    if(scrolling){
                     open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
                     let timeout=window.setTimeout(get_keyword_data(open_url,keyword_page,keyword).then(function(data){
-                      scrolling = false;
-                      for(let i=0; i<data.data.length; i++){
-                      render_keyword_spots(i,keyword_page,data)
-                     };
-                     keyword_next_page=data.nextPage;
-                     keyword_page=keyword_next_page;
-                   }),5000)};
+                    scrolling = true;
+                      if(scrolling){
+                        scrolling = false;
+                        for(let i=0; i<data.data.length; i++){
+                        render_keyword_spots(i,keyword_page,data)
+                        };
+                        keyword_next_page=data.nextPage;
+                        keyword_page=keyword_next_page;
+                      }
+                    }),5000);
                   }
                 }
               })
