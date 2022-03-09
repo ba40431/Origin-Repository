@@ -98,9 +98,6 @@
                         };
                         scrolling=false;
                       };
-                      for(let i=0; i<data.data.length; i++){
-                      render_keyword_spots(i,keyword_page,data)
-                      };
                      keyword_next_page=data.nextPage;
                      keyword_page=keyword_next_page;
                     }),3000);
@@ -129,9 +126,6 @@
                         render_keyword_spots(i,keyword_page,data)
                         };
                         scrolling=false;
-                      };
-                      for(let i=0; i<data.data.length; i++){
-                      render_keyword_spots(i,keyword_page,data)
                       };
                      keyword_next_page=data.nextPage;
                      keyword_page=keyword_next_page;
@@ -228,8 +222,8 @@
           img.setAttribute("class","spot-img");
           div_name.setAttribute("class","spot-name");
           div_info.setAttribute("class","spot-info");
-          div_info.setAttribute("id","spot-info"+box_name);
-          let spot_info=document.getElementById("spot-info"+box_name); 
+          div_info.setAttribute("id","keyword-spot-info"+box_name);
+          let spot_info=document.getElementById("keyword-spot-info"+box_name); 
           let div_mrt=document.createElement("div");
           let div_category=document.createElement("div");
           div_mrt.textContent=mrt;
