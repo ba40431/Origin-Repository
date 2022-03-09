@@ -48,13 +48,16 @@
           let scrolled=window.scrollY
           if(Math.ceil(scrolled)==scrollable){
             if(page){
-              get_data(openUrl,page).then(function(data){
+              console.log(scrolled);
+              console.log(scrollable);
+              let timeout=window.setTimeout(get_data(openUrl,page).then(function(data){
                 for(let i=0; i<data.data.length; i++){
                   render_spots(i,page,data)
                 }
                 next_page=data.nextPage;
                 page=next_page;
-              });
+              }),10000);
+              window.clearTimeout(timeout);
             }
           }})
       }) 
@@ -64,13 +67,10 @@
         let keyword=document.getElementById("keyword").value;
         let open_url="http://18.214.58.137:3000/api/attractions?page=0&keyword=";
         get_data(open_url,keyword).then(function(data){
-          console.log(data.data.length)
           if(data.data.length>0){
-            console.log("Test-1")
             document.getElementById("container").style.display="none";
             let element=document.getElementById("container-keyword"); 
             if(document.querySelector(".keyword-spot-box")){
-              console.log("Test-2")
               while (element.firstChild){
                 element.removeChild(element.firstChild);
               }
@@ -79,7 +79,6 @@
               }
             }
             else if(document.querySelector(".keyword-spot-box")==null){
-              console.log("Test-3")
               element.textContent="";
               for(let i=0; i<data.data.length; i++){
               render_keyword_spots(i,page,data)
@@ -87,18 +86,15 @@
             }
           }
           else if(data.data.length==0){
-            console.log("Test-4")
             document.getElementById("container").style.display="none";
             let element=document.getElementById("container-keyword"); 
             if(document.querySelector(".keyword-spot-box")){
-              console.log("Test-5")
               while (element.firstChild){
                 element.removeChild(element.firstChild);
               };
               element.textContent="查無此景點"
             }
             else{
-              console.log("Test-6")
               element.textContent="查無此景點"
             }
           }
