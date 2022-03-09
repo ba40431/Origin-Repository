@@ -21,14 +21,15 @@
         <div class="welcome-title">輕鬆享受台北一日悠閒</div>
         <div class="welcome-text">探索每個角落，體驗城市的深度旅遊行程</div>
         <div class="search-bar">
-            <input type="text" placeholder="輸入景點名稱查詢">
-            <button class="search-btn">
+            <input type="text" id="keyword" placeholder="輸入景點名稱查詢">
+            <button class="search-btn" id="search">
               <img src="../static/icon_search.png"/>
             </button>
         </div>
       </div>
     </div>
     <div class="container" id="container"></div>
+    <div class="container" id="container-keyword"></div>
     <div class="footer">
         <div class="footer-text">COPYRIGHT © 2022 台北一日遊</div>
     </div>
@@ -43,21 +44,66 @@
         let next_page=data.nextPage;
         page=next_page
         window.addEventListener("scroll",(e)=>{
-        let scrollable=document.documentElement.scrollHeight-window.innerHeight
-        let scrolled=window.scrollY
-        if(Math.ceil(scrolled)==scrollable){
-          if(page){
-            get_data(openUrl,page).then(function(data){
-            for(let i=0; i<data.data.length; i++){
-              render_spots(i,page,data)
+          let scrollable=document.documentElement.scrollHeight-window.innerHeight
+          let scrolled=window.scrollY
+          if(Math.ceil(scrolled)==scrollable){
+            if(page){
+              get_data(openUrl,page).then(function(data){
+                for(let i=0; i<data.data.length; i++){
+                  render_spots(i,page,data)
+                }
+                next_page=data.nextPage;
+                page=next_page;
+              });
             }
-            next_page=data.nextPage;
-            page=next_page;
-          });
+          }})
+      }) 
+      
+      let search=document.getElementById("search");
+      search.addEventListener('click',(e)=>{
+        let keyword=document.getElementById("keyword").value;
+        let open_url="http://18.214.58.137:3000/api/attractions?page=0&keyword=";
+        get_data(open_url,keyword).then(function(data){
+          console.log(data.data.length)
+          if(data.data.length>0){
+            console.log("Test-1")
+            document.getElementById("container").style.display="none";
+            let element=document.getElementById("container-keyword"); 
+            if(document.querySelector(".keyword-spot-box")){
+              console.log("Test-2")
+              while (element.firstChild){
+                element.removeChild(element.firstChild);
+              }
+              for(let i=0; i<data.data.length; i++){
+              render_keyword_spots(i,page,data)
+              }
+            }
+            else if(document.querySelector(".keyword-spot-box")==null){
+              console.log("Test-3")
+              element.textContent="";
+              for(let i=0; i<data.data.length; i++){
+              render_keyword_spots(i,page,data)
+              }
+            }
           }
-        }})
-      })     
-
+          else if(data.data.length==0){
+            console.log("Test-4")
+            document.getElementById("container").style.display="none";
+            let element=document.getElementById("container-keyword"); 
+            if(document.querySelector(".keyword-spot-box")){
+              console.log("Test-5")
+              while (element.firstChild){
+                element.removeChild(element.firstChild);
+              };
+              element.textContent="查無此景點"
+            }
+            else{
+              console.log("Test-6")
+              element.textContent="查無此景點"
+            }
+          }
+        });
+      })
 
 
       function get_data(url,page){
@@ -76,6 +122,41 @@
           let container=document.getElementById("container"); 
           container.appendChild(div);
           div.setAttribute("class","spot-box");
+          div.setAttribute("id","spot-box-"+box_name);
+          let spot_box=document.getElementById("spot-box-"+box_name);
+          let div_name=document.createElement("div"); 
+          let div_info=document.createElement("div"); 
+          img.src=src;
+          div_name.textContent=name;
+          spot_box.appendChild(img);
+          spot_box.appendChild(div_name);
+          spot_box.appendChild(div_info);
+          img.setAttribute("class","spot-img");
+          div_name.setAttribute("class","spot-name");
+          div_info.setAttribute("class","spot-info");
+          div_info.setAttribute("id","spot-info"+box_name);
+          let spot_info=document.getElementById("spot-info"+box_name); 
+          let div_mrt=document.createElement("div");
+          let div_category=document.createElement("div");
+          div_mrt.textContent=mrt;
+          div_category.textContent=category;
+          spot_info.appendChild(div_mrt);
+          spot_info.appendChild(div_category);
+          div_mrt.setAttribute("class","spot-mrt");
+          div_category.setAttribute("class","spot-category"); 
+      }
+
+      function render_keyword_spots(i,page,data){
+          let box_name=i+page*12
+          let name=data.data[i].name;
+          let src=data.data[i].images[0];
+          let mrt=data.data[i].mrt;
+          let category=data.data[i].category;
+          let div=document.createElement("div"); 
+          let img=document.createElement("img");
+          let container=document.getElementById("container-keyword"); 
+          container.appendChild(div);
+          div.setAttribute("class","keyword-spot-box");
           div.setAttribute("id","spot-box-"+box_name);
           let spot_box=document.getElementById("spot-box-"+box_name);
           let div_name=document.createElement("div"); 
