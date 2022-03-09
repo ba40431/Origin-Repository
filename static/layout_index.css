@@ -203,7 +203,7 @@ input[type=text]{
 .header-menu{width:auto;}
 .left{margin-left:10px;}
 .welcome{
-  background-position:100% 100%;
+  background-position:120% 100%;
 }
 .container{
   grid-template-columns: repeat(2, 1fr);
@@ -234,7 +234,8 @@ input[type=text]{
 @media(max-width: 600px){
 .welcome{
   height:280px;
-  background-size:85%,auto;
+  background-size:400px,auto;
+  background-position:100% 100%;
 }
 input{
   width: 250px;
