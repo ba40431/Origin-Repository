@@ -48,15 +48,13 @@
           let scrolled=window.scrollY
           if(Math.ceil(scrolled)==scrollable){
             if(page){
-              console.log(scrolled);
-              console.log(scrollable);
               let timeout=window.setTimeout(get_data(openUrl,page).then(function(data){
                 for(let i=0; i<data.data.length; i++){
                   render_spots(i,page,data)
                 }
                 next_page=data.nextPage;
                 page=next_page;
-              }),10000);
+              }),5000);
               window.clearTimeout(timeout);
             }
           }})
@@ -64,9 +62,10 @@
       
       let search=document.getElementById("search");
       search.addEventListener('click',(e)=>{
+        let keyword_page=0;
         let keyword=document.getElementById("keyword").value;
-        let open_url="http://18.214.58.137:3000/api/attractions?page=0&keyword=";
-        get_data(open_url,keyword).then(function(data){
+        let open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
+        get_keyword_data(open_url,keyword_page,keyword).then(function(data){
           if(data.data.length>0){
             document.getElementById("container").style.display="none";
             let element=document.getElementById("container-keyword"); 
@@ -75,14 +74,54 @@
                 element.removeChild(element.firstChild);
               }
               for(let i=0; i<data.data.length; i++){
-              render_keyword_spots(i,page,data)
+              render_keyword_spots(i,keyword_page,data)
               }
+              let keyword_next_page=data.nextPage;
+              keyword_page=keyword_next_page;
+              window.addEventListener("scroll",(e)=>{
+                let scrollable=document.documentElement.scrollHeight-window.innerHeight
+                let scrolled=window.scrollY
+                if(Math.ceil(scrolled)==scrollable){
+                  if(keyword_page){
+                    open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
+                    get_keyword_data(open_url,keyword_page,keyword).then(function(data){
+                     console.log(data)
+                     for(let i=0; i<data.data.length; i++){
+                      render_keyword_spots(i,keyword_page,data)
+                     };
+                     keyword_next_page=data.nextPage;
+                     keyword_page=keyword_next_page;
+                     console.log(data.nextPage)
+                   })
+                  }
+                }
+              })
             }
             else if(document.querySelector(".keyword-spot-box")==null){
               element.textContent="";
               for(let i=0; i<data.data.length; i++){
-              render_keyword_spots(i,page,data)
+                render_keyword_spots(i,keyword_page,data);
               }
+              let keyword_next_page=data.nextPage;
+              keyword_page=keyword_next_page;
+              window.addEventListener("scroll",(e)=>{
+                let scrollable=document.documentElement.scrollHeight-window.innerHeight
+                let scrolled=window.scrollY
+                if(Math.ceil(scrolled)==scrollable){
+                  if(keyword_page){
+                    open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
+                    get_keyword_data(open_url,keyword_page,keyword).then(function(data){
+                     console.log(data)
+                     for(let i=0; i<data.data.length; i++){
+                      render_keyword_spots(i,keyword_page,data)
+                     };
+                     keyword_next_page=data.nextPage;
+                     keyword_page=keyword_next_page;
+                     console.log(data.nextPage)
+                   })
+                  }
+                }
+              })
             }
           }
           else if(data.data.length==0){
@@ -106,6 +145,11 @@
         return fetch(url+page)
         .then(function(response){
           return response.json()})
+      }
+      function get_keyword_data(url,page,keyword){
+        return fetch(url+keyword)
+        .then(function(response){
+          return response.json()})   
       }
       function render_spots(i,page,data){
           let box_name=i+page*12
@@ -141,9 +185,8 @@
           div_mrt.setAttribute("class","spot-mrt");
           div_category.setAttribute("class","spot-category"); 
       }
-
-      function render_keyword_spots(i,page,data){
-          let box_name=i+page*12
+      function render_keyword_spots(i,keyword_page,data){
+          let box_name=i+keyword_page*12
           let name=data.data[i].name;
           let src=data.data[i].images[0];
           let mrt=data.data[i].mrt;
@@ -153,8 +196,8 @@
           let container=document.getElementById("container-keyword"); 
           container.appendChild(div);
           div.setAttribute("class","keyword-spot-box");
-          div.setAttribute("id","spot-box-"+box_name);
-          let spot_box=document.getElementById("spot-box-"+box_name);
+          div.setAttribute("id","keyword-spot-box-"+box_name);
+          let spot_box=document.getElementById("keyword-spot-box-"+box_name);
           let div_name=document.createElement("div"); 
           let div_info=document.createElement("div"); 
           img.src=src;
