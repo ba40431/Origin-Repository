@@ -204,6 +204,33 @@ input[type=text]{
 .left{margin-left:10px;}
 .welcome{
   background-position:120% 100%;
+  width:auto;
+}
+.welcome-content{
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top:85px;
+  padding-left:10px;
+}
+.welcome-title{
+  height: 41px;
+  font-family: 'Noto Sans TC';
+  font-weight:700;
+  font-size: 28px;
+  align-items: center;
+  color: #F8F8F8;
+  text-shadow: 0px 0px 30px #AABBCC;
+}
+.welcome-text{
+  height: 22px;
+  top: 56px;
+  font-family: 'Noto Sans TC';
+  font-weight:400;
+  font-size: 16px;
+  align-items: center;
+  margin-top: 15px;
+  color: #F8F8F8;
 }
 .container{
   grid-template-columns: repeat(2, 1fr);

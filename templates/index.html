@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -44,24 +43,26 @@
         };
         let next_page=data.nextPage;
         page=next_page;
+        let scrolling=true;
         window.addEventListener("scroll",(e)=>{
           let scrollable=document.documentElement.scrollHeight-window.innerHeight;
           let scrolled=window.scrollY;
-          let scrolling=true;
-          if(Math.ceil(scrolled)==scrollable){
-            if(page){
-              let timeout=window.setTimeout(get_data(openUrl,page).then(function(data){
-                if(scrolling){
+          if(Math.ceil(scrolled)>=scrollable-5){
+            if(scrolling){
+              if(page){
+                let timeout=window.setTimeout(get_data(openUrl,page).then(function(data){
                   for(let i=0; i<data.data.length; i++){
                   render_spots(i,page,data)
                   }
-                  scrolling=false;
-                };
-                next_page=data.nextPage;
-                page=next_page;
-              }),3000);
-              window.clearTimeout(timeout);
+                  next_page=data.nextPage;
+                  page=next_page;
+                }),3000);
+                scrolling=false;
+                window.clearTimeout(timeout);
+              };
             };
+          }else{
+            scrolling=true;
           };
         });
       });
@@ -84,24 +85,24 @@
               };
               let keyword_next_page=data.nextPage;
               keyword_page=keyword_next_page;
+              let scrolling=true;
               window.addEventListener("scroll",(e)=>{
                 let scrollable=document.documentElement.scrollHeight-window.innerHeight
                 let scrolled=window.scrollY;
-                let scrolling=true;
-                if(Math.ceil(scrolled)==scrollable){
-                  if(keyword_page){
-                    open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
-                    let timeout=window.setTimeout(get_keyword_data(open_url,keyword_page,keyword).then(function(data){
-                      if(scrolling){
+                if(Math.ceil(scrolled)>=scrollable-5){
+                  if(scrolling){
+                    if(keyword_page){
+                      open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
+                      let timeout=window.setTimeout(get_keyword_data(open_url,keyword_page,keyword).then(function(data){
                         for(let i=0; i<data.data.length; i++){
                         render_keyword_spots(i,keyword_page,data)
                         };
-                        scrolling=false;
-                      };
-                     keyword_next_page=data.nextPage;
-                     keyword_page=keyword_next_page;
-                    }),3000);
-                    window.clearTimeout(timeout);
+                        keyword_next_page=data.nextPage;
+                        keyword_page=keyword_next_page;
+                      }),3000);
+                      window.clearTimeout(timeout);
+                      scrolling=false;
+                    };
                   };
                 };
               });
@@ -113,24 +114,24 @@
               }
               let keyword_next_page=data.nextPage;
               keyword_page=keyword_next_page;
+              let scrolling=true;
               window.addEventListener("scroll",(e)=>{
                 let scrollable=document.documentElement.scrollHeight-window.innerHeight
-                let scrolled=window.scrollY
-                let scrolling=true;
-                if(Math.ceil(scrolled)==scrollable){
-                  if(keyword_page){
-                    open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
-                    let timeout=window.setTimeout(get_keyword_data(open_url,keyword_page,keyword).then(function(data){
-                      if(scrolling){
+                let scrolled=window.scrollY;
+                if(Math.ceil(scrolled)>=scrollable-5){
+                  if(scrolling){
+                    if(keyword_page){
+                      open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
+                      let timeout=window.setTimeout(get_keyword_data(open_url,keyword_page,keyword).then(function(data){
                         for(let i=0; i<data.data.length; i++){
                         render_keyword_spots(i,keyword_page,data)
                         };
-                        scrolling=false;
-                      };
-                     keyword_next_page=data.nextPage;
-                     keyword_page=keyword_next_page;
-                    }),3000);
-                    window.clearTimeout(timeout);
+                        keyword_next_page=data.nextPage;
+                        keyword_page=keyword_next_page;
+                      }),3000);
+                      window.clearTimeout(timeout);
+                      scrolling=false;
+                    };
                   };
                 };
               });
