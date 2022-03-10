@@ -204,6 +204,7 @@ input[type=text]{
 .left{margin-left:10px;}
 .welcome{
   background-position:120% 100%;
+  background-size:600px,auto;
   width:auto;
 }
 .welcome-content{
@@ -261,8 +262,13 @@ input[type=text]{
 @media(max-width: 600px){
 .welcome{
   height:280px;
-  background-size:400px,auto;
-  background-position:100% 100%;
+  background-size:70%,auto;
+  background-position:120% 100%;
+}
+.welcome-content{
+  width: 320px;
+  padding-top:65px;
+  margin-left: 10px;
 }
 input{
   width: 250px;
@@ -282,7 +288,7 @@ input{
   grid-template-columns: repeat(1, 1fr);
 }
 } 
-@media (max-width: 360px) {
+@media (max-width: 400px) {
 .header-menu{width:auto;}
 .left{margin-left:10px;}
 .welcome{

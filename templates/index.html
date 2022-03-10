@@ -71,6 +71,7 @@
       search.addEventListener('click',(e)=>{
         let keyword_page=0;
         let keyword=document.getElementById("keyword").value;
+        let scrolling=true;
         let open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
         get_keyword_data(open_url,keyword_page,keyword).then(function(data){
           if(data.data.length>0){
@@ -85,7 +86,6 @@
               };
               let keyword_next_page=data.nextPage;
               keyword_page=keyword_next_page;
-              let scrolling=true;
               window.addEventListener("scroll",(e)=>{
                 let scrollable=document.documentElement.scrollHeight-window.innerHeight
                 let scrolled=window.scrollY;
@@ -109,12 +109,12 @@
             }
             else if(document.querySelector(".keyword-spot-box")==null){
               element.textContent="";
+              let scrolling=true;
               for(let i=0; i<data.data.length; i++){
                 render_keyword_spots(i,keyword_page,data);
               }
               let keyword_next_page=data.nextPage;
               keyword_page=keyword_next_page;
-              let scrolling=true;
               window.addEventListener("scroll",(e)=>{
                 let scrollable=document.documentElement.scrollHeight-window.innerHeight
                 let scrolled=window.scrollY;
