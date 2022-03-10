@@ -208,9 +208,8 @@ input[type=text]{
   width:auto;
 }
 .welcome-content{
-  width: auto;
-  margin-left: auto;
-  margin-right: auto;
+  width: 470px;
+  margin-left: 10px;
   padding-top:85px;
   padding-left:10px;
 }
