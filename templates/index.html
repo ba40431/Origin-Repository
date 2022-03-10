@@ -49,6 +49,7 @@
           let scrolled=window.scrollY;
           if(Math.ceil(scrolled)>=scrollable-5){
             if(scrolling){
+               scrolling=false;
               if(page){
                 let timeout=window.setTimeout(get_data(openUrl,page).then(function(data){
                   for(let i=0; i<data.data.length; i++){
@@ -57,7 +58,6 @@
                   next_page=data.nextPage;
                   page=next_page;
                 }),3000);
-                scrolling=false;
                 window.clearTimeout(timeout);
               };
             };
@@ -91,6 +91,7 @@
                 let scrolled=window.scrollY;
                 if(Math.ceil(scrolled)>=scrollable-5){
                   if(scrolling){
+                    scrolling=false;
                     if(keyword_page){
                       open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
                       let timeout=window.setTimeout(get_keyword_data(open_url,keyword_page,keyword).then(function(data){
@@ -101,7 +102,6 @@
                         keyword_page=keyword_next_page;
                       }),3000);
                       window.clearTimeout(timeout);
-                      scrolling=false;
                     };
                   };
                 };
@@ -120,6 +120,7 @@
                 let scrolled=window.scrollY;
                 if(Math.ceil(scrolled)>=scrollable-5){
                   if(scrolling){
+                    scrolling=false;
                     if(keyword_page){
                       open_url="http://18.214.58.137:3000/api/attractions?page="+keyword_page+"&keyword=";
                       let timeout=window.setTimeout(get_keyword_data(open_url,keyword_page,keyword).then(function(data){
@@ -130,7 +131,6 @@
                         keyword_page=keyword_next_page;
                       }),3000);
                       window.clearTimeout(timeout);
-                      scrolling=false;
                     };
                   };
                 };
