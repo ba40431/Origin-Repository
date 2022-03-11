@@ -1,6 +1,6 @@
 from flask import *
-from routes.api_attractions import api_attractions
-from routes.api_attraction import api_attraction
+from api.api_attractions import api_attractions
+from api.api_attraction import api_attraction
 
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False

@@ -48,7 +48,7 @@ body{ margin: 0;
 }
 .welcome{
   background-image:
-    url("welcome.png"),
+    url("../pic/welcome.png"),
     linear-gradient(135deg,#AADDEE,#66AABB 100%); /*deg漸層角度*/ 
   background-repeat:no-repeat;
   background-position:82%;
@@ -95,9 +95,7 @@ input {
   border-radius: 5px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  padding:0
-}
-input[type=text]{
+  padding:0;
   color:#757575;
   font-family: 'Noto Sans TC';
   font-weight:700;
@@ -105,6 +103,14 @@ input[type=text]{
   padding-left:15px;
   padding-right:15px;
 }
+/* input[type=text]{
+  color:#757575;
+  font-family: 'Noto Sans TC';
+  font-weight:700;
+  font-size: 16px;
+  padding-left:15px;
+  padding-right:15px;
+} */
 .search-btn{
   height: 46px;
   width:60px;
