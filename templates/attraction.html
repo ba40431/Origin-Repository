@@ -23,13 +23,13 @@
         <input type="radio" name="slider-button" id="radio-2">
         <input type="radio" name="slider-button" id="radio-3">
         <div class="slide first">
-          <img class="slide-img" src="https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000848.jpg">
+          <img class="slide-img">
         </div>
         <div>
-          <img class="slide-img" src="https://www.travel.taipei/d_upload_ttn/sceneadmin/image/A0/B0/C0/D315/E70/F65/1e0951fb-069f-4b13-b5ca-2d09df1d3d90.JPG">
+          <img class="slide-img">
         </div>
         <div>
-          <img class="slide-img" src="https://www.travel.taipei/d_upload_ttn/sceneadmin/image/A0/B0/C0/D260/E538/F274/e7d482ba-e3c0-40c3-87ef-3f2a1c93edfa.JPG">
+          <img class="slide-img">
         </div>
         <div class="arrow-left"><img src="../static/pic/btn_leftArrow.png"/></div>
         <div class="arrow-right"><img src="../static/pic/btn_rightArrow.png"/></div>
@@ -45,8 +45,8 @@
         </div>
       </div>
         <div class="reserve-info">
-            <div class="spot-name">平安鐘</div>
-            <div class="spot-category">公共藝術 at <span class="spot-mrt">忠孝復興</span></div>
+            <div class="spot-name"></div>
+            <div class="spot-category"></div>
             <div class="reserve-background">
                 <div class="reserve-content">
                     <div class="reserve-title">訂購導覽行程</div>
@@ -72,12 +72,12 @@
     </div>
     <hr/>
     <div class="spot-content">
-      <div class="spot-description">平安鐘祈求大家的平安，這是為了紀念921地震週年的設計，在喧鬧的廣場上每個小時鳴鐘，保佑平安，祈禱臺灣不會再發生這樣的天災。雙手合十加上108個黃色的琉璃乳丁，隨著緩緩流下的水，在底下的一個小噴泉噴出。雙手合十的意義，一個是祈福，一個是包容，教我們要包容這樣的改變，撫平這樣的傷口。下面的水緩緩流出，代表著人的生命力是不斷地延續下去。緩緩地鐘聲，卻帶來心中的寧靜。 這個平安鐘是由建築師姚仁喜與琉璃創作家王俠軍共同設計，長6公尺、寬5公尺，以鑄銅製成，由法鼓山文教基金會全額出資。平安鐘點綴都市景觀，不時提醒大家，面對刻骨銘心的災難痛苦，更應該有謙卑的一顆心。</div>
+      <div class="spot-description"></div>
       <div class="spot-address">景點地址：
-        <div class="spot-address-text">臺北市 大安區忠孝東路4段</div>
+        <div class="spot-address-text"></div>
       </div>
       <div class="spot-transport">交通方式：
-        <div class="spot-transport-text">捷運站名：忠孝復興站4號出口1.公車：204、212、212直、232、232副、262、262(區間)、278、299、521、605、605(副)、605(新台五線)、667、903、忠孝新幹線至頂好市場站 2.車位：太平洋崇光百貨地下停車場或市民大道附近地下停車場</div>
+        <div class="spot-transport-text"></div>
       </div>
     </div>
 
@@ -87,4 +87,43 @@
 
     <script  type="text/javascript" src=""></script>
   </body>
+
+  <script>
+    const url = new URL(window.location.href)
+    let string=url.pathname;
+    let spot_id=string.replace("/attraction/",""); //刪除字串中的特定字串
+    let open_url="/api/attraction/"+spot_id;
+
+    get_data(open_url).then(function(data){
+      render(data)
+    });
+
+    function get_data(url){
+      return fetch(url)
+      .then(function(response){
+        return response.json()
+      });
+    }
+    function render(data){
+      let name=data.data.name;
+      let mrt=data.data.mrt;
+      let category=data.data.category;
+      let description=data.data.description;
+      let address=data.data.address;
+      let transport=data.data.transport;
+      let spot_name=document.querySelector(".spot-name");
+      let spot_mrt=document.querySelector(".spot-mrt");
+      let spot_category=document.querySelector(".spot-category");
+      let spot_description=document.querySelector(".spot-description");
+      let spot_address=document.querySelector(".spot-address-text");
+      let spot_transport=document.querySelector(".spot-transport-text");
+      spot_name.textContent=name;
+      spot_category.textContent=category+" at "+mrt;
+      spot_description.textContent=description;
+      spot_address.textContent=address;
+      spot_transport.textContent=transport;
+
+      
+    }
+  </script>
 </html>
