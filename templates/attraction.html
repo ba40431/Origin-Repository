@@ -9,7 +9,7 @@
   <body>
     <div class="header">
       <div class="header-menu">
-        <div class="left">台北一日遊</div>
+        <a class="left" href="/">台北一日遊</a>
         <div class="right">
             <a class="menu">預定行程</a>
             <a class="menu">登入/註冊</a>
@@ -56,15 +56,15 @@
                     </div>
                     <div class="reserve-time">選擇時間：
                         <div class="radio-item">
-                          <input type="radio" name="select-time" id="morning" value="morning">
+                          <input type="radio" name="select-time" id="morning" value="新台幣 2000 元">
                           <label for="morning"><span class="select-text">上半天</span></label>
                         </div>
                         <div class="radio-item">
-                          <input type="radio" name="select-time" id="afternoon" value="afternoon">
+                          <input type="radio" name="select-time" id="afternoon" value="新台幣 2500 元">
                           <label for="afternoon"><span  class="select-text">下半天</span></label>
                         </div>
                     </div>
-                    <div class="reserve-cost">導覽費用：<span>新台幣 2000 元</span></div>
+                    <div class="reserve-cost">導覽費用：<span id="dollar"></span></div>
                     <button class="reserve-button">開始預訂行程</button>
                 </div>
             </div>
@@ -97,6 +97,12 @@
     get_data(open_url).then(function(data){
       render(data)
     });
+    
+    let select_time= document.querySelectorAll('input[type=radio][name="select-time"]');
+    select_time.forEach(radio => radio.addEventListener('change', () =>{
+      let dollar=document.getElementById("dollar");
+      dollar.textContent=radio.value
+    }));
 
     function get_data(url){
       return fetch(url)
@@ -122,8 +128,6 @@
       spot_description.textContent=description;
       spot_address.textContent=address;
       spot_transport.textContent=transport;
-
-      
     }
   </script>
 </html>

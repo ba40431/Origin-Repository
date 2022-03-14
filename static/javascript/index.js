@@ -7,20 +7,22 @@ get_data(openUrl,page).then(function(data){
   let next_page=data.nextPage;
   page=next_page;
   let scrolling=true;
-  window.addEventListener("scroll",()=>{
+  window.addEventListener("scroll",(e)=>{
     let scrollable=document.documentElement.scrollHeight-window.innerHeight;
     let scrolled=window.scrollY;
-    if(Math.ceil(scrolled)>=scrollable-5 & scrolling){
-      if(page){
-        scrolling=false;
-        let timeout=window.setTimeout(get_data(openUrl,page).then(function(data){
-          for(let i=0; i<data.data.length; i++){
-          render_spots(i,page,data)
-          }
-          next_page=data.nextPage;
-          page=next_page;
-        }),3000);
-        window.clearTimeout(timeout);
+    if(Math.ceil(scrolled)>=scrollable-5){
+      if(scrolling){
+         scrolling=false;
+        if(page){
+          let timeout=window.setTimeout(get_data(openUrl,page).then(function(data){
+            for(let i=0; i<data.data.length; i++){
+            render_spots(i,page,data)
+            }
+            next_page=data.nextPage;
+            page=next_page;
+          }),3000);
+          window.clearTimeout(timeout);
+        };
       };
     }else{
       scrolling=true;
@@ -50,7 +52,7 @@ search.addEventListener('click',()=>{
         window.addEventListener("scroll",()=>{
           let scrollable=document.documentElement.scrollHeight-window.innerHeight
           let scrolled=window.scrollY;
-          if(Math.ceil(scrolled)>=scrollable-5 & scrolling){
+          if(Math.ceil(scrolled)>=scrollable-3 & scrolling){
             scrolling=false;
             if(keyword_page){
               open_url="/api/attractions?page="+keyword_page+"&keyword=";
@@ -68,7 +70,7 @@ search.addEventListener('click',()=>{
       }
       else if(document.querySelector(".keyword-spot-box")==null){
         element.textContent="";
-        let scrolling=true;
+        // let scrolling=true;
         for(let i=0; i<data.data.length; i++){
           render_keyword_spots(i,keyword_page,data);
         }
@@ -77,7 +79,7 @@ search.addEventListener('click',()=>{
         window.addEventListener("scroll",()=>{
           let scrollable=document.documentElement.scrollHeight-window.innerHeight
           let scrolled=window.scrollY;
-          if(Math.ceil(scrolled)>=scrollable-5 & scrolling){
+          if(Math.ceil(scrolled)>=scrollable-3 & scrolling){
             scrolling=false;
             if(keyword_page){
               open_url="/api/attractions?page="+keyword_page+"&keyword=";
@@ -129,12 +131,15 @@ function render_spots(i,page,data){
     let src=data.data[i].images[0];
     let mrt=data.data[i].mrt;
     let category=data.data[i].category;
-    let div=document.createElement("div"); 
+    let id=data.data[i].id;
+    // let div=document.createElement("div"); 
     let img=document.createElement("img");
+    let a=document.createElement("a");
     let container=document.getElementById("container"); 
-    container.appendChild(div);
-    div.setAttribute("class","spot-box");
-    div.setAttribute("id","spot-box-"+box_name);
+    container.appendChild(a);
+    a.setAttribute("class","spot-box");
+    a.setAttribute("id","spot-box-"+box_name);
+    a.href="/attraction/"+id;
     let spot_box=document.getElementById("spot-box-"+box_name);
     let div_name=document.createElement("div"); 
     let div_info=document.createElement("div"); 
@@ -163,15 +168,18 @@ function render_keyword_spots(i,keyword_page,data){
     let src=data.data[i].images[0];
     let mrt=data.data[i].mrt;
     let category=data.data[i].category;
+    let id=data.data[i].id;
     let div=document.createElement("div"); 
     let img=document.createElement("img");
+    let a=document.createElement("a");
     let container=document.getElementById("container-keyword"); 
-    container.appendChild(div);
-    div.setAttribute("class","keyword-spot-box");
-    div.setAttribute("id","keyword-spot-box-"+box_name);
+    container.appendChild(a);
+    a.setAttribute("class","keyword-spot-box");
+    a.setAttribute("id","keyword-spot-box-"+box_name);
+    a.href="/attraction/"+id;
     let spot_box=document.getElementById("keyword-spot-box-"+box_name);
     let div_name=document.createElement("div"); 
-    let div_info=document.createElement("div"); 
+    let div_info=document.createElement("div");
     img.src=src;
     div_name.textContent=name;
     spot_box.appendChild(img);

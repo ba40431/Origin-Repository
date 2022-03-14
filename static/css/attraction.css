@@ -28,6 +28,8 @@ body{ margin:0;
   color:#448899;
   margin-top:auto;
   margin-bottom: auto;
+  text-decoration:none;
+  cursor: pointer;
 }
 .right{
   display:grid;
