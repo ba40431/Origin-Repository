@@ -70,21 +70,25 @@ body{ margin:0;
 .slider-scroll{
   position: relative;
   width:540px;
-  height:406px;
+  height:100%;
+  object-fit: cover;
 }
 .slider-main{
   position: relative;
   width:540px;
-  height:406px; 
+  height:100%; 
+  object-fit: cover;
 }
 .slider-main .item{
   width:540px;
-  height:406px; 
+  height:100%; 
   position: absolute;
+  object-fit: cover;
 }
 .slider-main .item img{
   width:540px;
-  height:406px; 
+  height:100%; 
+  object-fit: cover;
 }
 .slider-button{
   width:540px;
@@ -146,7 +150,6 @@ body{ margin:0;
   font-size:24px;
   font-weight:700;
   color:#666666;
-
   margin-top:3px;
 }
 .spot-category{
@@ -345,9 +348,6 @@ hr{
   width:auto;
   grid-template-columns:492px auto;
 } 
-/* .reserve-background{
-  height:320px;
-} */
 .slider{
   width:492px;
   height:406px;
