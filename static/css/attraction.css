@@ -58,7 +58,122 @@ body{ margin:0;
   margin-top:91px;
   padding-left:15px;
 }
-.spot-img{
+.slider{
+  margin-bottom:37px;
+  width:540px;
+  height:406px;
+  border-radius: 5px;;
+  border:0;
+  /* margin:100px auto; */
+  position: relative;
+  overflow: hidden;
+  /* display:flex; */
+}
+.slider-scroll{
+  position: relative;
+  width:540px;
+  height:406px;
+}
+.slider-main{
+  position: relative;
+  width:540px;
+  height:406px; 
+}
+.slider-main .item{
+  width:540px;
+  height:406px; 
+  position: absolute;
+}
+.slider-main .item img{
+  width:540px;
+  height:406px; 
+}
+/* .slider-index{
+  width:540px;
+  height:40px;
+  text-align: center;
+  color:#FFFFFF;
+  font-weight:700;
+  z-index:20;
+  position:absolute;
+  bottom:0;
+  background-color: rgb(0,0,0.5);
+  cursor: pointer;
+  line-height:40px;
+}
+.slider-index{
+  width:540px;
+  height:100px;
+  text-align: center;
+  color:#FFFFFF;
+  font-weight:700;
+  z-index:20;
+  position:absolute;
+  bottom:0;
+  background-color: rgb(0,0,0.5);
+  cursor: pointer;
+  line-height:40px;
+}
+.slider-index .current{
+   color: red;
+}
+.slider-index .slider-index-icon{
+   margin:0 10px;
+} */
+.slider-button{
+  width:540px;
+  height:40px;
+  color:#FFFFFF;
+  z-index:20;
+  position:absolute;
+  bottom:0; 
+  display: flex;
+  justify-content:center;
+}
+.slider-button>.current{
+  height:0;
+  margin:0 10px;
+  opacity:0.75;
+  background-color: #000000;
+  border:1px solid #FFFFFF; 
+  opacity:0.75;
+  padding: 5px;
+  border-radius:10px;
+}
+.slider-button-icon{
+  height:0;
+  margin:0 10px;
+  opacity:0.75;
+  background-color: #FFFFFF;
+  border:1px solid #FFFFFF; 
+  opacity:0.75;
+  padding: 5px;
+  border-radius:10px;
+}
+.slider-scroll .prev{
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: url(../pic/btn_leftArrow.png) no-repeat;
+  top:50%;
+  margin-top:-18px;
+  margin-left:10px;
+  cursor: pointer;
+  opacity:0.75;
+} 
+.slider-scroll .next{
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: url(../pic/btn_rightArrow.png) no-repeat;
+  top:50%;
+  margin-top:-18px;
+  margin-right:10px;
+  cursor: pointer;
+  right:0;
+  opacity:0.75;
+} 
+/* .spot-img{
   margin-bottom:37px;
   width:540px;
   height:406px;
@@ -127,7 +242,7 @@ body{ margin:0;
   right:0;
   opacity:0.75;
   cursor: pointer;
-}
+} */
 .reserve-info{
   margin-left:30px;
 }
@@ -326,7 +441,7 @@ hr{
   margin-top:94px;
   padding-left:0px;
 }
-.spot-img{
+/* .spot-img{
   margin-bottom:20px;
   width:360x;
   height:350px;
@@ -358,7 +473,7 @@ hr{
   right:0;
   opacity:0.75;
   cursor: pointer;
-}
+} */
 .reserve-info{
   margin-left:10px;
   margin-right:10px;

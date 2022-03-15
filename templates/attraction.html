@@ -18,7 +18,29 @@
     </div>
 
     <div class="reserve">
-      <div class="spot-img">
+      <div id="slider" class="slider">
+        <div id="slider-scroll" class="slider-scroll">
+            <div id="slider-main" class="slider-main">
+                <div class="item">
+                        <img src="1.jpg">
+                </div>
+                <div class="item">
+                        <img src="2.jpg">
+                    </a>
+                </div>
+                <div class="item">
+                        <img src="3.jpg">
+                </div>
+            </div>
+            <span id="next" class="next"></span>
+            <span id="prev" class="prev"></span>
+        </div>
+        <div id="slider-index" class="slider-index">
+        </div>
+        <div id="slider-button" class="slider-button">
+        </div>
+    </div>
+      <!-- <div class="spot-img">
         <input type="radio" name="slider-button" id="radio-1">
         <input type="radio" name="slider-button" id="radio-2">
         <input type="radio" name="slider-button" id="radio-3">
@@ -43,7 +65,7 @@
           <label for="radio-2" class="manual-button"></label>
           <label for="radio-3" class="manual-button"></label>
         </div>
-      </div>
+      </div> -->
         <div class="reserve-info">
             <div class="spot-name"></div>
             <div class="spot-category"></div>
@@ -129,5 +151,69 @@
       spot_address.textContent=address;
       spot_transport.textContent=transport;
     }
+
+    window.onload=function(){
+            let slider=document.getElementById("slider");
+            let slider_main=document.getElementById("slider-main");
+            let allboxs=slider_main.children;
+            let next=document.getElementById("next");
+            let prev=document.getElementById("prev");
+            let slider_index=document.getElementById("slider-index");
+            let slider_button=document.getElementById("slider-button");
+            let now=0;
+            for(let i=0;i<allboxs.length;i++){
+                let span=document.createElement("span");
+                if(i===0){
+                    span.className="slider-index-icon current";
+                    // span.className="current";
+                }else{
+                    span.className="slider-index-icon";
+                }
+                span.innerText=i+1
+                slider_index.appendChild(span)
+            };
+            for(let i=0;i<allboxs.length;i++){
+                let label=document.createElement("label");
+                if(i===0){
+                    label.className="slider-button-icon current";
+                    // span.className="current";
+                }else{
+                  label.className="slider-button-icon";
+                }
+                slider_button.appendChild(label)
+            };
+            let scroll_w=parseInt(window.getComputedStyle(slider,null).getPropertyValue("width"));/*轉換成數值*/
+            for(let j=1;j<allboxs.length;j++){
+                allboxs[j].style.left=scroll_w+"px";
+            }
+            next.onclick=function(){
+                allboxs[now].style.left=-scroll_w+"px";
+                now=now+1;
+                if(now>=allboxs.length){
+                    now=0;
+                }
+                allboxs[now].style.left=scroll_w+"px";
+                allboxs[now].style.left=0;
+                change_button();
+            }
+            prev.onclick=function(){
+                allboxs[now].style.left=scroll_w+"px";
+                now=now-1;
+                if(now<0){
+                    now=allboxs.length-1;
+                }
+                allboxs[now].style.left=-scroll_w+"px";
+                allboxs[now].style.left=0;
+                change_button();
+            }
+
+            function change_button(){
+                for(let i=0;i<slider_button.children.length;i++){
+                  slider_button.children[i].className="slider-button-icon";
+                }
+                slider_button.children[now].className="slider-button-icon current";
+
+            }
+        }
   </script>
 </html>
