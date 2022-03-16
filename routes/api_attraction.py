@@ -1,19 +1,13 @@
 from flask import *
-import mysql.connector
 import json
-from connection import pool
+from model.api_attraction import attraction_model
 import re
 
 api_attraction=Blueprint("api_attraction",__name__,static_folder="static",template_folder="templates")
 
 @api_attraction.route("/api/attraction/<attractionId>")
 def attraction(attractionId):
-    connection=pool.connection()
-    cursor=connection.cursor()
-    cursor.execute("SELECT * FROM `taipei_spots` WHERE `id`=%s ;",(attractionId,))
-
-    attraction=cursor.fetchone()
-
+    attraction=attraction_model.get_attraction(attractionId)
     if attraction:
         spot_images=attraction[9].split('https://')
         images_list=[]
@@ -38,19 +32,16 @@ def attraction(attractionId):
         response.headers["Access-Control-Allow-Origin"] = "*" #設定跨域請求Headers
         return response,200
 
-    elif attraction==None:
-        data={
-        "error": True,
-        "message": "景點編號不正確"
-        }
-        return jsonify(data),400
-
-    else:
+    elif attraction=="error":
         data={
         "error": True,
         "message": "伺服器內部錯誤"
         }
         return jsonify(data),500
 
-    cursor.close()
-    connection.close()
+    else:
+        data={
+        "error": True,
+        "message": "景點編號不正確"
+        }
+        return jsonify(data),400
