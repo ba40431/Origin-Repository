@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <title>Taipei Trip 台北一日遊</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/attraction.css">
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-menu">
+        <a class="left" href="/">台北一日遊</a>
+        <div class="right">
+            <a class="menu">預定行程</a>
+            <a class="menu">登入/註冊</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="reserve">
+      <div id="slider" class="slider">
+        <div id="slider-scroll" class="slider-scroll">
+            <div id="slider-main" class="slider-main">
+            </div>
+            <span id="next" class="next"></span>
+            <span id="prev" class="prev"></span>
+        </div>
+        <div id="slider-index" class="slider-index">
+        </div>
+        <div id="slider-button" class="slider-button">
+        </div>
+    </div>
+        <div class="reserve-info">
+            <div class="spot-name"></div>
+            <div class="spot-category"></div>
+            <div class="reserve-background">
+                <div class="reserve-content">
+                    <div class="reserve-title">訂購導覽行程</div>
+                    <div class="reserve-text">以此景點為中心的一日行程，帶您探索城市角落故事</div>
+                    <div class="reserve-date">選擇日期：
+                      <input type="date">
+                    </div>
+                    <div class="reserve-time">選擇時間：
+                        <div class="radio-item">
+                          <input type="radio" name="select-time" id="morning" value="新台幣 2000 元">
+                          <label for="morning"><span class="select-text">上半天</span></label>
+                        </div>
+                        <div class="radio-item">
+                          <input type="radio" name="select-time" id="afternoon" value="新台幣 2500 元">
+                          <label for="afternoon"><span  class="select-text">下半天</span></label>
+                        </div>
+                    </div>
+                    <div class="reserve-cost">導覽費用：<span id="dollar"></span></div>
+                    <button class="reserve-button">開始預訂行程</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="spot-content">
+      <div class="spot-description"></div>
+      <div class="spot-address">景點地址：
+        <div class="spot-address-text"></div>
+      </div>
+      <div class="spot-transport">交通方式：
+        <div class="spot-transport-text"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-text">COPYRIGHT © 2022 台北一日遊</div>
+    </div>
+
+    <script  type="text/javascript" src="../static/javascript/attraction.js"></script>
+  </body>
+</html>

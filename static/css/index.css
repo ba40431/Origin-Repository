@@ -11,6 +11,7 @@ body{ margin: 0;
   width: 100%;
   position: fixed;
   top:0;
+  z-index:9999;/*z-index的數字愈大，代表愈上層*/
 }
 .header-menu{
   width:1200px;
@@ -27,6 +28,8 @@ body{ margin: 0;
   color:#448899;
   margin-top:auto;
   margin-bottom: auto;
+  text-decoration:none;
+  cursor: pointer;
 }
 .right{
   display:grid;
@@ -48,7 +51,7 @@ body{ margin: 0;
 }
 .welcome{
   background-image:
-    url("welcome.png"),
+    url("../pic/welcome.png"),
     linear-gradient(135deg,#AADDEE,#66AABB 100%); /*deg漸層角度*/ 
   background-repeat:no-repeat;
   background-position:82%;
@@ -95,9 +98,7 @@ input {
   border-radius: 5px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  padding:0
-}
-input[type=text]{
+  padding:0;
   color:#757575;
   font-family: 'Noto Sans TC';
   font-weight:700;
@@ -132,6 +133,8 @@ input[type=text]{
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  cursor: pointer;
+  text-decoration:none;
   }
 .keyword-spot-box{
   border-radius: 5px;
@@ -139,6 +142,8 @@ input[type=text]{
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  cursor: pointer;
+  text-decoration:none;
   }
 .spot-img{
   height:160px;
