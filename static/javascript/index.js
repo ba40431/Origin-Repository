@@ -103,10 +103,10 @@ search.addEventListener('click',()=>{
         while (element.firstChild){
           element.removeChild(element.firstChild);
         };
-        element.textContent="查無相關景點";
+        element.textContent="查無與【"+keyword+"】的相關景點";
       }
       else{
-        element.textContent="查無相關景點"
+        element.textContent="查無與【"+keyword+"】的相關景點";
       };
     };
   });
