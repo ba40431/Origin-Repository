@@ -192,3 +192,41 @@ function click(){
     };
   }
 }
+
+function login(){
+  let login_box=document.querySelector(".login");
+  let register_box=document.querySelector(".register");
+  let cover=document.querySelector(".cover");
+  let login_email=document.getElementById("login-email");
+  let login_password=document.getElementById("login-password");
+  login_box.style.display="block";
+  cover.style.display="block";
+  register_box.style.display="none";
+}
+
+function login_close(){
+  let login_box=document.querySelector(".login");
+  let cover=document.querySelector(".cover");
+  login_box.style.display="none";
+  cover.style.display="none";
+}
+
+function register(){
+  let login_box=document.querySelector(".login");
+  let register_box=document.querySelector(".register");
+  let cover=document.querySelector(".cover");
+  let register_email=document.getElementById("register-email");
+  let register_password=document.getElementById("register-password");
+  login_box.style.display="none";
+  register_box.style.display="block";
+  cover.style.display="block";
+}
+
+function register_close(){
+  let login_box=document.querySelector(".login");
+  let register_box=document.querySelector(".register");
+  let cover=document.querySelector(".cover");
+  login_box.style.display="none";
+  register_box.style.display="none";
+  cover.style.display="none";
+}

@@ -11,8 +11,8 @@
       <div class="header-menu">
         <a class="left" href="/">台北一日遊</a>
         <div class="right">
-            <a class="menu" id="reserve-btn">預定行程</a>
-            <a class="menu" id="login-btn">登入/註冊</a>
+            <a class="menu" id="reserve-btn" onclick=reserve()>預定行程</a>
+            <a class="menu" id="login-btn" onclick=login()>登入/註冊</a>
         </div>
       </div>
     </div>
@@ -35,11 +35,11 @@
       <div  class="login-container">
         <div class="login-background"></div>
         <div class="login-content">
-          <div class="login-title">登入會員帳號<a><img src="../static/pic/icon_close.png"></a></div>
+          <div class="login-title">登入會員帳號<a id="login-close" onclick=login_close()><img src="../static/pic/icon_close.png"></a></div>
           <input type="email" id="login-email" class="login-email" placeholder="輸入電子信箱" required >
           <input type="password"id="login-password" class="login-password" placeholder="輸入密碼" required >
           <button class="login-btn">登入帳戶</button>
-          <div class="login-text">還沒有帳戶？<a>點此註冊</a></div>
+          <div class="login-text">還沒有帳戶？<a onclick=register()>點此註冊</a></div>
         </div>
       </div>
     </div>
@@ -48,12 +48,12 @@
       <div  class="register-container">
         <div class="register-background"></div>
         <div class="register-content">
-          <div class="register-title">註冊會員帳號<a><img src="../static/pic/icon_close.png"></a></div>
+          <div class="register-title">註冊會員帳號<a id="register-close" onclick=register_close()><img src="../static/pic/icon_close.png"></a></div>
           <input type="text" id="register-name" class="register-name" placeholder="輸入姓名" required >
           <input type="email" id="register-email" class="register-email" placeholder="輸入電子信箱" required >
           <input type="password"id="register-password" class="register-password" placeholder="輸入密碼" required >
           <button class="register-btn">註冊新帳戶</button>
-          <div class="register-text">已經有帳戶了？<a>點此登入</a></div>
+          <div class="register-text">已經有帳戶了？<a onclick=login()>點此登入</a></div>
         </div>
       </div>
     </div>
