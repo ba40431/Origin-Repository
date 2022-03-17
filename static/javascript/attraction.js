@@ -32,7 +32,7 @@ function render(data){
   let address=data.data.address;
   let transport=data.data.transport;
   let spot_name=document.querySelector(".spot-name");
-  let spot_mrt=document.querySelector(".spot-mrt");
+  // let spot_mrt=document.querySelector(".spot-mrt");
   let spot_category=document.querySelector(".spot-category");
   let spot_description=document.querySelector(".spot-description");
   let spot_address=document.querySelector(".spot-address-text");
