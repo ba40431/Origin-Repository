@@ -6,6 +6,9 @@ let scrolling=true;
 init()
 let search=document.getElementById("search");
 search.addEventListener('click',click);
+login_data();
+register_data()
+
 
 
 function init(){
@@ -197,8 +200,6 @@ function login(){
   let login_box=document.querySelector(".login");
   let register_box=document.querySelector(".register");
   let cover=document.querySelector(".cover");
-  let login_email=document.getElementById("login-email");
-  let login_password=document.getElementById("login-password");
   login_box.style.display="block";
   cover.style.display="block";
   register_box.style.display="none";
@@ -213,8 +214,6 @@ function register(){
   let login_box=document.querySelector(".login");
   let register_box=document.querySelector(".register");
   let cover=document.querySelector(".cover");
-  let register_email=document.getElementById("register-email");
-  let register_password=document.getElementById("register-password");
   login_box.style.display="none";
   register_box.style.display="block";
   cover.style.display="block";
@@ -226,4 +225,13 @@ function register_close(){
   login_box.style.display="none";
   register_box.style.display="none";
   cover.style.display="none";
+}
+function login_data(){
+  let login_email=document.getElementById("login-email").value;
+  let login_password=document.getElementById("login-password").value;
+}
+function register_data(){
+  let register_name=document.getElementById("register-name").value;
+  let register_email=document.getElementById("register-email").value;
+  let register_password=document.getElementById("register-password").value;
 }
