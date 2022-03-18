@@ -2,19 +2,22 @@ let page=0;
 let openUrl="/api/attractions?page=";
 let scrolling=true;
 
-get_data(openUrl,page).then(function(data){
-  for(let i=0; i<data.data.length; i++){
-    render_spots(i,page,data)
-  };
-  let next_page=data.nextPage;
-  page=next_page;
-  window.addEventListener("scroll",scroll);
-});
 
+init()
 let search=document.getElementById("search");
 search.addEventListener('click',click);
 
 
+function init(){
+  get_data(openUrl,page).then(function(data){
+    for(let i=0; i<data.data.length; i++){
+      render_spots(i,page,data)
+    };
+    let next_page=data.nextPage;
+    page=next_page;
+    window.addEventListener("scroll",scroll);
+  });
+}
 function get_data(url,page){
   return fetch(url+page)
   .then(function(response){
@@ -101,7 +104,6 @@ function render_keyword_spots(i,keyword_page,data){
     div_mrt.setAttribute("class","spot-mrt");
     div_category.setAttribute("class","spot-category"); 
 };
-
 function scroll(){
   let scrollable=document.documentElement.scrollHeight-window.innerHeight;
   let scrolled=window.scrollY;
@@ -123,7 +125,6 @@ function scroll(){
     scrolling=true;
   };
 }
-
 function click(){
   let keyword_page=0;
   let keyword=document.getElementById("keyword").value;
@@ -192,7 +193,6 @@ function click(){
     };
   }
 }
-
 function login(){
   let login_box=document.querySelector(".login");
   let register_box=document.querySelector(".register");
@@ -203,14 +203,12 @@ function login(){
   cover.style.display="block";
   register_box.style.display="none";
 }
-
 function login_close(){
   let login_box=document.querySelector(".login");
   let cover=document.querySelector(".cover");
   login_box.style.display="none";
   cover.style.display="none";
 }
-
 function register(){
   let login_box=document.querySelector(".login");
   let register_box=document.querySelector(".register");
@@ -221,7 +219,6 @@ function register(){
   register_box.style.display="block";
   cover.style.display="block";
 }
-
 function register_close(){
   let login_box=document.querySelector(".login");
   let register_box=document.querySelector(".register");
