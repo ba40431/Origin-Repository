@@ -1,18 +1,15 @@
 let page=0;
-let openUrl="/api/attractions?page=";
+let page_url="/api/attractions?page=";
 let scrolling=true;
 
 
 init()
 let search=document.getElementById("search");
 search.addEventListener('click',click);
-login_data();
-register_data()
-
 
 
 function init(){
-  get_data(openUrl,page).then(function(data){
+  get_data(page_url,page).then(function(data){
     for(let i=0; i<data.data.length; i++){
       render_spots(i,page,data)
     };
@@ -114,7 +111,7 @@ function scroll(){
     if(scrolling){
        scrolling=false;
       if(page){
-        let timeout=window.setTimeout(get_data(openUrl,page).then(function(data){
+        let timeout=window.setTimeout(get_data(page_url,page).then(function(data){
           for(let i=0; i<data.data.length; i++){
           render_spots(i,page,data)
           }
@@ -132,8 +129,8 @@ function click(){
   let keyword_page=0;
   let keyword=document.getElementById("keyword").value;
   let scrolling=true;
-  let open_url="/api/attractions?page="+keyword_page+"&keyword=";
-  get_keyword_data(open_url,keyword).then(function(data){
+  let keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
+  get_keyword_data(keyword_url,keyword).then(function(data){
     if(data.data.length>0){
       document.getElementById("container").style.display="none";
       let element=document.getElementById("container-keyword"); 
@@ -147,7 +144,7 @@ function click(){
         let keyword_next_page=data.nextPage;
         keyword_page=keyword_next_page;
         window.addEventListener("scroll",()=>{
-          keyword_scroll(data)
+          scroll_keyword(data)
         });
       }
       else if(document.querySelector(".keyword-spot-box")==null){
@@ -159,7 +156,7 @@ function click(){
         let keyword_next_page=data.nextPage;
         keyword_page=keyword_next_page;
         window.addEventListener("scroll",()=>{
-          keyword_scroll()
+          scroll_keyword()
         });
       };
     }
@@ -177,14 +174,14 @@ function click(){
       };
     };
   });
-  function keyword_scroll(){
+  function scroll_keyword(){
     let scrollable=document.documentElement.scrollHeight-window.innerHeight
     let scrolled=window.scrollY;
     if(Math.ceil(scrolled)>=scrollable-3 & scrolling){
       scrolling=false;
       if(keyword_page){
-        open_url="/api/attractions?page="+keyword_page+"&keyword=";
-        let timeout=window.setTimeout(get_keyword_data(open_url,keyword).then(function(data){
+        keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
+        let timeout=window.setTimeout(get_keyword_data(keyword_url,keyword).then(function(data){
           for(let i=0; i<data.data.length; i++){
           render_keyword_spots(i,keyword_page,data)
           };
@@ -195,43 +192,4 @@ function click(){
       };
     };
   }
-}
-function login(){
-  let login_box=document.querySelector(".login");
-  let register_box=document.querySelector(".register");
-  let cover=document.querySelector(".cover");
-  login_box.style.display="block";
-  cover.style.display="block";
-  register_box.style.display="none";
-}
-function login_close(){
-  let login_box=document.querySelector(".login");
-  let cover=document.querySelector(".cover");
-  login_box.style.display="none";
-  cover.style.display="none";
-}
-function register(){
-  let login_box=document.querySelector(".login");
-  let register_box=document.querySelector(".register");
-  let cover=document.querySelector(".cover");
-  login_box.style.display="none";
-  register_box.style.display="block";
-  cover.style.display="block";
-}
-function register_close(){
-  let login_box=document.querySelector(".login");
-  let register_box=document.querySelector(".register");
-  let cover=document.querySelector(".cover");
-  login_box.style.display="none";
-  register_box.style.display="none";
-  cover.style.display="none";
-}
-function login_data(){
-  let login_email=document.getElementById("login-email").value;
-  let login_password=document.getElementById("login-password").value;
-}
-function register_data(){
-  let register_name=document.getElementById("register-name").value;
-  let register_email=document.getElementById("register-email").value;
-  let register_password=document.getElementById("register-password").value;
 }

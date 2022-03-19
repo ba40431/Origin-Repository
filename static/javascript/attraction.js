@@ -3,8 +3,6 @@ let string=url.pathname;
 let spot_id=string.replace("/attraction/",""); //刪除字串中的特定字串
 let open_url="/api/attraction/"+spot_id;
 
-//test
-
 init();
 change_dollar();
 
