@@ -8,8 +8,6 @@ function login(){
     login_box.style.display="block";
     cover.style.display="block";
     register_box.style.display="none";
-    // let login_email=document.getElementById("login-email").value;
-    // let login_password=document.getElementById("login-password").value;
 }
 function close_login(){
   let login_box=document.querySelector(".login");
@@ -24,9 +22,6 @@ function register(){
   login_box.style.display="none";
   register_box.style.display="block";
   cover.style.display="block";
-  // let register_name=document.getElementById("register-name").value;
-  // let register_email=document.getElementById("register-email").value;
-  // let register_password=document.getElementById("register-password").value;
 }
 function close_register(){
   let login_box=document.querySelector(".login");

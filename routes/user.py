@@ -9,20 +9,81 @@ api_user=Blueprint("api_user",__name__,static_folder="static",template_folder="t
 
 @api_user.route("/api/user",methods=["GET","POST","PATCH","DELETE"])
 def user():
-    session["email"]==None
-    if request.method=="GET":
-        if session["email"]:
-            user=user_model.login(session["email"])
-            data={
-                "data":{
-                    "id": user[0],
-                    "name": user[1],
-                    "email": user[2]
+    if request.method=="PATCH":
+        user_data=request.get_json()
+        user=user_model.login(user_data["email"])
+        if user:
+            if  user_data["email"]==user[2] and bcrypt.checkpw(user_data["password"].encode("utf-8"),user[3].encode("utf-8")):
+                data={"ok": True}
+                session["email"]=user[2]
+                # token=make_token(user[2])
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response
+                # return jsonify({"message":"Authorize success","token":token})
+            elif user_data["password"]=="":
+                data={
+                    "error": True,
+                    "message": "請輸入電子信箱和密碼"
                 }
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response,400
+            else:
+                data={
+                    "error": True,
+                    "message": "登入失敗，電子信箱或密碼輸入錯誤"
+                }
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response,400
+        elif user=="error":
+            data={
+                "error": True,
+                "message": "伺服器內部錯誤"
             }
             response=make_response(jsonify(data))
             response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response
+            return response,500
+        elif user==None:
+            if user_data["email"]=="" or user_data["password"]=="":
+                data={
+                    "error": True,
+                    "message": "請輸入電子信箱和密碼"
+                }
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response,400
+            else:
+                data={
+                    "error": True,
+                    "message": "登入失敗，電子信箱或密碼輸入錯誤"
+                }
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response,400
+    elif request.method=="GET":
+        if "email" in session:
+            user_email=session["email"]
+            if user_email==None:
+                data={
+                    "data":None
+                }
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response
+            elif user_email:
+                user=user_model.login(session["email"])
+                data={
+                    "data":{
+                        "id": user[0],
+                        "name": user[1],
+                        "email": user[2]
+                    }
+                }
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response
         else:
             data={
                 "data":None
@@ -76,62 +137,7 @@ def user():
                 response=make_response(jsonify(data))
                 response.headers["Access-Control-Allow-Origin"] = "*" 
                 return response
-                # return jsonify({"message":"User created","token":token})
-    
-    elif request.method=="PATCH":
-        user_data=request.get_json()
-        user=user_model.login(user_data["email"])
-        if user:
-            if  user_data["email"]==user[2] and bcrypt.checkpw(user_data["password"].encode("utf-8"),user[3].encode("utf-8")):
-                data={"ok": True}
-                session["email"]=user[2]
-                # token=make_token(user[2])
-                response=make_response(jsonify(data))
-                response.headers["Access-Control-Allow-Origin"] = "*" 
-                return response
-                # return jsonify({"message":"Authorize success","token":token})
-            elif user_data["password"]=="":
-                data={
-                    "error": True,
-                    "message": "請輸入電子信箱和密碼"
-                }
-                response=make_response(jsonify(data))
-                response.headers["Access-Control-Allow-Origin"] = "*" 
-                return response,400
-            else:
-                data={
-                    "error": True,
-                    "message": "登入失敗，電子信箱或密碼輸入錯誤"
-                }
-                response=make_response(jsonify(data))
-                response.headers["Access-Control-Allow-Origin"] = "*" 
-                return response,400
-        elif user=="error":
-            data={
-                "error": True,
-                "message": "伺服器內部錯誤"
-            }
-            response=make_response(jsonify(data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response,500
-        elif user==None:
-            if user_data["email"]=="" or user_data["password"]=="":
-                data={
-                    "error": True,
-                    "message": "請輸入電子信箱和密碼"
-                }
-                response=make_response(jsonify(data))
-                response.headers["Access-Control-Allow-Origin"] = "*" 
-                return response,400
-            else:
-                data={
-                    "error": True,
-                    "message": "登入失敗，電子信箱或密碼輸入錯誤"
-                }
-                response=make_response(jsonify(data))
-                response.headers["Access-Control-Allow-Origin"] = "*" 
-                return response,400
-                
+                # return jsonify({"message":"User created","token":token})     
     elif request.method=="DELETE":
         session["email"]=None
         data={"ok": True}
