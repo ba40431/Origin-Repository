@@ -9,6 +9,7 @@ api_user=Blueprint("api_user",__name__,static_folder="static",template_folder="t
 
 @api_user.route("/api/user",methods=["GET","POST","PATCH","DELETE"])
 def user():
+    session["email"]==None
     if request.method=="GET":
         if session["email"]:
             user=user_model.login(session["email"])
