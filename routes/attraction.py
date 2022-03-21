@@ -2,6 +2,7 @@ from flask import *
 import json
 from model.attraction import attraction_model
 import re
+# import jwt
 
 api_attraction=Blueprint("api_attraction",__name__,static_folder="static",template_folder="templates")
 
