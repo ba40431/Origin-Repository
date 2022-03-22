@@ -11,7 +11,7 @@ body{ margin:0;
   position: fixed;
   top:0;
   border-bottom: 1px solid #E8E8E8;
-  z-index:9999;/*z-index的數字愈大，代表愈上層*/
+  z-index:5;/*z-index的數字愈大，代表愈上層*/
 }
 .header-menu{
   width:1200px;
@@ -20,6 +20,7 @@ body{ margin:0;
   margin-left: auto;
   margin-right: auto;
   grid-template-columns:auto auto;
+  z-index:5
 }
 .left{
   font-family: 'Noto Sans TC';
@@ -48,6 +49,12 @@ body{ margin:0;
   margin-top:auto;
   margin-bottom: auto;
   cursor: pointer;
+}
+.login-display{
+  display:none;
+}
+.signout-display{
+  /* display:none; */
 }
 .reserve{
   width:1200px;

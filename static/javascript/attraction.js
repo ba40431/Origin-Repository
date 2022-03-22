@@ -2,23 +2,41 @@ const url = new URL(window.location.href)
 let string=url.pathname;
 let spot_id=string.replace("/attraction/",""); //刪除字串中的特定字串
 let open_url="/api/attraction/"+spot_id;
+let user_url="/api/user";
+let login_display=document.querySelector(".login-display");
+let signout_display=document.querySelector(".signout-display");
 
-get_data(open_url).then(function(data){
-  render(data);
-  let images=data.data.images;
-  for(i=0;i<images.length;i++){
-    render_images(data)
-  };
-  render_button(data);
-});
+init();
+change_dollar();
 
-let select_time= document.querySelectorAll('input[type=radio][name="select-time"]');
-select_time.forEach(radio => radio.addEventListener('change', () =>{
-  let dollar=document.getElementById("dollar");
-  dollar.textContent=radio.value
-}));
+
+function init(){
+  get_login(user_url).then(function(data){
+    get_data(open_url).then(function(data){
+      render(data);
+      let images=data.data.images;
+      for(i=0;i<images.length;i++){
+        render_images(data)
+      };
+      render_button(data);
+    });
+    if(data.data){
+      login_display.style.display="none";
+      signout_display.style.display="block";
+    }else if(data.data==null){
+      login_display.style.display="block";
+      signout_display.style.display="none";
+    }
+  })
+}
 
 function get_data(url){
+  return fetch(url)
+  .then(function(response){
+    return response.json()
+  });
+}
+function get_login(url){
   return fetch(url)
   .then(function(response){
     return response.json()
@@ -32,7 +50,7 @@ function render(data){
   let address=data.data.address;
   let transport=data.data.transport;
   let spot_name=document.querySelector(".spot-name");
-  let spot_mrt=document.querySelector(".spot-mrt");
+  // let spot_mrt=document.querySelector(".spot-mrt");
   let spot_category=document.querySelector(".spot-category");
   let spot_description=document.querySelector(".spot-description");
   let spot_address=document.querySelector(".spot-address-text");
@@ -43,7 +61,6 @@ function render(data){
   spot_address.textContent=address;
   spot_transport.textContent=transport;
 }
-
 function render_images(data){
   let images=data.data.images;
   let slider_main=document.getElementById("slider-main");
@@ -56,8 +73,6 @@ function render_images(data){
   img.src=images[i];
   item.appendChild(img);
 }
-
-
 function render_button(data){
   let slider=document.getElementById("slider");
   let slider_main=document.getElementById("slider-main");
@@ -75,27 +90,27 @@ function render_button(data){
       }
       slider_button.appendChild(label)
   };
-  let scroll_w=parseInt(window.getComputedStyle(slider,null).getPropertyValue("width"));/*轉換成數值*/
+  let scroll_width=parseInt(window.getComputedStyle(slider,null).getPropertyValue("width"));/*轉換成數值*/
   for(let j=1;j<allboxs.length;j++){
-      allboxs[j].style.left=scroll_w+"px";
+      allboxs[j].style.left=scroll_width+"px";
   }
   next.onclick=function(){
-      allboxs[now].style.left=-scroll_w+"px";
+      allboxs[now].style.left=-scroll_width+"px";
       now=now+1;
       if(now>=allboxs.length){
           now=0;
       }
-      allboxs[now].style.left=scroll_w+"px";
+      allboxs[now].style.left=scroll_width+"px";
       allboxs[now].style.left=0;
       change_button();
   }
   prev.onclick=function(){
-      allboxs[now].style.left=scroll_w+"px";
+      allboxs[now].style.left=scroll_width+"px";
       now=now-1;
       if(now<0){
           now=allboxs.length-1;
       }
-      allboxs[now].style.left=-scroll_w+"px";
+      allboxs[now].style.left=-scroll_width+"px";
       allboxs[now].style.left=0;
       change_button();
   }
@@ -106,4 +121,11 @@ function render_button(data){
       slider_button.children[now].className="slider-button-icon current";
 
   }
+}
+function change_dollar(){
+  let select_time= document.querySelectorAll('input[type=radio][name="select-time"]');
+  select_time.forEach(radio => radio.addEventListener('change', () =>{
+    let dollar=document.getElementById("dollar");
+    dollar.textContent="新台幣 "+radio.value+" 元"
+  }));
 }

@@ -17,9 +17,13 @@ pool=PooledDB(
     password=os.getenv("password"),
     database=os.getenv("database"),
 )
+try:
+    connection=pool.connection()
+    cursor=connection.cursor()
 
-connection=pool.connection()
-cursor=connection.cursor()
+except:
+    print("連線資料庫失敗！")
+finally:
+    cursor.close()
+    connection.close()
 
-cursor.close()
-connection.close()

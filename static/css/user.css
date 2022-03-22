@@ -1,0 +1,184 @@
+.login{
+    height: 275px;
+    width:100%;
+    z-index:15;
+    position: fixed;
+    top:80px;
+    right:auto;
+    left:auto;
+    text-align:center;
+    display: none;
+  }
+  .login-container{
+    width: 340px;
+    height: 275px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .login-background{
+    background-image:linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    width: 340px;
+    height: 10px;
+    border-radius: 6px 6px 0 0;
+  }
+  .login-content{
+    background-color: #FFFFFF;
+    width: 340px;
+    height: 250px;
+    border-radius:0 0 6px 6px;
+    padding-top:15px;
+    text-align: center;
+  }
+  .login-title{
+    font-weight:700;
+    font-size:24px;
+    color: #666666;
+    margin-bottom: 5px;
+  }
+  .login-title>a{
+    position:absolute;
+    padding-left:65px;
+    top:17px;
+    cursor: pointer
+  }
+  .login-content>input{
+    width: 278px;
+    height: 46px;
+    background: #FFFFFF;
+    border:1px solid #CCCCCC;
+    border-radius: 5px;
+    padding:0;
+    color:#666666;
+    font-family: 'Noto Sans TC';
+    font-weight:400;
+    font-size: 16px;
+    padding-left:15px;
+    padding-right:15px;
+    margin-top: 8px;
+  }
+  .login-btn{
+    width:310px;
+    height:47px;
+    background:#448899;
+    border: 0px solid #448899;
+    border-radius:5px;
+    margin-top:10px;
+    cursor: pointer;
+    color:#FFFFFF;
+    font-weight: 400;
+    font-size: 19px;
+  }
+  .login-text{
+    font-weight:400;
+    font-size: 16px;
+    margin-top:10px;
+    color: #666666;
+  }
+  .login-text>a{
+    cursor: pointer;
+  }
+  .login-failed{
+    font-weight:400;
+    font-size: 18px;
+    color:red;
+    margin-top:10px;
+  }
+  .register{
+    height:332px;
+    width:100%;
+    z-index:15;
+    position: fixed;
+    top:80px;
+    right:auto;
+    left:auto;
+    text-align:center;
+    display: none;
+  }
+  .register-container{
+    width: 340px;
+    height: 332px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .register-background{
+    background-image:linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    width: 340px;
+    height:10px;
+    border-radius: 6px 6px 0 0;
+  }
+  .register-content{
+    background-color: #FFFFFF;
+    width: 340px;
+    height: 307px;
+    border-radius:0 0 6px 6px;
+    padding-top:15px;
+    text-align: center;
+  }
+  .register-title{
+    font-weight:700;
+    font-size:24px;
+    color: #666666;
+    margin-bottom: 5px;
+    border:0;
+  }
+  .register-title>a{
+    position:absolute;
+    padding-left:65px;
+    top:17px;
+    cursor: pointer
+  }
+  .register-content>input{
+    width: 278px;
+    height: 46px;
+    background: #FFFFFF;
+    border:1px solid #CCCCCC;
+    border-radius: 5px;
+    padding:0;
+    color:#666666;
+    font-family: 'Noto Sans TC';
+    font-weight:400;
+    font-size: 16px;
+    padding-left:15px;
+    padding-right:15px;
+    margin-top: 8px;
+  }
+  .register-btn{
+    width:310px;
+    height:47px;
+    background:#448899;
+    border: 0px solid #448899;
+    border-radius:5px;
+    margin-top:10px;
+    cursor: pointer;
+    color:#FFFFFF;
+    font-weight: 400;
+    font-size: 19px;
+  }
+  .register-text{
+    font-weight:400;
+    font-size: 16px;
+    margin-top:10px;
+    color: #666666;
+  }
+  .register-text>a{
+    cursor: pointer
+  }
+  .register-failed{
+    font-weight:400;
+    font-size: 18px;
+    color:red;
+    margin-top:10px;
+  }
+  .cover{
+    position:fixed;
+    padding:0;
+    margin:0;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background:#000000;
+    opacity: 0.25;
+    z-index:10;
+    display: none;
+  }

@@ -1,8 +1,8 @@
 from flask import *
-import mysql.connector
 import json
-from connection import pool
+from model.attractions import attractions_model,keyword_attractions_model
 import re
+# import jwt
 
 api_attractions=Blueprint("api_attractions",__name__,static_folder="static",template_folder="templates")
 
@@ -10,17 +10,11 @@ api_attractions=Blueprint("api_attractions",__name__,static_folder="static",temp
 def attractions():
     page=request.args.get("page",0,type=int)
     keyword=request.args.get("keyword")
-    connection=pool.connection()
-    cursor=connection.cursor()
 
-    
     if keyword:
-        cursor.execute("SELECT * FROM `taipei_spots` WHERE `name`LIKE %s LIMIT %s,12;",("%"+keyword+"%",12*page))
-        attractions=cursor.fetchall()
         attractions_list=[]
-        cursor.execute("SELECT COUNT(*) FROM `taipei_spots` WHERE `name`LIKE %s;",("%"+keyword+"%",))
-        count=cursor.fetchone()
-
+        attractions=keyword_attractions_model.get_keyword_attractions(keyword,page)
+        count=keyword_attractions_model.get_keyword_count(keyword)
         for attraction in attractions:
             spot_images=attraction[9].split('https://')
             images_list=[]
@@ -57,7 +51,15 @@ def attractions():
             response = make_response(jsonify(attractions_data))
             response.headers["Access-Control-Allow-Origin"] = "*" 
             return response    
-        else:
+        elif attractions=="error":
+            attractions_data={
+                "error": True,
+                "message": "伺服器內部錯誤"
+            }
+            response = make_response(jsonify(attractions_data))
+            response.headers["Access-Control-Allow-Origin"] = "*" 
+            return response,500
+        elif count=="error":
             attractions_data={
                 "error": True,
                 "message": "伺服器內部錯誤"
@@ -66,12 +68,10 @@ def attractions():
             response.headers["Access-Control-Allow-Origin"] = "*" 
             return response,500
 
-    elif keyword==None:
-        cursor.execute("SELECT * FROM `taipei_spots` LIMIT %s,12;",(12*page,))
-        attractions=cursor.fetchall()
+    else:
+        attractions=attractions_model.get_attractions(page)
+        count=attractions_model.get_count()
         attractions_list=[]
-        cursor.execute("SELECT COUNT(*) FROM `taipei_spots`;")
-        count=cursor.fetchone()
 
         for attraction in attractions:
             spot_images=attraction[9].split('https://')
@@ -108,7 +108,7 @@ def attractions():
             response = make_response(jsonify(attractions_data))
             response.headers["Access-Control-Allow-Origin"] = "*" 
             return response 
-        else:
+        elif attractions=="error":
             attractions_data={
                 "error": True,
                 "message": "伺服器內部錯誤"
@@ -116,14 +116,11 @@ def attractions():
             response = make_response(jsonify(attractions_data))
             response.headers["Access-Control-Allow-Origin"] = "*" 
             return response,500
-    else:
-        attractions_data={
-            "error": True,
-            "message": "伺服器內部錯誤"
-        }
-        response = make_response(jsonify(attractions_data))
-        response.headers["Access-Control-Allow-Origin"] = "*" 
-        return response,500
-
-    cursor.close()
-    connection.close()
+        elif count=="error":
+            attractions_data={
+                "error": True,
+                "message": "伺服器內部錯誤"
+            }
+            response = make_response(jsonify(attractions_data))
+            response.headers["Access-Control-Allow-Origin"] = "*" 
+            return response,500

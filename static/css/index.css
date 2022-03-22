@@ -11,7 +11,7 @@ body{ margin: 0;
   width: 100%;
   position: fixed;
   top:0;
-  z-index:9999;/*z-index的數字愈大，代表愈上層*/
+  z-index:5;/*z-index的數字愈大，代表愈上層*/
 }
 .header-menu{
   width:1200px;
@@ -48,6 +48,12 @@ body{ margin: 0;
   margin-top:auto;
   margin-bottom: auto;
   cursor: pointer;
+}
+.login-display{
+  display:none;
+}
+.signout-display{
+  /* display:none; */
 }
 .welcome{
   background-image:
@@ -90,7 +96,7 @@ body{ margin: 0;
   outline:none;
   border:0
 }
-input {
+.search-bar>input {
   width: 370px;
   height:46px;
   background: #FFFFFF;
@@ -274,7 +280,7 @@ input {
   padding-top:65px;
   margin-left: 10px;
 }
-input{
+.search-bar>input{
   width: 250px;
 }
 .search-bar{
@@ -305,7 +311,7 @@ input{
   padding-top:65px;
   margin-left: 10px;
 }
-input{
+.search-bar>input{
   width: 200px;
 }
 .search-bar{

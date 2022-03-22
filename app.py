@@ -1,12 +1,15 @@
 from flask import *
-from routes.api_attractions import api_attractions
-from routes.api_attraction import api_attraction
+from routes.attractions import api_attractions
+from routes.attraction import api_attraction
+from routes.user import api_user
 
 app=Flask(__name__)
+app.secret_key="any string but secret"
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.register_blueprint(api_attractions)
 app.register_blueprint(api_attraction)
+app.register_blueprint(api_user)
 
 # Pages
 @app.route("/")
