@@ -13,6 +13,14 @@ search.addEventListener('click',click);
 
 function init(){
   get_login(user_url).then(function(data){
+    if(data.data){
+      login_display.style.display="none";
+      signout_display.style.display="block";
+    }
+    else if(data.data==null){
+      login_display.style.display="block";
+      signout_display.style.display="none";
+    }
     get_data(page_url,page).then(function(data){
       for(let i=0; i<data.data.length; i++){
         render_spots(i,page,data)
@@ -21,13 +29,6 @@ function init(){
       page=next_page;
       window.addEventListener("scroll",scroll);
     });
-    if(data.data){
-      login_display.style.display="none";
-      signout_display.style.display="block";
-    }else if(data.data==null){
-      login_display.style.display="block";
-      signout_display.style.display="none";
-    }
   })
 }
 function get_data(url,page){

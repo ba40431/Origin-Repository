@@ -12,6 +12,13 @@ change_dollar();
 
 function init(){
   get_login(user_url).then(function(data){
+    if(data.data){
+      login_display.style.display="none";
+      signout_display.style.display="block";
+    }else if(data.data==null){
+      login_display.style.display="block";
+      signout_display.style.display="none";
+    }
     get_data(open_url).then(function(data){
       render(data);
       let images=data.data.images;
@@ -20,13 +27,6 @@ function init(){
       };
       render_button(data);
     });
-    if(data.data){
-      login_display.style.display="none";
-      signout_display.style.display="block";
-    }else if(data.data==null){
-      login_display.style.display="block";
-      signout_display.style.display="none";
-    }
   })
 }
 
