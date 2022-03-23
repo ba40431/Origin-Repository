@@ -6,7 +6,7 @@ class UseJWT:
     def make_token(self,id,name,email):
         key="secretkey"
         now=time.time()
-        expiretime=60*60
+        expiretime=60*60  # 一小時
         payload={
             "id":id,
             "name":name,
@@ -15,8 +15,17 @@ class UseJWT:
         }
         token=jwt.encode(payload,key,algorithm="HS256")
         return token
-    def get_cookie(self):
+    def get_token(self):
         jwt=request.cookies.get('token')
         return jwt
+    def set_token(self,id,name,email,data):
+        token=self.make_token(id,name,email)
+        response=make_response(data)
+        response.set_cookie(key="token",value=token,expires=time.time()+60*60,httponly=True)
+        return response
+    def delete_token(self,data):
+        response=make_response(data)
+        response.set_cookie(key='token', value='', expires=0)
+        return response
 
 use_jwt=UseJWT()

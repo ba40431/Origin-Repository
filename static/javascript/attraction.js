@@ -5,6 +5,7 @@ let open_url="/api/attraction/"+spot_id;
 let user_url="/api/user";
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
+let reserve_display=document.querySelector(".reserve-display");
 
 init();
 change_dollar();
@@ -15,19 +16,21 @@ function init(){
     if(data.data){
       login_display.style.display="none";
       signout_display.style.display="block";
+      reserve_display.style.display="block";
     }else if(data.data==null){
       login_display.style.display="block";
       signout_display.style.display="none";
+      reserve_display.style.display="block";
     }
-    get_data(open_url).then(function(data){
-      render(data);
-      let images=data.data.images;
-      for(i=0;i<images.length;i++){
-        render_images(data)
-      };
-      render_button(data);
-    });
   })
+  get_data(open_url).then(function(data){
+    render(data);
+    let images=data.data.images;
+    for(i=0;i<images.length;i++){
+      render_images(data)
+    };
+    render_button(data);
+  });
 }
 
 function get_data(url){

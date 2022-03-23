@@ -5,37 +5,43 @@ from flask_bcrypt import bcrypt
 import jwt
 from routes.token import use_jwt
 
-# jwt=jwt.decode(encoded_jwt, 'secret', algorithms=['HS256'])
-
 get_user=Blueprint("get_user",__name__,static_folder="static",template_folder="templates")
 post_user=Blueprint("post_user",__name__,static_folder="static",template_folder="templates")
 patch_user=Blueprint("patch_user",__name__,static_folder="static",template_folder="templates")
 delete_user=Blueprint("delete_user",__name__,static_folder="static",template_folder="templates")
 
-jwt_key="secretkey"
 
 @get_user.route("/api/user",methods=["GET"])
 def get():
-    cookie=use_jwt.get_cookie()
-    if cookie:
-        decode=jwt.decode(cookie,jwt_key,algorithms=["HS256"])
-        user=user_model.login(decode["email"])
-        if user:
-            data={
-                "data":{
-                    "id": user[0],
-                    "name": user[1],
-                    "email": user[2]
+    token=use_jwt.get_token()
+    if token:
+        try:
+            jwt_key="secretkey"
+            decode_token=jwt.decode(token,jwt_key,algorithms=["HS256"])
+            user=user_model.login(decode_token["email"])
+            if user:
+                data={
+                    "data":{
+                        "id": user[0],
+                        "name": user[1],
+                        "email": user[2]
+                    }
                 }
-            }
-            response=make_response(jsonify(data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response
-        else:
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response
+            else:
+                data={
+                    "data":None
+                }
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response
+        except:
             data={
                 "data":None
             }
-            response=make_response(jsonify(data))
+            response=use_jwt.delete_token(jsonify(data))
             response.headers["Access-Control-Allow-Origin"] = "*" 
             return response
     else:
@@ -99,10 +105,8 @@ def patch():
     if user:
         if  user_data["email"]==user[2] and bcrypt.checkpw(user_data["password"].encode("utf-8"),user[3].encode("utf-8")):
             data={"ok": True}
-            token=use_jwt.make_token(user[0],user[1],user[2])
-            response=make_response(jsonify(data))
+            response=use_jwt.set_token(user[0],user[1],user[2],jsonify(data))
             response.headers["Access-Control-Allow-Origin"] = "*" 
-            response.set_cookie(key="token",value=token)
             return response
         elif user_data["password"]=="":
             data={
@@ -149,8 +153,7 @@ def patch():
 @delete_user.route("/api/user",methods=["DELETE"])
 def delete():
     data={"ok": True}
-    response=make_response(jsonify(data))
-    response.set_cookie(key='token', value='', expires=0)
+    response=use_jwt.delete_token(jsonify(data))
     response.headers["Access-Control-Allow-Origin"] = "*" 
     return response
 

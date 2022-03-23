@@ -5,7 +5,6 @@ body{ margin: 0;
   box-sizing: border-box;
   font-family: 'Noto Sans TC';
 }
-
 .header{
   background-color: #FFFFFF;
   width: 100%;
@@ -48,12 +47,6 @@ body{ margin: 0;
   margin-top:auto;
   margin-bottom: auto;
   cursor: pointer;
-}
-.login-display{
-  display:none;
-}
-.signout-display{
-  /* display:none; */
 }
 .welcome{
   background-image:
