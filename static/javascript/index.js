@@ -4,6 +4,7 @@ let scrolling=true;
 let user_url="/api/user";
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
+let reserve_display=document.querySelector(".reserve-display");
 
 
 init()
@@ -13,22 +14,25 @@ search.addEventListener('click',click);
 
 function init(){
   get_login(user_url).then(function(data){
-    get_data(page_url,page).then(function(data){
-      for(let i=0; i<data.data.length; i++){
-        render_spots(i,page,data)
-      };
-      let next_page=data.nextPage;
-      page=next_page;
-      window.addEventListener("scroll",scroll);
-    });
     if(data.data){
       login_display.style.display="none";
       signout_display.style.display="block";
-    }else if(data.data==null){
+      reserve_display.style.display="block";
+    }
+    else if(data.data==null){
       login_display.style.display="block";
       signout_display.style.display="none";
+      reserve_display.style.display="block";
     }
   })
+  get_data(page_url,page).then(function(data){
+    for(let i=0; i<data.data.length; i++){
+      render_spots(i,page,data)
+    };
+    let next_page=data.nextPage;
+    page=next_page;
+    window.addEventListener("scroll",scroll);
+  });
 }
 function get_data(url,page){
   return fetch(url+page)
