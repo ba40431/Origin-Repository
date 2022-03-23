@@ -11,7 +11,7 @@ class UseJWT:
             "id":id,
             "name":name,
             "email":email,
-            "expire":now+expiretime
+            "exp":now+expiretime
         }
         token=jwt.encode(payload,key,algorithm="HS256")
         return token
