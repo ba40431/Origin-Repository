@@ -5,6 +5,7 @@ from routes.attraction import api_attraction
 # from routes.user_session import get_user,post_user,patch_user,delete_user 
 # -----------------使用JWT------------------
 from routes.user_jwt import get_user,post_user,patch_user,delete_user 
+from routes.booking import get_booking,post_booking,delete_booking
 
 app=Flask(__name__)
 # app.secret_key="any string but secret" #使用session
@@ -16,6 +17,10 @@ app.register_blueprint(get_user)
 app.register_blueprint(post_user)
 app.register_blueprint(patch_user)
 app.register_blueprint(delete_user)
+app.register_blueprint(get_booking)
+app.register_blueprint(post_booking)
+app.register_blueprint(delete_booking)
+
 
 # Pages
 @app.route("/")

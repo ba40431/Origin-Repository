@@ -16,7 +16,7 @@ class UseJWT:
         token=jwt.encode(payload,key,algorithm="HS256")
         return token
     def get_token(self):
-        jwt=request.cookies.get('token')
+        jwt=request.cookies.get("token")
         return jwt
     def set_token(self,id,name,email,data):
         token=self.make_token(id,name,email)
@@ -25,7 +25,7 @@ class UseJWT:
         return response
     def delete_token(self,data):
         response=make_response(data)
-        response.set_cookie(key='token', value='', expires=0)
+        response.set_cookie(key="token", value="", expires=0)
         return response
 
 use_jwt=UseJWT()
