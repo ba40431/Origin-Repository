@@ -1,13 +1,14 @@
-let member_url="/api/user";
+const member_url="/api/user";
+const booking_url="/booking";
 let data=null;
 
 function login(){
-    let login_box=document.querySelector(".login");
-    let register_box=document.querySelector(".register");
-    let cover=document.querySelector(".cover");
-    login_box.style.display="block";
-    cover.style.display="block";
-    register_box.style.display="none";
+  let login_box=document.querySelector(".login");
+  let register_box=document.querySelector(".register");
+  let cover=document.querySelector(".cover");
+  login_box.style.display="block";
+  cover.style.display="block";
+  register_box.style.display="none";
 }
 function close_login(){
   let login_box=document.querySelector(".login");
@@ -122,4 +123,21 @@ function signout(){
     data=result
     window.location.replace(location.href) 
   })
+}
+
+function reserve(){
+  get_login(member_url).then(function(data){
+      if(data.data){
+        login_display.style.display="none";
+        signout_display.style.display="block";
+        reserve_display.style.display="block";
+        location.href=booking_url;
+      }
+      else if(data.data==null){
+        login_display.style.display="block";
+        signout_display.style.display="none";
+        reserve_display.style.display="block";
+        login()
+      }
+    })
 }

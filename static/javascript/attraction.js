@@ -1,4 +1,5 @@
-const url = new URL(window.location.href)
+const url=new URL(window.location.href)
+const booking_api="/api/booking";
 let string=url.pathname;
 let spot_id=string.replace("/attraction/",""); //刪除字串中的特定字串
 let open_url="/api/attraction/"+spot_id;
@@ -10,6 +11,9 @@ let reserve_display=document.querySelector(".reserve-display");
 init();
 change_dollar();
 
+// async function init(){
+//   data=await get_login(user_url)
+// }
 
 function init(){
   get_login(user_url).then(function(data){
@@ -131,4 +135,51 @@ function change_dollar(){
     let dollar=document.getElementById("dollar");
     dollar.textContent="新台幣 "+radio.value+" 元"
   }));
+}
+
+function star_booking(){
+  get_login(user_url).then(function(data){
+    if(data.data){
+      login_display.style.display="none";
+      signout_display.style.display="block";
+      reserve_display.style.display="block";
+      let date=document.querySelector("input[type='date']").value;
+      let time=document.querySelector("input[type='radio']:checked");
+      let price=document.querySelector("input[type='radio']:checked");
+      if(date && price){
+        time=time.id;
+        price=price.value;
+        let headers={
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        }
+        let body={
+            "attractionId":parseInt(spot_id),
+            "date":date,
+            "time":time,
+            "price":parseInt(price)
+        }
+        fetch(booking_api,{
+            method: "POST",
+            headers:headers,
+            body:JSON.stringify(body),
+        }).then(function (response){
+            return response.json()
+        }).then(function(result){
+          data=result
+          location.href=booking_url;
+      })
+      }else{
+        let warning_info=document.querySelector(".warning-info");
+        warning_info.textContent="請選擇日期和時間"
+        
+      }
+    }else if(data.data==null){
+      login_display.style.display="block";
+      signout_display.style.display="none";
+      reserve_display.style.display="block";
+      login()
+    }
+  })
+
 }

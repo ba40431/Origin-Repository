@@ -116,7 +116,8 @@ hr{
     margin-left:auto;
     margin-right:auto;
     border: 1px solid #E8E8E8;
-    display:none;
+    /* display:none; */
+    /* 隱藏內容 */
 }
 .user-content,.credit-content{
     width:980px;
@@ -194,11 +195,11 @@ hr{
     justify-content: center;
     align-items: center;
     margin-top:120px;
-    /* width: 100%;
+    /*
     position: absolute;
     bottom: 0 */
   }
-  .footer-text{
+.footer-text{
     font-family: 'Noto Sans TC';
     font-weight: 700;
     color: #FFFFFF;
@@ -207,6 +208,50 @@ hr{
   }
 
 @media (max-width: 1200px) {
-    .header-menu{width:auto;}
-    .left{margin-left:10px;}
+.header-menu{width:auto;}
+.left{margin-left:10px;}
+.reserve-title{
+    margin-left:10px;
+}
+.reserve-wrapper{width:auto;}
+.reserve-false{
+    margin-left:10px;
+}
+hr{width:95%;}
+.user-container,.credit-container{
+    width:95%;
+    margin-left:auto;
+    margin-right:auto;
+}
+.user-content,.credit-content{
+    width:100%;
+}
+.pay-content{
+    width:auto;
+    margin-right:10px;
+}
+}
+@media (max-width: 650px){
+.reserve-container{
+    display:inline-block;
+    margin-left:10px;
+}
+.spot-photo{
+    width:95vw;
+    height:300px;
+    padding:0px;
+    margin-bottom:28px;
+    margin-right:10px;
+}
+.delete{
+    float:right;
+}
+}
+@media (max-width: 360px) {
+.spot-photo{
+    width: 340px;
+    height: 200px;
+    padding:0px;
+    margin-bottom:28px;
+}
 }
