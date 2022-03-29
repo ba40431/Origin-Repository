@@ -7,9 +7,13 @@ let user_url="/api/user";
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
 let reserve_display=document.querySelector(".reserve-display");
+let today=document.getElementById("date");
+let date_time=new Date(+new Date()+8*3600*1000);//加入相差八小時
+today.setAttribute("min",date_time.toISOString().split("T")[0])//toISOString（）方法使用ISO標準將Date對象轉換為字符串
 
 init();
 change_dollar();
+
 
 // async function init(){
 //   data=await get_login(user_url)

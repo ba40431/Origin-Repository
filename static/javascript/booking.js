@@ -26,6 +26,7 @@ function init(){
             }
         })
         }else if(data.data==null){
+            document.body.innerHTML="";
             location.href="/"
             login_display.style.display="block";
             signout_display.style.display="none";
@@ -72,6 +73,7 @@ function delete_booking(){
         return response.json();
       }).then(function(result){
         data=result
+        document.body.innerHTML="";
         window.location.replace(location.href)
       })
 }
