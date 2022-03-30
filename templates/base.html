@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <title>Taipei Trip 台北一日遊</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/user.css">
+    {% block CSS %}{% endblock %}
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="header-menu">
+        <a class="left" href="/">台北一日遊</a>
+        <div class="right">
+          <a class="menu reserve-display" id="reserve-btn" onclick=reserve()>預定行程</a>
+          <a class="menu login-display" id="login-btn" onclick=login()>登入/註冊</a>
+          <a class="menu signout-display" id="signout-btn" onclick=signout()>登出系統</a>
+        </div>
+      </div>
+    </div>
+
+    {% block main %}{% endblock %}
+
+    <div class="login">
+      <div  class="login-container">
+        <div class="login-background"></div>
+        <div class="login-content">
+          <div class="login-title">登入會員帳號<a id="login-close" onclick=close_login()><img src="../static/pic/icon_close.png"></a></div>
+          <input type="email" id="login-email" class="login-email" placeholder="輸入電子信箱">
+          <input type="password"id="login-password" class="login-password" placeholder="輸入密碼">
+          <button class="login-btn" onclick=check_login()>登入帳戶</button>
+          <div id="login-failed" class="login-failed"></div>
+          <div class="login-text">還沒有帳戶？<a onclick=register()>點此註冊</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="register">
+      <div  class="register-container">
+        <div class="register-background"></div>
+        <div class="register-content">
+          <div class="register-title">註冊會員帳號<a id="register-close" onclick=close_register()><img src="../static/pic/icon_close.png"></a></div>
+          <input type="text" id="register-name" class="register-name" placeholder="輸入姓名">
+          <input type="email" id="register-email" class="register-email" placeholder="輸入電子信箱">
+          <input type="password"id="register-password" class="register-password" placeholder="輸入密碼">
+          <button class="register-btn" onclick=check_register()>註冊新帳戶</button>
+          <div id="register-failed" class="register-failed"></div>
+          <div class="register-text">已經有帳戶了？<a onclick=login()>點此登入</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 遮罩層 -->
+    <div class="cover"></div> 
+
+    <div class="footer">
+        <div class="footer-text">COPYRIGHT © 2022 台北一日遊</div>
+    </div>
+
+    
+    <script type="text/javascript" src="../static/javascript/user.js"></script>
+    {% block JavaScript %}{% endblock %}
+  </body>
+</html>
