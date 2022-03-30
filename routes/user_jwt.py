@@ -1,6 +1,7 @@
 from flask import *
 from model.user import user_model
 import json
+import re
 from flask_bcrypt import bcrypt
 import jwt
 from routes.token import use_jwt
@@ -55,48 +56,75 @@ def get():
 @post_user.route("/api/user",methods=["POST"])
 def post():
     user_data=request.get_json()
-    user=user_model.login(user_data["email"])
-    if user:
-        if user_data["name"]=="" or user_data["password"]=="":
+    email_pattern="^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$"
+    password_pattern="^[a-zA-Z_]+$"
+    if re.match(email_pattern,user_data["email"]) and re.match(password_pattern,user_data["password"]):
+        user=user_model.login(user_data["email"])
+        if user:
+            if user_data["name"]=="" or user_data["password"]=="":
+                data={
+                    "error": True,
+                    "message": "請輸入姓名、電子郵件和密碼"
+                }
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response,400
+            else:
+                data={
+                    "error": True,
+                    "message": "註冊失敗，此電子信箱已被註冊"
+                }
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response,400
+        elif user=="error":
             data={
                 "error": True,
-                "message": "請輸入姓名、電子郵件和密碼"
+                "message": "伺服器內部錯誤"
             }
             response=make_response(jsonify(data))
             response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response,400
-        else:
-            data={
-                "error": True,
-                "message": "註冊失敗，此電子信箱已被註冊"
-            }
-            response=make_response(jsonify(data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response,400
-    elif user=="error":
+            return response,500
+        elif user==None:
+            if user_data["name"]=="" or user_data["email"]=="" or user_data["password"]=="":
+                data={
+                    "error": True,
+                    "message": "請輸入姓名、電子郵件和密碼"
+                }
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response,400
+            else:
+                hash_password=bcrypt.hashpw(user_data["password"].encode("utf-8"),bcrypt.gensalt()) #雜湊密碼
+                register=user_model.register(user_data["name"],user_data["email"],hash_password)
+                data={"ok": True}
+                response=make_response(jsonify(data))
+                response.headers["Access-Control-Allow-Origin"] = "*" 
+                return response
+    elif user_data["name"]=="" or user_data["email"]=="" or user_data["password"]=="":
         data={
             "error": True,
-            "message": "伺服器內部錯誤"
+            "message": "請輸入姓名、電子郵件和密碼"
         }
         response=make_response(jsonify(data))
         response.headers["Access-Control-Allow-Origin"] = "*" 
-        return response,500
-    elif user==None:
-        if user_data["name"]=="" or user_data["email"]=="" or user_data["password"]=="":
-            data={
-                "error": True,
-                "message": "請輸入姓名、電子郵件和密碼"
-            }
-            response=make_response(jsonify(data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response,400
-        else:
-            hash_password=bcrypt.hashpw(user_data["password"].encode("utf-8"),bcrypt.gensalt()) #雜湊密碼
-            register=user_model.register(user_data["name"],user_data["email"],hash_password)
-            data={"ok": True}
-            response=make_response(jsonify(data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response
+        return response,400
+    elif re.match(email_pattern,user_data["email"])==None:
+        data={
+            "error": True,
+            "message": "電子信箱格式須包含「@」"
+        }
+        response=make_response(jsonify(data))
+        response.headers["Access-Control-Allow-Origin"] = "*" 
+        return response,400
+    else:
+        data={
+            "error": True,
+            "message": "請勿在密碼輸入特殊符號"
+        }
+        response=make_response(jsonify(data))
+        response.headers["Access-Control-Allow-Origin"] = "*" 
+        return response,400
 
 @patch_user.route("/api/user",methods=["PATCH"])
 def patch():
