@@ -77,7 +77,6 @@ function delete_booking(){
         window.location.replace(location.href)
       })
 }
-
 function hidding_info(){
     let reserve_false=document.querySelector(".reserve-false");
     let reserve_container=document.querySelector(".reserve-container");

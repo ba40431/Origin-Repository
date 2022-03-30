@@ -1,55 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
-
-body{ margin:0; 
-  padding:0; /*左右不留白*/
-  box-sizing:border-box;
-  font-family:'Noto Sans TC';
-}
-.header{
-  background-color: #FFFFFF;
-  width: 100%;
-  position: fixed;
-  top:0;
-  border-bottom: 1px solid #E8E8E8;
-  z-index:5;/*z-index的數字愈大，代表愈上層*/
-}
-.header-menu{
-  width:1200px;
-  height:54px;
-  display:grid;
-  margin-left: auto;
-  margin-right: auto;
-  grid-template-columns:auto auto;
-  z-index:5
-}
-.left{
-  font-family: 'Noto Sans TC';
-  font-weight:700;
-  font-size:30px;
-  color:#448899;
-  margin-top:auto;
-  margin-bottom: auto;
-  text-decoration:none;
-  cursor: pointer;
-}
-.right{
-  display:grid;
-  justify-content:flex-end;
-  grid-template-columns:auto auto;
-  margin-top:auto;
-  margin-bottom: auto;
-}
-.menu{
-  font-family: 'Noto Sans TC';
-  font-weight:400;
-  font-size: 16px;
-  color:#666666;
-  margin-right:10px;
-  margin-left:10px;
-  margin-top:auto;
-  margin-bottom: auto;
-  cursor: pointer;
-}
 .reserve{
     margin-top:100px;
 }
@@ -69,13 +17,11 @@ body{ margin:0;
     margin-top:30px;
     color: #666666;
     display:none;
-    /* 隱藏誤訊息 */
+    /* 隱藏錯誤訊息 */
 }
 .reserve-container{
     margin-top:35px;
     display:flex;
-    /* display:none; */
-    /* 隱藏內容 */
 }
 .photo-frame{
     flex: none;
@@ -112,24 +58,21 @@ body{ margin:0;
     margin-left:5px;
 }
 .delete{
-  flex:none;
-  padding-right:10px;
-  cursor: pointer;
+    flex:none;
+    padding-right:10px;
+    cursor: pointer;
 }
 hr{
     width:1198px;
     margin-left:auto;
     margin-right:auto;
     border: 1px solid #E8E8E8;
-    /* display:none; */
-    /* 隱藏內容 */
 }
 .user-content,.credit-content{
     width:980px;
     margin-left:auto;
     margin-right:auto;
-    /* display:none; */
-    /* 隱藏內容 */
+
 }
 .user-info,.credit-info{
     font-weight:700;
@@ -171,8 +114,6 @@ hr{
     margin-left:auto;
     margin-right:auto;
     margin-top:36px;
-    /* display:none; */
-    /* 隱藏內容 */
 }
 .pay-total{
     text-align:end;
@@ -194,27 +135,9 @@ hr{
     cursor: pointer;
 }
 .footer{
-    display: grid;
-    background-color: #757575;
-    height:104px;
-    justify-content: center;
-    align-items: center;
     margin-top:120px;
-    /*
-    position: absolute;
-    bottom: 0 */
-  }
-.footer-text{
-    font-family: 'Noto Sans TC';
-    font-weight: 700;
-    color: #FFFFFF;
-    text-align: center;
-    font-size: 16px;
-  }
-
+}
 @media (max-width: 1200px) {
-.header-menu{width:auto;}
-.left{margin-left:10px;}
 hr{
     width:auto;
     margin-left:10px;
@@ -283,7 +206,4 @@ hr{
     padding:0px;
     margin-bottom:28px;
 }
-/* .spot-photo{
-
-} */
 }

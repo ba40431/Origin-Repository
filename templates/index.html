@@ -1,26 +1,26 @@
 {% extends "base.html" %}
 
-  {% block CSS %}
-  <link rel="stylesheet" type="text/css" href="../static/css/index.css">
-  {% endblock %}
+{% block CSS %}
+<link rel="stylesheet" type="text/css" href="../static/css/index.css">
+{% endblock %}
 
-    {% block main %}
-    <div class="welcome">
-      <div class="welcome-content">
-        <div class="welcome-title">輕鬆享受台北一日悠閒</div>
-        <div class="welcome-text">探索每個角落，體驗城市的深度旅遊行程</div>
-        <div class="search-bar">
-            <input type="text" id="keyword" placeholder="輸入景點名稱查詢">
-            <button class="search-button" id="search">
-              <img src="../static/pic/icon_search.png"/>
-            </button>
-        </div>
-      </div>
-    </div>
-    <div class="container" id="container"></div>
-    <div class="container" id="container-keyword"></div>
-    {% endblock %}
-    
-    {% block JavaScript %}
-    <script  type="text/javascript" src="../static/javascript/index.js"></script>
-    {% endblock %}
+	{% block main %}
+	<div class="welcome">
+	<div class="welcome-content">
+		<div class="welcome-title">輕鬆享受台北一日悠閒</div>
+		<div class="welcome-text">探索每個角落，體驗城市的深度旅遊行程</div>
+		<div class="search-bar">
+			<input type="text" id="keyword" placeholder="輸入景點名稱查詢">
+			<button class="search-button" id="search">
+			<img src="../static/pic/icon_search.png"/>
+			</button>
+		</div>
+	</div>
+	</div>
+	<div class="container" id="container"></div>
+	<div class="container" id="container-keyword"></div>
+	{% endblock %}
+
+{% block JavaScript %}
+<script  type="text/javascript" src="../static/javascript/index.js"></script>
+{% endblock %}

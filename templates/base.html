@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8"></meta>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-    <title>Taipei Trip 台北一日遊</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/user.css">
-    {% block CSS %}{% endblock %}
-  </head>
+	<head>
+	<meta charset="UTF-8"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+	<title>Taipei Trip 台北一日遊</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/user.css">
+	{% block CSS %}{% endblock %}
+	</head>
 
-  <body>
-    <div class="header">
-      <div class="header-menu">
-        <a class="left" href="/">台北一日遊</a>
-        <div class="right">
-          <a class="menu reserve-display" id="reserve-btn" onclick=reserve()>預定行程</a>
-          <a class="menu login-display" id="login-btn" onclick=login()>登入/註冊</a>
-          <a class="menu signout-display" id="signout-btn" onclick=signout()>登出系統</a>
-        </div>
-      </div>
-    </div>
+	<body>
+	<div class="header">
+		<div class="header-menu">
+		<a class="left" href="/">台北一日遊</a>
+		<div class="right">
+			<a class="menu reserve-display" id="reserve-btn" onclick=reserve()>預定行程</a>
+			<a class="menu login-display" id="login-btn" onclick=login()>登入/註冊</a>
+			<a class="menu signout-display" id="signout-btn" onclick=signout()>登出系統</a>
+		</div>
+		</div>
+	</div>
 
     {% block main %}{% endblock %}
 
