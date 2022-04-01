@@ -1,48 +1,50 @@
 const member_url="/api/user";
 const booking_url="/booking";
 let data=null;
+let login_box=document.querySelector(".login");
+let register_box=document.querySelector(".register");
+let cover=document.querySelector(".cover");
+let login_email=document.getElementById("login-email");
+let login_password=document.getElementById("login-password");
+let register_name=document.getElementById("register-name");
+let register_email=document.getElementById("register-email");
+let register_password=document.getElementById("register-password");
+login_email.addEventListener("input",email_input)
+login_password.addEventListener("input",password_input)
+register_name.addEventListener("input",input)
+register_email.addEventListener("input",email_input)
+register_password.addEventListener("input",password_input)
 
 function login(){
-	let login_box=document.querySelector(".login");
-	let register_box=document.querySelector(".register");
-	let cover=document.querySelector(".cover");
 	login_box.style.display="block";
 	cover.style.display="block";
 	register_box.style.display="none";
 }
 function close_login(){
-	let login_box=document.querySelector(".login");
-	let cover=document.querySelector(".cover");
 	login_box.style.display="none";
 	cover.style.display="none";
 }
 function register(){
-	let login_box=document.querySelector(".login");
-	let register_box=document.querySelector(".register");
-	let cover=document.querySelector(".cover");
 	login_box.style.display="none";
 	register_box.style.display="block";
 	cover.style.display="block";
 }
 function close_register(){
-	let login_box=document.querySelector(".login");
-	let register_box=document.querySelector(".register");
-	let cover=document.querySelector(".cover");
 	login_box.style.display="none";
 	register_box.style.display="none";
 	cover.style.display="none";
 }
   
 function check_login(){
-	let login_email=document.getElementById("login-email").value;
-	let login_password=document.getElementById("login-password").value;
+	let login_email=document.getElementById("login-email");
+	let login_password=document.getElementById("login-password");
 	let login_failed=document.getElementById("login-failed");
 	let login_content=document.querySelector(".login-content");
-	if(login_email && login_password){
+	if(login_email.value && login_password.value){
 		let headers={"Content-Type": "application/json"}
 		let body={
-			"email": login_email,
-			"password":login_password
+			"email": login_email.value,
+			"password":login_password.value
 		}
 		fetch(member_url,{
 			method: "PATCH",
@@ -63,23 +65,19 @@ function check_login(){
 		login_content.style.height="285px";
 		login_failed.textContent="請輸入電子信箱和密碼";
 	}
-
 }
 function check_register(){
-	let register_name=document.getElementById("register-name").value;
-	let register_email=document.getElementById("register-email").value;
-	let register_password=document.getElementById("register-password").value;
 	let register_failed=document.getElementById("register-failed");
 	let register_content=document.querySelector(".register-content");
-	if(register_email.match(/^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/) && register_password.match(/^[a-zA-Z_]+$/)){
+	if(register_email.value.match(/^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/) && register_password.value.match(/^[0-9a-zA-Z_]+$/)){
 		let headers={
 			"Content-Type": "application/json",
 			"Accept": "application/json"
 		}
 		let body={
-			"name":register_name,
-			"email": register_email,
-			"password":register_password
+			"name":register_name.value,
+			"email": register_email.value,
+			"password":register_password.value
 		}
 		fetch(member_url,{
 			method: "POST",
@@ -97,10 +95,10 @@ function check_register(){
 			register_failed.textContent="註冊成功"
 		}
 		})
-	}else if(register_name=="" || register_email=="" || register_password==""){
+	}else if(register_name.value=="" || register_email.value=="" || register_password.value==""){
 		register_failed.textContent="請輸入姓名、電子郵件和密碼";
 		register_content.style.height="340px";
-	}else if(!register_email.match(/^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/)){
+	}else if(!register_email.value.match(/^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/)){
 		register_failed.textContent="電子信箱格式須包含「@」";
 		register_content.style.height="340px";
 	}else{
@@ -140,4 +138,28 @@ function reserve(){
         login()
       }
   })
+}
+
+function email_input (e) {
+	if(e.target.value.match(/^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/)){
+		e.target.classList.remove("invalid");
+		e.target.classList.add("valid");
+	}else{
+		e.target.classList.add("invalid");
+	}
+}
+function password_input (e) {
+	if(e.target.value.match(/^[0-9a-zA-Z_]+$/)){
+		e.target.classList.remove("invalid");
+		e.target.classList.add("valid");
+	}else{
+		e.target.classList.add("invalid");
+	}
+}
+function input (e) {
+	if(e.target.value){
+		e.target.classList.add("valid");
+	}else{
+		e.target.classList.add("invalid");
+	}
 }

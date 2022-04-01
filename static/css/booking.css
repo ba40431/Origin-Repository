@@ -82,14 +82,14 @@ hr{
     color: #666666;
 }
 .user-name,.user-email,.user-phone,
-.credit-number,.credit-time,.credit-password{
+.credit-number,.credit-date,.credit-password{
     font-weight:400;
     font-size:16px;
     color: #666666;
     margin-bottom:15px;
 }
 .user-name >input,.user-email >input,.user-phone >input,
-.credit-number >input,.credit-time >input,.credit-password>input{
+.credit-number >input,.credit-date >input,.credit-password>input{
     width: 156px;
     height: 30px;
     border-radius: 5px;
