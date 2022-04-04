@@ -1,8 +1,6 @@
-const reserve_api="/api/booking";
-const reserve_url="/booking";
+const booking_api="/api/booking";
 const order_api="/api/orders";
 const thankyou_url="/thankyou"
-let user_url="/api/user";
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
 let reserve_display=document.querySelector(".reserve-display");
@@ -11,13 +9,13 @@ let reserve_display=document.querySelector(".reserve-display");
 init()
 
 function init(){
-    get_login(user_url).then(function(data){
+    get_login(user_api).then(function(data){
         if(data.data){
             login_display.style.display="none";
             signout_display.style.display="block";
             reserve_display.style.display="block";
             render_user(data);
-            fetch_booking(reserve_api).then(function(data){
+            fetch_booking(booking_api).then(function(data){
                 if(data.data){
                     render(data)
                 }else if(data.data==null){
@@ -76,7 +74,7 @@ function fetch_booking(url){
     });
 }
 function delete_booking(){
-    fetch(reserve_api,{
+    fetch( booking_api,{
         method: "DELETE",
       }).then(function(response){
         return response.json();
@@ -107,10 +105,10 @@ async function orders(){
     let user_data=null;
     let reserve_data=null;
     let user_phone=document.getElementById("user-phone").value;
-    await get_login(user_url).then(function(data){
+    await get_login(user_api).then(function(data){
         user_data=data
     })
-    await fetch_booking(reserve_api).then(function(data){
+    await fetch_booking( booking_api).then(function(data){
         reserve_data=data
     })
     let headers={

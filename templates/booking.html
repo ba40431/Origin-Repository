@@ -37,9 +37,16 @@
 		<div class="credit-container">
 		<div class="credit-content">
 			<div class="credit-info">信用卡付款資訊</div>
-			<div class="credit-number">卡片號碼：<input type="tel" id="credit-number" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="**** **** **** ****"></div>
+			<!-- <div class="credit-number">卡片號碼：<input type="tel" id="credit-number" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="**** **** **** ****"></div>
 			<div class="credit-date">過期時間：<input type="text" id="credit-date" placeholder="MM / YY"></div>
-			<div class="credit-password">驗證密碼：<input type="password" id="credit-password" placeholder="CVV"></div>
+			<div class="credit-password">驗證密碼：<input type="password" id="credit-password" placeholder="CVV"></div> -->
+			<div>
+				<span class="credit-number">卡片號碼：</span>
+				<div id="credit-number"></div>
+			</div>
+			<!-- <div class="credit-number">卡片號碼：</div> -->
+			<div class="credit-date">過期時間：</div>
+			<div class="credit-password">驗證密碼：</div>
 		</div>
 		</div>
 		<hr/>
@@ -54,4 +61,6 @@
 
 {% block JavaScript %}
 <script type="text/javascript" src="../static/javascript/booking.js"></script>
+<script src="https://js.tappaysdk.com/tpdirect/v5.9.0"></script>
+<script type="text/javascript" src="../static/javascript/order.js"></script>
 {% endblock %}

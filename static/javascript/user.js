@@ -1,4 +1,4 @@
-const member_url="/api/user";
+const user_api="/api/user";
 const booking_url="/booking";
 let data=null;
 let login_box=document.querySelector(".login");
@@ -9,6 +9,10 @@ let login_password=document.getElementById("login-password");
 let register_name=document.getElementById("register-name");
 let register_email=document.getElementById("register-email");
 let register_password=document.getElementById("register-password");
+let register_failed=document.getElementById("register-failed");
+let login_failed=document.getElementById("login-failed");
+let register_content=document.querySelector(".register-content");
+let login_content=document.querySelector(".login-content");
 login_email.addEventListener("input",email_input)
 login_password.addEventListener("input",password_input)
 register_name.addEventListener("input",input)
@@ -19,34 +23,33 @@ function login(){
 	login_box.style.display="block";
 	cover.style.display="block";
 	register_box.style.display="none";
+	remove()
 }
 function close_login(){
 	login_box.style.display="none";
 	cover.style.display="none";
+	remove()
 }
 function register(){
 	login_box.style.display="none";
 	register_box.style.display="block";
 	cover.style.display="block";
+	remove()
 }
 function close_register(){
 	login_box.style.display="none";
 	register_box.style.display="none";
 	cover.style.display="none";
+	remove()
 }
-  
 function check_login(){
-	let login_email=document.getElementById("login-email");
-	let login_password=document.getElementById("login-password");
-	let login_failed=document.getElementById("login-failed");
-	let login_content=document.querySelector(".login-content");
 	if(login_email.value && login_password.value){
 		let headers={"Content-Type": "application/json"}
 		let body={
 			"email": login_email.value,
 			"password":login_password.value
 		}
-		fetch(member_url,{
+		fetch(user_api,{
 			method: "PATCH",
 			headers: headers,
 			body: JSON.stringify(body)
@@ -67,8 +70,6 @@ function check_login(){
 	}
 }
 function check_register(){
-	let register_failed=document.getElementById("register-failed");
-	let register_content=document.querySelector(".register-content");
 	if(register_email.value.match(/^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/) && register_password.value.match(/^[0-9a-zA-Z_]+$/)){
 		let headers={
 			"Content-Type": "application/json",
@@ -79,7 +80,7 @@ function check_register(){
 			"email": register_email.value,
 			"password":register_password.value
 		}
-		fetch(member_url,{
+		fetch(user_api,{
 			method: "POST",
 			headers: headers,
 			body: JSON.stringify(body)
@@ -106,13 +107,12 @@ function check_register(){
 		register_content.style.height="340px";
 	}
 }
-
 function signout(){
 	let headers={
 		"Content-Type": "application/json",
 		"Accept": "application/json"
 	}
-	fetch(member_url,{
+	fetch(user_api,{
 		method: "DELETE",
 		headers: headers,
 	}).then(function(response){
@@ -122,9 +122,8 @@ function signout(){
 		window.location.replace(location.href) 
 	})
 }
-
 function reserve(){
-  get_login(member_url).then(function(data){
+  get_login(user_api).then(function(data){
       if(data.data){
         login_display.style.display="none";
         signout_display.style.display="block";
@@ -139,7 +138,6 @@ function reserve(){
       }
   })
 }
-
 function email_input (e) {
 	if(e.target.value.match(/^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/)){
 		e.target.classList.remove("invalid");
@@ -158,8 +156,30 @@ function password_input (e) {
 }
 function input (e) {
 	if(e.target.value){
+		e.target.classList.remove("invalid");
 		e.target.classList.add("valid");
 	}else{
 		e.target.classList.add("invalid");
 	}
+}
+function remove(){
+	login_email.value="";
+	login_password.value="";
+	login_email.classList.remove("invalid");
+	login_password.classList.remove("invalid");
+	login_email.classList.remove("valid");
+	login_password.classList.remove("valid");
+	register_name.value="";
+	register_email.value="";
+	register_password.value="";
+	register_name.classList.remove("invalid");
+	register_email.classList.remove("invalid");
+	register_password.classList.remove("invalid");
+	register_name.classList.remove("valid");
+	register_email.classList.remove("valid");
+	register_password.classList.remove("valid");
+	login_failed.textContent="";
+	register_failed.textContent="";
+	login_content.style.height="250px";
+	register_content.style.height="307px";
 }

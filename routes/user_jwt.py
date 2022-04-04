@@ -57,7 +57,7 @@ def get():
 def post():
     user_data=request.get_json()
     email_pattern="^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$"
-    password_pattern="^[a-zA-Z_]+$"
+    password_pattern="^[0-9a-zA-Z_]+$"
     if re.match(email_pattern,user_data["email"]) and re.match(password_pattern,user_data["password"]):
         user=user_model.login(user_data["email"])
         if user:

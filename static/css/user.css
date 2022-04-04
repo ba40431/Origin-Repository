@@ -10,6 +10,7 @@ body{ margin: 0;
 	width: 100%;
 	position: fixed;
 	top:0;
+	border-bottom: 1px solid #E8E8E8;
 	z-index:5;/*z-index的數字愈大，代表愈上層*/
 }
 .header-menu{

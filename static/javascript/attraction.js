@@ -3,7 +3,6 @@ const booking_api="/api/booking";
 let string=url.pathname;
 let spot_id=string.replace("/attraction/",""); //刪除字串中的特定字串
 let open_url="/api/attraction/"+spot_id;
-let user_url="/api/user";
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
 let reserve_display=document.querySelector(".reserve-display");
@@ -20,7 +19,7 @@ change_dollar();
 // }
 
 function init(){
-get_login(user_url).then(function(data){
+get_login(user_api).then(function(data){
 	if(data.data){
 		login_display.style.display="none";
 		signout_display.style.display="block";
@@ -140,7 +139,7 @@ function change_dollar(){
 }
 
 function star_booking(){
-	get_login(user_url).then(function(data){
+	get_login(user_api).then(function(data){
 	if(data.data){
 		login_display.style.display="none";
 		signout_display.style.display="block";

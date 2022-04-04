@@ -1,7 +1,6 @@
 let page=0;
 let page_url="/api/attractions?page=";
 let scrolling=true;
-let user_url="/api/user";
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
 let reserve_display=document.querySelector(".reserve-display");
@@ -11,7 +10,7 @@ search.addEventListener("click",click);
 init()
 
 function init(){
-	get_login(user_url).then(function(data){
+	get_login(user_api).then(function(data){
 	if(data.data){
 		login_display.style.display="none";
 		signout_display.style.display="block";
