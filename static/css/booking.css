@@ -88,8 +88,7 @@ hr{
     color: #666666;
     margin-bottom:15px;
 }
-.user-name >input,.user-email >input,.user-phone >input,
-.credit-number >input,.credit-date >input,.credit-password>input{
+.user-name >input,.user-email >input,.user-phone >input{
     width: 156px;
     height: 30px;
     border-radius: 5px;
@@ -100,11 +99,23 @@ hr{
     padding-left:10px;
     padding-right:10px;
 }
+#credit-number,#credit-date,#credit-password{
+    width: 156px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #E8E8E8;
+    font-weight:400;
+    padding-left:10px;
+    padding-right:10px;
+}
 .user-text{
     font-weight: 700;
     font-size: 16px;
     color: #666666;
     margin-bottom:37px;
+}
+.credit-block{
+    display:flex;
 }
 .credit-password{
     margin-bottom:37px
@@ -114,6 +125,12 @@ hr{
     margin-left:auto;
     margin-right:auto;
     margin-top:36px;
+}
+.pay-false{
+    font-weight:400;
+    font-size: 16px;
+    color: #E64217; 
+    margin-left:20px;
 }
 .pay-total{
     text-align:end;

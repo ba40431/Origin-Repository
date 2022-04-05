@@ -4,32 +4,39 @@ const thankyou_url="/thankyou"
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
 let reserve_display=document.querySelector(".reserve-display");
-
+let user_data=null;
+let booking_data=null;
 
 init()
 
 function init(){
+    document.body.style.display = "none";
     get_login(user_api).then(function(data){
-        if(data.data){
+        user_data=data;
+        if(user_data.data){
             login_display.style.display="none";
             signout_display.style.display="block";
             reserve_display.style.display="block";
-            render_user(data);
+            render_user(user_data);
             fetch_booking(booking_api).then(function(data){
-                if(data.data){
-                    render(data)
+                booking_data=data
+                if(booking_data.data){
+                    render(booking_data)
+                    document.body.style.display = "block";
                 }else if(data.data==null){
                     hidding_info()
+                    document.body.style.display = "block";
                 }else{
                     hidding_info()
+                    document.body.style.display = "block";
                 }
             })
-        }else if(data.data==null){
-            document.body.innerHTML="";
+        }else if(user_data.data==null){
             location.href="/"
             login_display.style.display="block";
             signout_display.style.display="none";
             reserve_display.style.display="block";
+            document.body.style.display = "block";
         }
     })
 }
@@ -99,51 +106,4 @@ function hidding_info(){
     footer.style.height="100%" //將剩餘頁面畫面填滿
     footer.style.alignItems="flex-start";
     footer_text.style.marginTop="45px";
-}
-
-async function orders(){
-    let user_data=null;
-    let reserve_data=null;
-    let user_phone=document.getElementById("user-phone").value;
-    await get_login(user_api).then(function(data){
-        user_data=data
-    })
-    await fetch_booking( booking_api).then(function(data){
-        reserve_data=data
-    })
-    let headers={
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-    }
-    let body={
-        "prime": "前端從第三方金流 TapPay 取得的交易碼",
-        "order": {
-            "price":reserve_data.data.price,
-            "trip": {
-            "attraction": {
-                "id":reserve_data.data.attraction.id,
-                "name":reserve_data.data.attraction.name,
-                "address":reserve_data.data.attraction.address,
-                "image":reserve_data.data.attraction.image
-            },
-            "date":reserve_data.data.date,
-            "time":reserve_data.data.time
-            },
-            "contact": {
-                "name":user_data.data.name,
-                "email":user_data.data.email,
-                "phone":user_phone
-            }
-        }
-    }
-    fetch(order_api,{
-        method:"POST",
-        headers:headers,
-        body:JSON.stringify(body)
-    }).then(function(response){
-        return response.json()
-    }).then(function(data){
-        result=data;
-        // location.href=thankyou_url;
-    })
 }

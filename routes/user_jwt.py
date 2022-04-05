@@ -5,6 +5,10 @@ import re
 from flask_bcrypt import bcrypt
 import jwt
 from routes.token import use_jwt
+import os
+from dotenv import load_dotenv
+
+load_dotenv(".env")
 
 get_user=Blueprint("get_user",__name__,static_folder="static",template_folder="templates")
 post_user=Blueprint("post_user",__name__,static_folder="static",template_folder="templates")
@@ -17,7 +21,7 @@ def get():
     token=use_jwt.get_token()
     if token:
         try:
-            jwt_key="secretkey"
+            jwt_key=os.getenv("jwt_key")
             decode_token=jwt.decode(token,jwt_key,algorithms=["HS256"])
             user=user_model.login(decode_token["email"])
             if user:

@@ -29,7 +29,7 @@
 			<div class="user-info">您的聯絡資訊</div>
 			<div class="user-name">聯絡姓名：<input type="text" id="username" readonly="true"></div>
 			<div class="user-email">連絡信箱：<input type="email" id="user-email" readonly="true"></div>
-			<div class="user-phone">手機號碼：<input type="phone" id="user-phone"></div>
+			<div class="user-phone">手機號碼：<input type="phone" id="user-phone" placeholder="0912345678"></div>
 			<div class="user-text">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
 		</div>
 		</div>
@@ -37,24 +37,26 @@
 		<div class="credit-container">
 		<div class="credit-content">
 			<div class="credit-info">信用卡付款資訊</div>
-			<!-- <div class="credit-number">卡片號碼：<input type="tel" id="credit-number" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="**** **** **** ****"></div>
-			<div class="credit-date">過期時間：<input type="text" id="credit-date" placeholder="MM / YY"></div>
-			<div class="credit-password">驗證密碼：<input type="password" id="credit-password" placeholder="CVV"></div> -->
-			<div>
-				<span class="credit-number">卡片號碼：</span>
+			<div class="credit-block">
+				<label class="credit-number">卡片號碼：</label>
 				<div id="credit-number"></div>
 			</div>
-			<!-- <div class="credit-number">卡片號碼：</div> -->
-			<div class="credit-date">過期時間：</div>
-			<div class="credit-password">驗證密碼：</div>
+			<div class="credit-block">
+				<label class="credit-date">卡片號碼：</label>
+				<div id="credit-date"></div>
+			</div>
+			<div class="credit-block">
+				<label class="credit-password">卡片號碼：</label>
+				<div id="credit-password"></div>
+			</div>
 		</div>
 		</div>
 		<hr/>
 		<div class="pay-container">
-		<div class="pay-content">
-			<div class="pay-total">總價：新台幣 <span id="pay-dollar"></span> 元</div>
-			<button class="pay-button" onclick=orders()>確認訂購並付款</button>
-		</div>
+			<div class="pay-content">
+				<span class="pay-false" id="pay-false"></span><div class="pay-total">總價：新台幣 <span id="pay-dollar"></span> 元</div>
+				<button class="pay-button" onclick=orders()>確認訂購並付款</button>
+			</div>
 		</div>
 	</div>
 	{% endblock %}
@@ -62,5 +64,5 @@
 {% block JavaScript %}
 <script type="text/javascript" src="../static/javascript/booking.js"></script>
 <script src="https://js.tappaysdk.com/tpdirect/v5.9.0"></script>
-<script type="text/javascript" src="../static/javascript/order.js"></script>
+<script type="text/javascript" src="../static/javascript/orders.js"></script>
 {% endblock %}
