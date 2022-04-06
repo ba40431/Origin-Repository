@@ -22,12 +22,12 @@ class BookingModel:
             cursor.close()
             connection.close()
 
-    def booking(self,attractionId,date,time,price,userId):
+    def booking(self,attractionId,date,time,price,userId,userEmail):
         try:
             connection=self.connection()
             cursor=connection.cursor()
-            cursor.execute("INSERT INTO `booking` (`attraction_id`,`date`,`time`,`price`,`user_id`) VALUES (%s,%s,%s,%s,%s);",
-            (attractionId,date,time,price,userId))
+            cursor.execute("INSERT INTO `booking` (`attraction_id`,`date`,`time`,`price`,`user_id`,`user_email`) VALUES (%s,%s,%s,%s,%s,%s);",
+            (attractionId,date,time,price,userId,userEmail))
             booking=cursor.fetchone()
             return booking
         except:

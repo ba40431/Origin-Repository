@@ -1,10 +1,14 @@
 from flask import *
 import jwt
 import time
+import os
+from dotenv import load_dotenv
+
+load_dotenv(".env")
 
 class UseJWT:
     def make_token(self,id,name,email):
-        key="secretkey"
+        key=os.getenv("jwt_key")
         now=time.time()
         expiretime=60*60  # 一小時
         payload={

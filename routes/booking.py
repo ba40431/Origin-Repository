@@ -4,6 +4,10 @@ from model.booking import booking_model
 from flask_bcrypt import bcrypt
 import jwt
 from routes.token import use_jwt
+import os
+from dotenv import load_dotenv
+
+load_dotenv(".env")
 
 get_booking=Blueprint("get_booking",__name__,static_folder="static",template_folder="templates")
 post_booking=Blueprint("post_booking",__name__,static_folder="static",template_folder="templates")
@@ -14,7 +18,7 @@ delete_booking=Blueprint("delete_booking",__name__,static_folder="static",templa
 def get():
     token=use_jwt.get_token()
     booking_data=request.get_json()
-    jwt_key="secretkey"
+    jwt_key=os.getenv("jwt_key")
     if token:
         try:
             decode_token=jwt.decode(token,jwt_key,algorithms=["HS256"])
@@ -75,7 +79,7 @@ def get():
 def post():
     token=use_jwt.get_token()
     booking_data=request.get_json()
-    jwt_key="secretkey"
+    jwt_key=os.getenv("jwt_key")
     if token:
         try:
             decode_token=jwt.decode(token,jwt_key,algorithms=["HS256"])
@@ -89,7 +93,7 @@ def post():
                 response.headers["Access-Control-Allow-Origin"] = "*" 
                 return response
             elif reserved==None:
-                booking=booking_model.booking(booking_data["attractionId"],booking_data["date"],booking_data["time"],booking_data["price"],decode_token["id"])
+                booking=booking_model.booking(booking_data["attractionId"],booking_data["date"],booking_data["time"],booking_data["price"],decode_token["id"],decode_token["email"])
                 data={
                     "ok":True
                 }
@@ -132,19 +136,13 @@ def post():
 @delete_booking.route("/api/booking",methods=["DELETE"])
 def delete():
     token=use_jwt.get_token()
-    jwt_key="secretkey"
+    jwt_key=os.getenv("jwt_key")
     if token:
         try:
             decode_token=jwt.decode(token,jwt_key,algorithms=["HS256"])
             reserved=booking_model.check_booking(decode_token["id"])
             if reserved:
                 delete=booking_model.delete_booking(decode_token["id"])
-                data={
-                    "ok":True
-                }
-                response=make_response(jsonify(data))
-                response.headers["Access-Control-Allow-Origin"] = "*" 
-                return response
                 if delete=="error":
                     data={
                         "error":True,
@@ -153,6 +151,13 @@ def delete():
                     response=make_response(jsonify(data))
                     response.headers["Access-Control-Allow-Origin"] = "*" 
                     return response,500
+                else:
+                    data={
+                    "ok":True
+                    }
+                    response=make_response(jsonify(data))
+                    response.headers["Access-Control-Allow-Origin"] = "*" 
+                    return response
             elif reserved=="error":
                 data={
                     "error":True,

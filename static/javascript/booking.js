@@ -1,36 +1,42 @@
-const reserve_api="/api/booking";
-const reserve_url="/booking";
-let user_url="/api/user";
+const booking_api="/api/booking";
+const order_api="/api/orders";
+const thankyou_url="/thankyou"
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
 let reserve_display=document.querySelector(".reserve-display");
-
+let user_data=null;
+let booking_data=null;
 
 init()
 
 function init(){
-    get_login(user_url).then(function(data){
-        if(data.data){
-          login_display.style.display="none";
-          signout_display.style.display="block";
-          reserve_display.style.display="block";
-          let user_name=document.getElementById("user-name");
-          user_name.textContent=data.data.name
-          fetch_booking(reserve_api).then(function(data){
-            if(data.data){
-                render(data)
-            }else if(data.data==null){
-                hidding_info()
-            }else{
-                hidding_info()
-            }
-        })
-        }else if(data.data==null){
-            document.body.innerHTML="";
+    document.body.style.display = "none";
+    get_login(user_api).then(function(data){
+        user_data=data;
+        if(user_data.data){
+            login_display.style.display="none";
+            signout_display.style.display="block";
+            reserve_display.style.display="block";
+            render_user(user_data);
+            fetch_booking(booking_api).then(function(data){
+                booking_data=data
+                if(booking_data.data){
+                    render(booking_data)
+                    document.body.style.display = "block";
+                }else if(data.data==null){
+                    hidding_info()
+                    document.body.style.display = "block";
+                }else{
+                    hidding_info()
+                    document.body.style.display = "block";
+                }
+            })
+        }else if(user_data.data==null){
             location.href="/"
             login_display.style.display="block";
             signout_display.style.display="none";
             reserve_display.style.display="block";
+            document.body.style.display = "block";
         }
     })
 }
@@ -39,6 +45,14 @@ function get_login(url){
     .then(function(response){
       return response.json()
     });
+}
+function render_user(data){
+    let reserve_name=document.getElementById("reserve-name");
+    let user_name=document.getElementById("username");
+    let user_email=document.getElementById("user-email");
+    reserve_name.textContent=data.data.name;
+    user_name.value=data.data.name;
+    user_email.value=data.data.email;
 }
 function render(data){
     let spot_photo=document.querySelector(".spot-photo");
@@ -67,7 +81,7 @@ function fetch_booking(url){
     });
 }
 function delete_booking(){
-    fetch(reserve_api,{
+    fetch( booking_api,{
         method: "DELETE",
       }).then(function(response){
         return response.json();
@@ -77,7 +91,6 @@ function delete_booking(){
         window.location.replace(location.href)
       })
 }
-
 function hidding_info(){
     let reserve_false=document.querySelector(".reserve-false");
     let reserve_container=document.querySelector(".reserve-container");
