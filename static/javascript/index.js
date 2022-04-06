@@ -5,11 +5,22 @@ let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
 let reserve_display=document.querySelector(".reserve-display");
 let search=document.getElementById("search");
+let loader=document.querySelector(".loader");
 search.addEventListener("click",click);
 
 init()
 
+function load(){
+	if (document.readyState == "loading"){// Loading hasn't finished yet
+		document.addEventListener("DOMContentLoaded", function(e) {
+		loader.style.display="none";
+		});
+	}else{  // `DOMContentLoaded` has already fired
+		loader.style.display="block";
+	}
+}
 function init(){
+	load()
 	get_login(user_api).then(function(data){
 	if(data.data){
 		login_display.style.display="none";
@@ -58,7 +69,6 @@ function render_spots(i,page,data){
     let id=data.data[i].id;
     let img=document.createElement("img");
     let a=document.createElement("a");
-    let container=document.getElementById("container"); 
     container.appendChild(a);
     a.setAttribute("class","spot-box");
     a.setAttribute("id","spot-box-"+box_name);
@@ -128,6 +138,7 @@ function scroll(){
 	if(scrolling){
 		scrolling=false;
 		if(page){
+			load()
 			let timeout=window.setTimeout(get_data(page_url,page).then(function(data){
 				for(let i=0; i<data.data.length; i++){
 				render_spots(i,page,data)
@@ -136,10 +147,12 @@ function scroll(){
 				page=next_page;
 			}),3000);
 			window.clearTimeout(timeout);
+		}else{
 		};
 	};
 	}else{
 		scrolling=true;
+		loader.style.display="none";
 	};
 }
 function click(){
@@ -148,48 +161,48 @@ function click(){
 	let scrolling=true;
 	let keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
 	get_keyword_data(keyword_url,keyword).then(function(data){
-	if(data.data.length>0){
-		document.getElementById("container").style.display="none";
-		let element=document.getElementById("container-keyword"); 
-		if(document.querySelector(".keyword-spot-box")){
-			while (element.firstChild){
-				element.removeChild(element.firstChild);
+		if(data.data.length>0){
+			document.getElementById("container").style.display="none";
+			let element=document.getElementById("container-keyword"); 
+			if(document.querySelector(".keyword-spot-box")){
+				while (element.firstChild){
+					element.removeChild(element.firstChild);
+				};
+				for(let i=0; i<data.data.length; i++){
+				render_keyword_spots(i,keyword_page,data)
+				};
+				let keyword_next_page=data.nextPage;
+				keyword_page=keyword_next_page;
+				window.addEventListener("scroll",()=>{
+					scroll_keyword(data)
+				});
+			}
+			else if(document.querySelector(".keyword-spot-box")==null){
+				element.textContent="";
+				// let scrolling=true;
+				for(let i=0; i<data.data.length; i++){
+					render_keyword_spots(i,keyword_page,data);
+				}
+				let keyword_next_page=data.nextPage;
+				keyword_page=keyword_next_page;
+				window.addEventListener("scroll",()=>{
+					scroll_keyword()
+				});
 			};
-			for(let i=0; i<data.data.length; i++){
-			render_keyword_spots(i,keyword_page,data)
-			};
-			let keyword_next_page=data.nextPage;
-			keyword_page=keyword_next_page;
-			window.addEventListener("scroll",()=>{
-				scroll_keyword(data)
-			});
 		}
-		else if(document.querySelector(".keyword-spot-box")==null){
-			element.textContent="";
-			// let scrolling=true;
-			for(let i=0; i<data.data.length; i++){
-				render_keyword_spots(i,keyword_page,data);
-			}
-			let keyword_next_page=data.nextPage;
-			keyword_page=keyword_next_page;
-			window.addEventListener("scroll",()=>{
-				scroll_keyword()
-			});
-		};
-    }
-	else if(data.data.length==0){
-		document.getElementById("container").style.display="none";
-		let element=document.getElementById("container-keyword"); 
-		if(document.querySelector(".keyword-spot-box")){
-			while (element.firstChild){
-				element.removeChild(element.firstChild);
+		else if(data.data.length==0){
+			document.getElementById("container").style.display="none";
+			let element=document.getElementById("container-keyword"); 
+			if(document.querySelector(".keyword-spot-box")){
+				while (element.firstChild){
+					element.removeChild(element.firstChild);
+				};
+				element.textContent="查無與【"+keyword+"】的相關景點";
+				}
+			else{
+				element.textContent="查無與【"+keyword+"】的相關景點";
 			};
-			element.textContent="查無與【"+keyword+"】的相關景點";
-			}
-		else{
-			element.textContent="查無與【"+keyword+"】的相關景點";
 		};
-	};
 	});
 	function scroll_keyword(){
 	let scrollable=document.documentElement.scrollHeight-window.innerHeight
@@ -197,6 +210,7 @@ function click(){
 	if(Math.ceil(scrolled)>=scrollable-3 & scrolling){
 		scrolling=false;
 		if(keyword_page){
+			load()
 			keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
 			let timeout=window.setTimeout(get_keyword_data(keyword_url,keyword).then(function(data){
 				for(let i=0; i<data.data.length; i++){
@@ -206,7 +220,10 @@ function click(){
 				keyword_page=keyword_next_page;
 			}),3000);
 			window.clearTimeout(timeout);
-		};
+		}
+	}else{
+		scrolling=true;
+		loader.style.display="none";
 	};
 	}
 }

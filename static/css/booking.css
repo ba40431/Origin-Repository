@@ -151,6 +151,9 @@ hr{
     margin-top:20px;
     cursor: pointer;
 }
+.pay-button:hover{
+	background-color:#66AABB
+}
 .footer{
     margin-top:120px;
 }

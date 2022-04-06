@@ -71,7 +71,7 @@ function render(data){
     if(data.data.time=="morning"){
         time_text.textContent="早上 9 點到下午 4 點";
     }else{
-        time_text.textContent="下午 2 點到下午 9 點";
+        time_text.textContent="下午 2 點到晚上 9 點";
     }
 }
 function fetch_booking(url){
