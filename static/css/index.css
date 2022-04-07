@@ -79,16 +79,7 @@
 	grid-row-gap: 30px;
 	margin-top:55px;
 }
-.spot-box{
-	border-radius: 5px;
-	border: 1px solid #E8E8E8;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden;
-	cursor: pointer;
-	text-decoration:none;
-}
-.keyword-spot-box{
+.spot-box,.keyword-spot-box{
 	border-radius: 5px;
 	border: 1px solid #E8E8E8;
 	justify-content: center;

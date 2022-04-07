@@ -13,16 +13,6 @@ search.addEventListener("click",click);
 
 init()
 
-// function load(){
-// 	if (document.readyState === "loading"){// Loading hasn't finished yet
-// 		document.addEventListener("DOMContentLoaded", function(e) {
-// 		loader.style.display="none";
-// 		});
-// 	}else{  // `DOMContentLoaded` has already fired
-// 		loader.style.display="block";
-// 	}
-// }
-
 function init(){
 	get_login(user_api).then(function(data){
 		loader.style.visibility="hidden"
@@ -161,49 +151,54 @@ function click(){
 	let keyword_page=0;
 	let keyword=document.getElementById("keyword").value;
 	let scrolling=true;
-	let keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
-	get_keyword_data(keyword_url,keyword).then(function(data){
-		if(data.data.length>0){
-			container.style.display="none";
-			if(document.querySelector(".keyword-spot-box")){
-				while (container_keyword.firstChild){
-					container_keyword.removeChild(container_keyword.firstChild);
+	if(keyword==""){
+		container_keyword.textContent="請輸入查詢景點名稱"
+	}else{
+		let keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
+		get_keyword_data(keyword_url,keyword).then(function(data){
+			if(data.data.length>0){
+				container.style.display="none";
+				if(document.querySelector(".keyword-spot-box")){
+					while (container_keyword.firstChild){
+						container_keyword.removeChild(container_keyword.firstChild);
+					};
+					for(let i=0; i<data.data.length; i++){
+					render_keyword_spots(i,keyword_page,data)
+					};
+					let keyword_next_page=data.nextPage;
+					keyword_page=keyword_next_page;
+					window.addEventListener("scroll",()=>{
+						scroll_keyword(data)
+					});
+				}
+				else if(document.querySelector(".keyword-spot-box")==null){
+					container_keyword.textContent="";
+					// let scrolling=true;
+					for(let i=0; i<data.data.length; i++){
+						render_keyword_spots(i,keyword_page,data);
+					}
+					let keyword_next_page=data.nextPage;
+					keyword_page=keyword_next_page;
+					window.addEventListener("scroll",()=>{
+						scroll_keyword()
+					});
 				};
-				for(let i=0; i<data.data.length; i++){
-				render_keyword_spots(i,keyword_page,data)
-				};
-				let keyword_next_page=data.nextPage;
-				keyword_page=keyword_next_page;
-				window.addEventListener("scroll",()=>{
-					scroll_keyword(data)
-				});
 			}
-			else if(document.querySelector(".keyword-spot-box")==null){
-				container_keyword.textContent="";
-				// let scrolling=true;
-				for(let i=0; i<data.data.length; i++){
-					render_keyword_spots(i,keyword_page,data);
-				}
-				let keyword_next_page=data.nextPage;
-				keyword_page=keyword_next_page;
-				window.addEventListener("scroll",()=>{
-					scroll_keyword()
-				});
-			};
-		}
-		else if(data.data.length==0){
-			container.style.display="none";
-			if(document.querySelector(".keyword-spot-box")){
-				while (container_keyword.firstChild){
-					container_keyword.removeChild(container_keyword.firstChild);
+			else if(data.data.length==0){
+				container.style.display="none";
+				if(document.querySelector(".keyword-spot-box")){
+					while (container_keyword.firstChild){
+						container_keyword.removeChild(container_keyword.firstChild);
+					};
+					container_keyword.textContent="查無與【"+keyword+"】的相關景點";
+					}
+				else{
+					container_keyword.textContent="查無與【"+keyword+"】的相關景點";
 				};
-				container_keyword.textContent="查無與【"+keyword+"】的相關景點";
-				}
-			else{
-				container_keyword.textContent="查無與【"+keyword+"】的相關景點";
 			};
-		};
-	});
+		});
+	}
+
 	function scroll_keyword(){
 	let scrollable=document.documentElement.scrollHeight-window.innerHeight
 	let scrolled=window.scrollY;
