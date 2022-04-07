@@ -4,38 +4,42 @@ let scrolling=true;
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
 let reserve_display=document.querySelector(".reserve-display");
+let container=document.getElementById("container");
+let container_keyword=document.getElementById("container-keyword");
 let search=document.getElementById("search");
 let loader=document.querySelector(".loader");
 search.addEventListener("click",click);
 
+
 init()
 
-function load(){
-	if (document.readyState == "loading"){// Loading hasn't finished yet
-		document.addEventListener("DOMContentLoaded", function(e) {
-		loader.style.display="none";
-		});
-	}else{  // `DOMContentLoaded` has already fired
-		loader.style.display="block";
-	}
-}
+// function load(){
+// 	if (document.readyState === "loading"){// Loading hasn't finished yet
+// 		document.addEventListener("DOMContentLoaded", function(e) {
+// 		loader.style.display="none";
+// 		});
+// 	}else{  // `DOMContentLoaded` has already fired
+// 		loader.style.display="block";
+// 	}
+// }
+
 function init(){
-	load()
 	get_login(user_api).then(function(data){
-	if(data.data){
-		login_display.style.display="none";
-		signout_display.style.display="block";
-		reserve_display.style.display="block";
-	}
-	else if(data.data==null){
-		login_display.style.display="block";
-		signout_display.style.display="none";
-		reserve_display.style.display="block";
-	}
+		loader.style.visibility="hidden"
+		if(data.data){
+			login_display.style.display="none";
+			signout_display.style.display="block";
+			reserve_display.style.display="block";
+		}
+		else if(data.data==null){
+			login_display.style.display="block";
+			signout_display.style.display="none";
+			reserve_display.style.display="block";
+		}
 	})
 	get_data(page_url,page).then(function(data){
-	for(let i=0; i<data.data.length; i++){
-		render_spots(i,page,data)
+		for(let i=0; i<data.data.length; i++){
+			render_spots(i,page,data)
 	};
 	let next_page=data.nextPage;
 	page=next_page;
@@ -43,15 +47,17 @@ function init(){
 	});
 }
 function get_data(url,page){
+	loader.style.visibility="visible"
 	return fetch(url+page)
 	.then(function(response){
-	return response.json()
+		loader.style.visibility="hidden"
+		return response.json()
 	});
 };
 function get_keyword_data(url,keyword){
 	return fetch(url+keyword)
 	.then(function(response){
-	return response.json()
+		return response.json()
 	});
 };
 function get_login(url){
@@ -104,8 +110,7 @@ function render_keyword_spots(i,keyword_page,data){
     let id=data.data[i].id;
     let img=document.createElement("img");
     let a=document.createElement("a");
-    let container=document.getElementById("container-keyword"); 
-    container.appendChild(a);
+    container_keyword.appendChild(a);
     a.setAttribute("class","keyword-spot-box");
     a.setAttribute("id","keyword-spot-box-"+box_name);
     a.href="/attraction/"+id;
@@ -135,24 +140,21 @@ function scroll(){
 	let scrollable=document.documentElement.scrollHeight-window.innerHeight;
 	let scrolled=window.scrollY;
 	if(Math.ceil(scrolled)>=scrollable-5){
-	if(scrolling){
-		scrolling=false;
-		if(page){
-			load()
-			let timeout=window.setTimeout(get_data(page_url,page).then(function(data){
-				for(let i=0; i<data.data.length; i++){
-				render_spots(i,page,data)
-				}
-				next_page=data.nextPage;
-				page=next_page;
-			}),3000);
-			window.clearTimeout(timeout);
-		}else{
+		if(scrolling){
+			scrolling=false;
+			if(page){
+				let timeout=window.setTimeout(get_data(page_url,page).then(function(data){
+					for(let i=0; i<data.data.length; i++){
+					render_spots(i,page,data)
+					}
+					next_page=data.nextPage;
+					page=next_page;
+				}),3000);
+				window.clearTimeout(timeout);
+			};
 		};
-	};
 	}else{
 		scrolling=true;
-		loader.style.display="none";
 	};
 }
 function click(){
@@ -162,11 +164,10 @@ function click(){
 	let keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
 	get_keyword_data(keyword_url,keyword).then(function(data){
 		if(data.data.length>0){
-			document.getElementById("container").style.display="none";
-			let element=document.getElementById("container-keyword"); 
+			container.style.display="none";
 			if(document.querySelector(".keyword-spot-box")){
-				while (element.firstChild){
-					element.removeChild(element.firstChild);
+				while (container_keyword.firstChild){
+					container_keyword.removeChild(container_keyword.firstChild);
 				};
 				for(let i=0; i<data.data.length; i++){
 				render_keyword_spots(i,keyword_page,data)
@@ -178,7 +179,7 @@ function click(){
 				});
 			}
 			else if(document.querySelector(".keyword-spot-box")==null){
-				element.textContent="";
+				container_keyword.textContent="";
 				// let scrolling=true;
 				for(let i=0; i<data.data.length; i++){
 					render_keyword_spots(i,keyword_page,data);
@@ -191,16 +192,15 @@ function click(){
 			};
 		}
 		else if(data.data.length==0){
-			document.getElementById("container").style.display="none";
-			let element=document.getElementById("container-keyword"); 
+			container.style.display="none";
 			if(document.querySelector(".keyword-spot-box")){
-				while (element.firstChild){
-					element.removeChild(element.firstChild);
+				while (container_keyword.firstChild){
+					container_keyword.removeChild(container_keyword.firstChild);
 				};
-				element.textContent="查無與【"+keyword+"】的相關景點";
+				container_keyword.textContent="查無與【"+keyword+"】的相關景點";
 				}
 			else{
-				element.textContent="查無與【"+keyword+"】的相關景點";
+				container_keyword.textContent="查無與【"+keyword+"】的相關景點";
 			};
 		};
 	});
@@ -210,7 +210,6 @@ function click(){
 	if(Math.ceil(scrolled)>=scrollable-3 & scrolling){
 		scrolling=false;
 		if(keyword_page){
-			load()
 			keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
 			let timeout=window.setTimeout(get_keyword_data(keyword_url,keyword).then(function(data){
 				for(let i=0; i<data.data.length; i++){
@@ -220,10 +219,9 @@ function click(){
 				keyword_page=keyword_next_page;
 			}),3000);
 			window.clearTimeout(timeout);
-		}
+		};
 	}else{
 		scrolling=true;
-		loader.style.display="none";
 	};
 	}
 }

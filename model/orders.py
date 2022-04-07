@@ -20,6 +20,7 @@ class OrdersModel:
             orders=cursor.fetchone()
             return orders
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
@@ -34,6 +35,7 @@ class OrdersModel:
             status=cursor.fetchone()
             return status
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
@@ -48,6 +50,7 @@ class OrdersModel:
             delete=cursor.fetchone()
             return delete
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()

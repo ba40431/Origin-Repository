@@ -44,7 +44,7 @@ hr{
 }
 .spot-container{
     display:flex;
-    margin-top:45px;
+    margin-top:40px;
 }
 .photo-frame{
     flex: none;
@@ -67,7 +67,11 @@ hr{
 }
 .title{
     color:#448899;
+   
+}
+#title-text{
     margin-bottom:16px;
+    color:#448899;
 }
 .date,.time,.cost,.address{
     margin-bottom:10px;
@@ -75,7 +79,7 @@ hr{
 .user-content{
     flex:50%;
     font-weight:700;
-    padding-top:40px;
+    padding-top:65px;
 }
 .user-info{
     margin-bottom:10px;

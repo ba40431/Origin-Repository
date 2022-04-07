@@ -214,13 +214,13 @@ body{ margin: 0;
 	padding-right:15px;
 	margin-top: 8px;
 }
-input.valid{
+.login-content>input.valid,.register-content>input.valid{
 	background:url(../pic/bx-x-circle.png) no-repeat;
 	background-position:98%;
 	background-size:30px;
 	background-repeat:no-repeat;
 }
-input.invalid{
+.login-content>input.invalid,.register-content>input.invalid{
 	background:url(../pic/bx-circle.png) no-repeat;
 	background-position:98%;
 	background-size:30px;

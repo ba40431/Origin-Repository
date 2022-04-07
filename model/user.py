@@ -19,6 +19,7 @@ class UserModel:
             user=cursor.fetchone()
             return user
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
@@ -33,6 +34,7 @@ class UserModel:
             user=cursor.fetchone()
             return user
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()

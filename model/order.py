@@ -25,6 +25,7 @@ class OrderModel:
             order=cursor.fetchone()
             return order
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()

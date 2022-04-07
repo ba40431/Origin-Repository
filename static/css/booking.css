@@ -88,6 +88,9 @@ hr{
     color: #666666;
     margin-bottom:15px;
 }
+.user-phone{
+    display:flex;
+}
 .user-name >input,.user-email >input,.user-phone >input{
     width: 156px;
     height: 30px;
@@ -98,6 +101,18 @@ hr{
     color: #000000;
     padding-left:10px;
     padding-right:10px;
+}
+.user-phone>input.valid{
+    border: #448899 1px solid;
+}
+.user-phone>input.invalid{
+    border: #E64217 1px solid;
+}
+#checkbox{
+    display:none;
+    padding-top:5px;
+    padding-left:5px;
+    width:25px;
 }
 #credit-number,#credit-date,#credit-password{
     width: 156px;

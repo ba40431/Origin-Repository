@@ -11,6 +11,7 @@ class AttractionModel:
             attraction=cursor.fetchone()
             return attraction
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
