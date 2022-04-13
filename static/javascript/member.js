@@ -109,7 +109,7 @@ function update_password(){
             if(update_data.ok){
                 password_button.textContent="修改密碼";
                 member_password.style.display="none";
-                window.location.replace(location.href) 
+                // window.location.replace(location.href) 
             }else{
                 member_false.textContent=update_data.message
             }
