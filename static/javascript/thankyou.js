@@ -12,6 +12,7 @@ let order_data=null;
 init()
 
 function init(){
+    document.body.style.display = "none";
     get_login(user_api).then(function(data){
         user_data=data;
         if(user_data.data){
@@ -24,6 +25,7 @@ function init(){
             }).then((data)=>{
                 order_data=data
                 render(order_data)
+                document.body.style.display = "block";
             })
         }else if(user_data.data==null){
             location.href="/"
@@ -31,6 +33,7 @@ function init(){
             signout_display.style.display="none";
             reserve_display.style.display="block";
             member_display.style.display="none";
+            document.body.style.display = "block";
         }
     })
 }
