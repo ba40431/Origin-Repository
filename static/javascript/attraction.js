@@ -178,7 +178,7 @@ function get_booking(){
 			warning_info.textContent="請選擇日期和時間"
 		}else{
 			let warning_info=document.querySelector(".warning-info");
-			warning_info.textContent="不可預約已過期及當日的行程"
+			warning_info.textContent="不可預約已過期或當日的行程"
 		}
 	}else if(data.data==null){
 		login_display.style.display="block";
