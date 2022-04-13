@@ -2,7 +2,6 @@ from flask import *
 import json
 from model.attraction import attraction_model
 import re
-# import jwt
 
 api_attraction=Blueprint("api_attraction",__name__,static_folder="static",template_folder="templates")
 
@@ -29,20 +28,21 @@ def attraction(attractionId):
                 "images":images_list
             }
         }
-        response = make_response(jsonify(data))
-        response.headers["Access-Control-Allow-Origin"] = "*" #設定跨域請求Headers
-        return response,200
+        response=make_response(jsonify(data),200)
+        # response.headers["Access-Control-Allow-Origin"] = "*" #設定跨域請求Headers
 
     elif attraction=="error":
         data={
         "error": True,
         "message": "伺服器內部錯誤"
         }
-        return jsonify(data),500
+        response=make_response(jsonify(data),500)
 
     else:
         data={
         "error": True,
         "message": "景點編號不正確"
         }
-        return jsonify(data),400
+        response=make_response(jsonify(data),400)
+
+    return response

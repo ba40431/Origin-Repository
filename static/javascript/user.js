@@ -138,6 +138,22 @@ function reserve(){
       }
   })
 }
+function member(){
+	get_login(user_api).then(function(data){
+		if(data.data){
+		  login_display.style.display="none";
+		  signout_display.style.display="block";
+		  reserve_display.style.display="block";
+		  location.href="/member";
+		}
+		else if(data.data==null){
+		  login_display.style.display="block";
+		  signout_display.style.display="none";
+		  reserve_display.style.display="block";
+		  login()
+		}
+	})
+}
 function email_input (e) {
 	if(e.target.value.match(/^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/)){
 		e.target.classList.remove("invalid");

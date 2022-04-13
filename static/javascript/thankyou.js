@@ -1,6 +1,7 @@
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
 let reserve_display=document.querySelector(".reserve-display");
+let member_display=document.querySelector(".member-display");
 const url=new URL(window.location.href);
 let string=url.search;
 let order_number_string=string.slice(8,) //取得部份字串
@@ -17,6 +18,7 @@ function init(){
             login_display.style.display="none";
             signout_display.style.display="block";
             reserve_display.style.display="block";
+            member_display.style.display="block";
             fetch(order_api).then((response)=>{
                 return response.json()
             }).then((data)=>{
@@ -28,6 +30,7 @@ function init(){
             login_display.style.display="block";
             signout_display.style.display="none";
             reserve_display.style.display="block";
+            member_display.style.display="none";
         }
     })
 }

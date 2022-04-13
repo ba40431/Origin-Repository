@@ -2,7 +2,6 @@ from flask import *
 import json
 from model.attractions import attractions_model,keyword_attractions_model
 import re
-# import jwt
 
 api_attractions=Blueprint("api_attractions",__name__,static_folder="static",template_folder="templates")
 
@@ -40,33 +39,26 @@ def attractions():
                 "nextPage":None,
                 "data":attractions_list
             }
-            response = make_response(jsonify(attractions_data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response 
+            response=make_response(jsonify(attractions_data),200)
         elif count[0]-12*page>12:
             attractions_data={
                 "nextPage":page+1,
                 "data":attractions_list
             }
-            response = make_response(jsonify(attractions_data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
+            response=make_response(jsonify(attractions_data),200)
             return response    
         elif attractions=="error":
             attractions_data={
                 "error": True,
                 "message": "伺服器內部錯誤"
             }
-            response = make_response(jsonify(attractions_data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response,500
+            response=make_response(jsonify(attractions_data),500)
         elif count=="error":
             attractions_data={
                 "error": True,
                 "message": "伺服器內部錯誤"
             }
-            response = make_response(jsonify(attractions_data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response,500
+            response=make_response(jsonify(attractions_data),500)
 
     else:
         attractions=attractions_model.get_attractions(page)
@@ -97,30 +89,24 @@ def attractions():
                 "nextPage":page+1,
                 "data":attractions_list
             }
-            response = make_response(jsonify(attractions_data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response 
+            response = make_response(jsonify(attractions_data),200)
         elif count[0]-12*page<=12:
             attractions_data={
                 "nextPage":None,
                 "data":attractions_list
             }
-            response = make_response(jsonify(attractions_data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response 
+            response = make_response(jsonify(attractions_data),200)
         elif attractions=="error":
             attractions_data={
                 "error": True,
                 "message": "伺服器內部錯誤"
             }
-            response = make_response(jsonify(attractions_data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response,500
+            response = make_response(jsonify(attractions_data),500)
         elif count=="error":
             attractions_data={
                 "error": True,
                 "message": "伺服器內部錯誤"
             }
-            response = make_response(jsonify(attractions_data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response,500
+            response = make_response(jsonify(attractions_data),500)
+
+    return response

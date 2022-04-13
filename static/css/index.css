@@ -88,8 +88,14 @@
 	cursor: pointer;
 	text-decoration:none;
 }
+#main-keyword-container{
+	margin-bottom:50px;
+}
+#keyword-loader{
+	visibility:hidden;
+}
 .spot-box:hover,.keyword-spot-box:hover{
-	border: 1px solid #75757575;
+	opacity:0.7;
 }
 .spot-img{
 	height:160px;

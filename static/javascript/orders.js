@@ -1,6 +1,4 @@
 TPDirect.setupSDK(123873, 'app_XAHYCabbRgwfTjFeevHjkiGtHbGcKyavCgVFj2B33yC9KYd0msTsLz4HnVL6', 'sandbox')
-// let user_data=null;
-// let reserve_data=null;
 let user_phone=document.getElementById("user-phone");
 let pay_false=document.getElementById("pay-false");
 let checkbox=document.getElementById("checkbox");

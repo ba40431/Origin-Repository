@@ -34,7 +34,7 @@ body{ margin: 0;
 .right{
 	display:grid;
 	justify-content:flex-end;
-	grid-template-columns:auto auto;
+	grid-template-columns:35px auto auto;
 	margin-top:auto;
 	margin-bottom: auto;
 }
@@ -44,12 +44,15 @@ body{ margin: 0;
 	font-size: 16px;
 	color:#666666;
 	margin-right:10px;
-	margin-left:10px;
+	/* margin-left:10px; */
 	margin-top:auto;
 	margin-bottom: auto;
 	cursor: pointer;
 }
-.login-display,.signout-display,.reserve-display{
+.member-display{
+	width:22px;
+}
+.login-display,.signout-display,.reserve-display,.member-display{
 	display:none;
 }
 .menu:hover{
