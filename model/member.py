@@ -2,20 +2,31 @@ from flask import *
 import mysql.connector
 from connection import pool
 
-class UserModel:
+class MemberModel:
     def connection(self):
-        try:
-            connection=pool.connection()
-            return connection
-        except:
-            return "error"
-
-    def register(self,name,email,password):
+            try:
+                connection=pool.connection()
+                return connection
+            except:
+                return "error"
+    def get_orders(self,userEmail):
         try:
             connection=self.connection()
             cursor=connection.cursor()
-            cursor.execute("INSERT INTO `user` (`name`,`email`,`password`) VALUES (%s,%s,%s);",
-            (name,email,password))
+            cursor.execute("SELECT * FROM `orders` WHERE `user_email`=%s;",(userEmail,))
+            orders=cursor.fetchall()
+            return orders
+        except:
+            connection.rollback()
+            return "error"
+        finally:
+            cursor.close()
+            connection.close()
+    def update_password(self,userPassword,userEmail):
+        try:
+            connection=self.connection()
+            cursor=connection.cursor()
+            cursor.execute("UPDATE `user` SET `password`=%s WHERE `email`=%s;",(userPassword,userEmail))
             user=cursor.fetchone()
             return user
         except:
@@ -26,18 +37,4 @@ class UserModel:
             connection.commit()
             connection.close()
 
-    def login(self,email):
-        try:
-            connection=self.connection()
-            cursor=connection.cursor()
-            cursor.execute("SELECT * FROM `user` WHERE `email`=%s ;",(email,))
-            user=cursor.fetchone()
-            return user
-        except:
-            connection.rollback()
-            return "error"
-        finally:
-            cursor.close()
-            connection.close()
-
-user_model=UserModel()
+member_model=MemberModel()

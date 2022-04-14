@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block CSS %}
+<link rel="stylesheet" type="text/css" href="../static/css/member.css">
+{% endblock %}
+
+    {% block main %}
+    <div class="member-container">
+        <div class="member-photo" id="member-photo"></div>
+        <div class="member-title">我的資料
+            <div class="member-name">姓名：<span id="name-text"></span></div>
+            <div class="member-email">電子信箱：<span id="email-text"></span></div>
+            <div class="member-password">修改密碼：<input type="password" id="member-password"/></div>
+            <div class="member-false"></div><button class="password-button" onclick=update_password()>修改密碼</button>
+        </div>
+    </div>
+    <hr/>
+    <div class="order-container">
+        <div class="order-items">預約紀錄</div>
+        <div class="order-false">尚無預約紀錄</div>
+        <a href="/"><button class="index-button">回首頁</button></button></a>
+    </div>
+    {% endblock %}
+
+{% block JavaScript %}
+<script  type="text/javascript" src="../static/javascript/member.js"></script>
+{% endblock %}

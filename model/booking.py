@@ -17,6 +17,7 @@ class BookingModel:
             user=cursor.fetchone()
             return user
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
@@ -31,6 +32,7 @@ class BookingModel:
             booking=cursor.fetchone()
             return booking
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
@@ -46,6 +48,7 @@ class BookingModel:
             booking=cursor.fetchone()
             return booking
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
@@ -61,6 +64,7 @@ class BookingModel:
             booking=cursor.fetchone()
             return booking
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
@@ -74,6 +78,7 @@ class BookingModel:
             delete=cursor.fetchone()
             return delete
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()

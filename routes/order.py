@@ -23,9 +23,7 @@ def order(orderNumber):
                 data={
                     "data":None,
                 }
-                response=make_response(jsonify(data))
-                response.headers["Access-Control-Allow-Origin"] = "*" 
-                return response
+                response=make_response(jsonify(data),200)
             elif order:
                 image=order[4].split(" ")
                 image=image[0]
@@ -51,30 +49,24 @@ def order(orderNumber):
                         "status":order[8]
                     }
                 }
-                response=make_response(jsonify(data))
-                response.headers["Access-Control-Allow-Origin"] = "*" 
-                return response
+                response=make_response(jsonify(data),200)
             else:
                 data={
                     "error":True,
                     "message":"伺服器內部錯誤"
                 }
-                response=make_response(jsonify(data))
-                response.headers["Access-Control-Allow-Origin"] = "*" 
-                return response,500
+                response=make_response(jsonify(data),500)
         except:
             data={
                 "error":True,
                 "message":"未登入系統，拒絕存取"
             }
-            response=make_response(jsonify(data))
-            response.headers["Access-Control-Allow-Origin"] = "*" 
-            return response,403
+            response=make_response(jsonify(data),403)
     else:
         data={
             "error":True,
             "message":"未登入系統，拒絕存取"
         }
-        response=make_response(jsonify(data))
-        response.headers["Access-Control-Allow-Origin"] = "*" 
-        return response,403
+        response=make_response(jsonify(data),403)
+
+    return response

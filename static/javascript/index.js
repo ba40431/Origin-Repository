@@ -4,27 +4,39 @@ let scrolling=true;
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
 let reserve_display=document.querySelector(".reserve-display");
+let member_display=document.querySelector(".member-display");
+let container=document.getElementById("container");
+let keyword_container=document.getElementById("keyword-container");
 let search=document.getElementById("search");
+let loader=document.querySelector("#loader");
+let keyword_loader=document.getElementById("keyword-loader");
+let main_container=document.getElementById("main-container");
+let main_keyword_container=document.getElementById("main-keyword-container");
+main_keyword_container.style.display="none";
 search.addEventListener("click",click);
+
 
 init()
 
 function init(){
 	get_login(user_api).then(function(data){
-	if(data.data){
-		login_display.style.display="none";
-		signout_display.style.display="block";
-		reserve_display.style.display="block";
-	}
-	else if(data.data==null){
-		login_display.style.display="block";
-		signout_display.style.display="none";
-		reserve_display.style.display="block";
-	}
+		loader.style.visibility="hidden"
+		if(data.data){
+			login_display.style.display="none";
+			signout_display.style.display="block";
+			reserve_display.style.display="block";
+			member_display.style.display="block";
+		}
+		else if(data.data==null){
+			login_display.style.display="block";
+			signout_display.style.display="none";
+			reserve_display.style.display="block";
+			member_display.style.display="none";
+		}
 	})
 	get_data(page_url,page).then(function(data){
-	for(let i=0; i<data.data.length; i++){
-		render_spots(i,page,data)
+		for(let i=0; i<data.data.length; i++){
+			render_spots(i,page,data)
 	};
 	let next_page=data.nextPage;
 	page=next_page;
@@ -34,13 +46,13 @@ function init(){
 function get_data(url,page){
 	return fetch(url+page)
 	.then(function(response){
-	return response.json()
+		return response.json()
 	});
 };
 function get_keyword_data(url,keyword){
 	return fetch(url+keyword)
 	.then(function(response){
-	return response.json()
+		return response.json()
 	});
 };
 function get_login(url){
@@ -58,7 +70,6 @@ function render_spots(i,page,data){
     let id=data.data[i].id;
     let img=document.createElement("img");
     let a=document.createElement("a");
-    let container=document.getElementById("container"); 
     container.appendChild(a);
     a.setAttribute("class","spot-box");
     a.setAttribute("id","spot-box-"+box_name);
@@ -94,8 +105,7 @@ function render_keyword_spots(i,keyword_page,data){
     let id=data.data[i].id;
     let img=document.createElement("img");
     let a=document.createElement("a");
-    let container=document.getElementById("container-keyword"); 
-    container.appendChild(a);
+    keyword_container.appendChild(a);
     a.setAttribute("class","keyword-spot-box");
     a.setAttribute("id","keyword-spot-box-"+box_name);
     a.href="/attraction/"+id;
@@ -125,19 +135,21 @@ function scroll(){
 	let scrollable=document.documentElement.scrollHeight-window.innerHeight;
 	let scrolled=window.scrollY;
 	if(Math.ceil(scrolled)>=scrollable-5){
-	if(scrolling){
-		scrolling=false;
-		if(page){
-			let timeout=window.setTimeout(get_data(page_url,page).then(function(data){
-				for(let i=0; i<data.data.length; i++){
-				render_spots(i,page,data)
-				}
-				next_page=data.nextPage;
-				page=next_page;
-			}),3000);
-			window.clearTimeout(timeout);
+		if(scrolling){
+			scrolling=false;
+			if(page){
+				let timeout=window.setTimeout(get_data(page_url,page).then(function(data){
+					for(let i=0; i<data.data.length; i++){
+						render_spots(i,page,data)
+					}
+					loader.style.visibility="hidden"
+					next_page=data.nextPage;
+					page=next_page;
+				}),3000);
+				loader.style.visibility="visible"
+				window.clearTimeout(timeout);
+			};
 		};
-	};
 	}else{
 		scrolling=true;
 	};
@@ -146,67 +158,78 @@ function click(){
 	let keyword_page=0;
 	let keyword=document.getElementById("keyword").value;
 	let scrolling=true;
-	let keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
-	get_keyword_data(keyword_url,keyword).then(function(data){
-	if(data.data.length>0){
-		document.getElementById("container").style.display="none";
-		let element=document.getElementById("container-keyword"); 
-		if(document.querySelector(".keyword-spot-box")){
-			while (element.firstChild){
-				element.removeChild(element.firstChild);
-			};
-			for(let i=0; i<data.data.length; i++){
-			render_keyword_spots(i,keyword_page,data)
-			};
-			let keyword_next_page=data.nextPage;
-			keyword_page=keyword_next_page;
-			window.addEventListener("scroll",()=>{
-				scroll_keyword(data)
-			});
-		}
-		else if(document.querySelector(".keyword-spot-box")==null){
-			element.textContent="";
-			// let scrolling=true;
-			for(let i=0; i<data.data.length; i++){
-				render_keyword_spots(i,keyword_page,data);
-			}
-			let keyword_next_page=data.nextPage;
-			keyword_page=keyword_next_page;
-			window.addEventListener("scroll",()=>{
-				scroll_keyword()
-			});
-		};
-    }
-	else if(data.data.length==0){
-		document.getElementById("container").style.display="none";
-		let element=document.getElementById("container-keyword"); 
-		if(document.querySelector(".keyword-spot-box")){
-			while (element.firstChild){
-				element.removeChild(element.firstChild);
-			};
-			element.textContent="查無與【"+keyword+"】的相關景點";
-			}
-		else{
-			element.textContent="查無與【"+keyword+"】的相關景點";
-		};
-	};
-	});
-	function scroll_keyword(){
-	let scrollable=document.documentElement.scrollHeight-window.innerHeight
-	let scrolled=window.scrollY;
-	if(Math.ceil(scrolled)>=scrollable-3 & scrolling){
-		scrolling=false;
-		if(keyword_page){
-			keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
-			let timeout=window.setTimeout(get_keyword_data(keyword_url,keyword).then(function(data){
-				for(let i=0; i<data.data.length; i++){
-				render_keyword_spots(i,keyword_page,data)
+	if(keyword==""){
+		main_keyword_container.style.display="block";
+		main_container.style.display="none";
+		keyword_container.textContent="請輸入查詢景點名稱"
+	}else{
+		main_keyword_container.style.display="block";
+		keyword_loader.style.visibility="visible";
+		let keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
+		get_keyword_data(keyword_url,keyword).then(function(data){
+			if(data.data.length>0){
+				main_container.style.display="none";
+				if(document.querySelector(".keyword-spot-box")){
+					while (keyword_container.firstChild){
+						keyword_container.removeChild(keyword_container.firstChild);
+					};
+					keyword_loader.style.visibility="hidden";
+					for(let i=0; i<data.data.length; i++){
+						render_keyword_spots(i,keyword_page,data)
+					};
+					let keyword_next_page=data.nextPage;
+					keyword_page=keyword_next_page;
+					window.addEventListener("scroll",()=>{
+						scroll_keyword(data)
+					});
+				}
+				else if(document.querySelector(".keyword-spot-box")==null){
+					keyword_container.textContent="";
+					for(let i=0; i<data.data.length; i++){
+						render_keyword_spots(i,keyword_page,data);
+					}
+					keyword_loader.style.visibility="hidden";
+					let keyword_next_page=data.nextPage;
+					keyword_page=keyword_next_page;
+					window.addEventListener("scroll",()=>{
+						scroll_keyword()
+					});
 				};
-				keyword_next_page=data.nextPage;
-				keyword_page=keyword_next_page;
-			}),3000);
-			window.clearTimeout(timeout);
+			}
+			else if(data.data.length==0){
+				main_container.style.display="none";
+				keyword_loader.style.visibility="hidden";
+				if(document.querySelector(".keyword-spot-box")){
+					while (keyword_container.firstChild){
+						keyword_container.removeChild(keyword_container.firstChild);
+					};
+					keyword_container.textContent="查無與【"+keyword+"】的相關景點";
+					}
+				else{
+					keyword_container.textContent="查無與【"+keyword+"】的相關景點";
+				};
+			};
+		});
+	}
+
+	function scroll_keyword(){
+		let scrollable=document.documentElement.scrollHeight-window.innerHeight
+		let scrolled=window.scrollY;
+		if(Math.ceil(scrolled)>=scrollable-3 & scrolling){
+			scrolling=false;
+			if(keyword_page){
+				keyword_url="/api/attractions?page="+keyword_page+"&keyword=";
+				let timeout=window.setTimeout(get_keyword_data(keyword_url,keyword).then(function(data){
+					for(let i=0; i<data.data.length; i++){
+					render_keyword_spots(i,keyword_page,data)
+					};
+					keyword_next_page=data.nextPage;
+					keyword_page=keyword_next_page;
+				}),3000);
+				window.clearTimeout(timeout);
+			};
+		}else{
+			scrolling=true;
 		};
-	};
 	}
 }

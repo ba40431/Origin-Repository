@@ -1,10 +1,22 @@
 TPDirect.setupSDK(123873, 'app_XAHYCabbRgwfTjFeevHjkiGtHbGcKyavCgVFj2B33yC9KYd0msTsLz4HnVL6', 'sandbox')
-// let user_data=null;
-// let reserve_data=null;
 let user_phone=document.getElementById("user-phone");
 let pay_false=document.getElementById("pay-false");
+let checkbox=document.getElementById("checkbox");
+user_phone.addEventListener("input",input)
+
 
 set_card()
+
+function input (e) {
+	if(e.target.value.match(/^09[0-9]{8}$/)){
+		e.target.classList.remove("invalid");
+		e.target.classList.add("valid");
+        checkbox.style.display="block";
+	}else{
+		e.target.classList.add("invalid");
+        checkbox.style.display="none";
+	}
+}
 
 function set_card(){
     let fields = {

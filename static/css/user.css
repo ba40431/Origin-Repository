@@ -34,7 +34,7 @@ body{ margin: 0;
 .right{
 	display:grid;
 	justify-content:flex-end;
-	grid-template-columns:auto auto;
+	grid-template-columns:35px auto auto;
 	margin-top:auto;
 	margin-bottom: auto;
 }
@@ -44,31 +44,38 @@ body{ margin: 0;
 	font-size: 16px;
 	color:#666666;
 	margin-right:10px;
-	margin-left:10px;
+	/* margin-left:10px; */
 	margin-top:auto;
 	margin-bottom: auto;
 	cursor: pointer;
 }
-.login-display{
+.member-display{
+	width:22px;
+}
+.login-display,.signout-display,.reserve-display,.member-display{
 	display:none;
 }
-.signout-display{
-	display:none;
+.menu:hover{
+	border-bottom:2px #448899 solid; 
+	padding-bottom:3px;
 }
-.reserve-display{
-	display:none;
-}
+
 .login{
 	height: 275px;
 	width:100%;
 	z-index:15;
 	position: fixed;
 	top:80px;
+	animation: login 0.3s linear;
 	right:auto;
 	left:auto;
 	text-align:center;
 	display: none;
-  }
+}
+@keyframes login{
+	0%{opacity:0}
+	100%{opacity:1}
+}
 .login-container{
 	width: 340px;
 	height: 275px;
@@ -128,6 +135,9 @@ body{ margin: 0;
 	font-weight: 400;
 	font-size: 19px;
 }
+.login-btn:hover{
+	background-color:#66AABB
+}
 .login-text{
 	font-weight:400;
 	font-size: 16px;
@@ -148,11 +158,16 @@ body{ margin: 0;
 	width:100%;
 	z-index:15;
 	position: fixed;
+	animation: register 0.3s linear;
 	top:80px;
 	right:auto;
 	left:auto;
 	text-align:center;
 	display: none;
+}
+@keyframes register{
+	0%{opacity:0}
+	100%{opacity:1}
 }
 .register-container{
 	width: 340px;
@@ -202,13 +217,13 @@ body{ margin: 0;
 	padding-right:15px;
 	margin-top: 8px;
 }
-input.valid{
+.login-content>input.valid,.register-content>input.valid{
 	background:url(../pic/bx-x-circle.png) no-repeat;
 	background-position:98%;
 	background-size:30px;
 	background-repeat:no-repeat;
 }
-input.invalid{
+.login-content>input.invalid,.register-content>input.invalid{
 	background:url(../pic/bx-circle.png) no-repeat;
 	background-position:98%;
 	background-size:30px;
@@ -225,6 +240,9 @@ input.invalid{
 	color:#FFFFFF;
 	font-weight: 400;
 	font-size: 19px;
+}
+.register-btn:hover{
+	background-color:#66AABB
 }
 .register-text{
 	font-weight:400;

@@ -4,6 +4,7 @@ const thankyou_url="/thankyou"
 let login_display=document.querySelector(".login-display");
 let signout_display=document.querySelector(".signout-display");
 let reserve_display=document.querySelector(".reserve-display");
+let member_display=document.querySelector(".member-display");
 let user_data=null;
 let booking_data=null;
 
@@ -17,6 +18,7 @@ function init(){
             login_display.style.display="none";
             signout_display.style.display="block";
             reserve_display.style.display="block";
+            member_display.style.display="block";
             render_user(user_data);
             fetch_booking(booking_api).then(function(data){
                 booking_data=data
@@ -37,6 +39,7 @@ function init(){
             signout_display.style.display="none";
             reserve_display.style.display="block";
             document.body.style.display = "block";
+            member_display.style.display="none";
         }
     })
 }
@@ -71,7 +74,7 @@ function render(data){
     if(data.data.time=="morning"){
         time_text.textContent="早上 9 點到下午 4 點";
     }else{
-        time_text.textContent="下午 2 點到下午 9 點";
+        time_text.textContent="下午 2 點到晚上 9 點";
     }
 }
 function fetch_booking(url){

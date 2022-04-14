@@ -18,6 +18,7 @@ class KeywordAttractionsModel:
             attractions=cursor.fetchall()
             return attractions
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
@@ -31,6 +32,7 @@ class KeywordAttractionsModel:
             count=cursor.fetchone()
             return count
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
@@ -51,6 +53,7 @@ class AttractionsModel:
             attractions=cursor.fetchall()
             return attractions
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
@@ -64,6 +67,7 @@ class AttractionsModel:
             count=cursor.fetchone()
             return count
         except:
+            connection.rollback()
             return "error"
         finally:
             cursor.close()
