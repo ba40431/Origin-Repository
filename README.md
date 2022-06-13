@@ -12,10 +12,11 @@ Expiration date : 01/23<br/>
 CVV : 123<br/>
 
 ## Catalog
+
 - [Architecture](#Architecture)
 - [Database Schema](#Database-Schema)
-- [Use Skills](#Use-Skills)
 - [Main Features](#Main-Features)
+- [Use Skills](#Use-Skills)
 - [Side Features](#Side-Features)
 - [Contact](#Contact)
 
@@ -23,9 +24,9 @@ CVV : 123<br/>
 
 ## Database Schema
 
-## Use Skills
-
 ## Main Features
+
+## Use Skills
 
 ## Side Features
 
