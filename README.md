@@ -22,13 +22,29 @@ CVV : 123<br/>
 
 ## Architecture
 
+
+![demo-1.png](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-1.png?raw=true)
 ## Database Schema
+
+![demo-2.png](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-2.png?raw=true)
+
 
 ## Main Features
 
 * Keyword Search
+Use keywords can quickly find the attractions where you want.
+
+![demo-3.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-3.gif?raw=true)
+
 * Member System
+The user needs to become a member to use the function of booking itinerary and payment.
+
+![demo-8.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-8.gif?raw=true)
+
 * Third-Party Payment
+Use TapPay to connect to a third-party cash flow system. 
+
+![demo-6.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-6.gif?raw=true)
 
 ## Use Skills
 * Use Flask as server framework
@@ -42,8 +58,16 @@ CVV : 123<br/>
 ## Side Features
 
 * Infinite Scroll
-* View Attractions
+![demo-9.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-9.gif?raw=true)
+
+* View Attractions Information
+![demo-5.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-5.gif?raw=true)
+
+* Change Member's Password
+![demo-7.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-7.gif?raw=true)
+
 * Responsive Web Design (RWD)
+![demo-10.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-10.gif?raw=true)
 
 ## Contact
 
