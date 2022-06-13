@@ -32,7 +32,7 @@ CVV : 123<br/>
 ## Main Features
 
 * Keyword Search<br/>
-Use keywords can quickly find the attractions where you want.
+User can use keywords to quickly find the attractions where user like.
 
 ![demo-3.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-3.gif?raw=true)
 
@@ -47,13 +47,13 @@ Use TapPay to connect to a third-party cash flow system.
 ![demo-6.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-6.gif?raw=true)
 
 ## Use Skills
-* Use Flask as server framework
-* Improve MySQL performance with Connection Pool
-* Apply RESTful API for separation of front-end and back-end
-* Launch website on AWS EC2
-* Get Government's Open Data API with AJAX
-* Authorize members using  JSON Web Tokens
-* Use Git / GitHub for version control
+* Use Flask as server framework.
+* Improve MySQL performance with Connection Pool.
+* Apply RESTful API for separation of front-end and back-end.
+* Launch website on AWS EC2.
+* Get attraction's API with AJAX.
+* Authorize members using JSON Web Tokens.
+* Use Git / GitHub for version control.
 
 ## Side Features
 
