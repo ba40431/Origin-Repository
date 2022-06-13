@@ -31,17 +31,17 @@ CVV : 123<br/>
 
 ## Main Features
 
-* Keyword Search
+* Keyword Search<br/>
 Use keywords can quickly find the attractions where you want.
 
 ![demo-3.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-3.gif?raw=true)
 
-* Member System
+* Member System<br/>
 The user needs to become a member to use the function of booking itinerary and payment.
 
 ![demo-8.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-8.gif?raw=true)
 
-* Third-Party Payment
+* Third-Party Payment<br/>
 Use TapPay to connect to a third-party cash flow system. 
 
 ![demo-6.gif](https://github.com/ba40431/Taipei-day-trip-website/blob/main/static/pic/demopic/demo-6.gif?raw=true)
