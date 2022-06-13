@@ -26,9 +26,24 @@ CVV : 123<br/>
 
 ## Main Features
 
+* Keyword Search
+* Member System
+* Third-Party Payment
+
 ## Use Skills
+* Use Flask as server framework
+* Improve MySQL performance with Connection Pool
+* Apply RESTful API for separation of front-end and back-end
+* Launch website on AWS EC2
+* Get Government's Open Data API with AJAX
+* Authorize members using  JSON Web Tokens
+* Use Git / GitHub for version control
 
 ## Side Features
+
+* Infinite Scroll
+* View Attractions
+* Responsive Web Design (RWD)
 
 ## Contact
 
